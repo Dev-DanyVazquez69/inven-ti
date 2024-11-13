@@ -15,13 +15,44 @@ const Devices: React.FC = () => {
                 <div className="py-10 text-center w-full font-extrabold">
                     <h1>Lista de Dispositivos</h1>
                 </div>
+                <button
+                    onClick={() => setModalFilter(true)}
+                    className="flex justify-end items-center gap-2 p-2 text-xl size-fit self-end">
+                    <p>Filtrar</p>
+                    <FilterListIcon />
+                </button>
                 <div className="flex flex-1 w-full max-w-4xl flex-col bg-foreground rounded-xl items-end">
-                    <button
-                        onClick={() => setModalFilter(true)}
-                        className="flex justify-end items-center gap-2 p-2 text-xl size-fit">
-                        <p>Filtrar</p>
-                        <FilterListIcon />
-                    </button>
+                    <table className="w-full border-collapse">
+                        <thead>
+                            <tr className="font-bold bg-buttom rounded-xl h-10 border-white">
+                                <th>ID</th>
+                                <th>Nome</th>
+                                <th>Setor</th>
+                                <th>Usuário</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="text-center border-b border-white/20 h-20">
+                                <td className="">25</td>
+                                <td className="">Desktop HP</td>
+                                <td className="">Cobep</td>
+                                <td className="">Anderson</td>
+                            </tr>
+                            <tr className="text-center border-b border-white/20 h-20">
+                                <td className="">13</td>
+                                <td className="">Notebook</td>
+                                <td className="">TI</td>
+                                <td className="">Daniel</td>
+                            </tr>
+                            <tr className="text-center border-b border-white/20 h-20">
+                                <td className="">45</td>
+                                <td className="">Teclado</td>
+                                <td className="">TI</td>
+                                <td className="">Anderson</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
                 </div>
                 {
                     modalFilter &&
