@@ -1,4 +1,4 @@
-import animationData from "../../../../public/assets/animations/animation-login.json"; // Coloque aqui o caminho para o arquivo JSON da animação
+import animationData from "../../../../public/assets/animations/error.json"; // Coloque aqui o caminho para o arquivo JSON da animação
 import Lottie from 'react-lottie';
 
 export default function LottieConfError() {

@@ -9,7 +9,7 @@ export default function Register() {
 
     return (
         <div className="w-screen h-screen flex gap-10 flex-col items-center justify-center bg-blue">
-            <h1 className="text-4xl font-extrabold">Santos Petz</h1>
+            <h1 className="text-4xl font-extrabold">InvenTI</h1>
             <div className="flex flex-col gap-2 md:flex-row md:gap-5  items-center justify-center">
                 <div className="relative w-40 h-40 rounded-full overflow-hidden flex gap-7 items-center justify-center">
                     <Image
@@ -28,7 +28,7 @@ export default function Register() {
                             className="flex flex-col items-start justify-center">
                             Nome
                             <input
-                                className="text-foreground p-2 bg-transparent focus:outline-none focus:ring-2 focus:ring-green-400 border-b-2 border-white"
+                                className="p-2 bg-transparent focus:outline-none focus:ring-2 focus:ring-green-400 border-b-2 border-white"
                                 placeholder="Insira seu nome"
                                 name="name"
                                 id="name"
@@ -40,7 +40,7 @@ export default function Register() {
                             className="flex flex-col items-start justify-center">
                             Email
                             <input
-                                className="text-foreground p-2 bg-transparent focus:outline-none focus:ring-2 focus:ring-green-400 border-b-2 border-white"
+                                className="p-2 bg-transparent focus:outline-none focus:ring-2 focus:ring-green-400 border-b-2 border-white"
                                 placeholder="Insira seu email"
                                 name="email"
                                 id="email"
@@ -52,7 +52,7 @@ export default function Register() {
                             className="flex flex-col items-start justify-center">
                             Senha
                             <input
-                                className="text-foreground p-2 bg-transparent focus:outline-none focus:ring-2 focus:ring-green-400 border-b-2 border-white"
+                                className="p-2 bg-transparent focus:outline-none focus:ring-2 focus:ring-green-400 border-b-2 border-white"
                                 placeholder="Insira sua senha"
                                 name="password"
                                 id="password"
@@ -61,7 +61,7 @@ export default function Register() {
                                 title="A senha deve ter pelo menos 8 caracteres, incluindo letras, números e um caractere especial (@, $, !, %, *, ?, &)"
                                 required />
                         </label>
-                        <div className="p-2 bg-foreground font-extrabold border-2 border-background rounded text-background flex gap-2 items-center justify-center text-sm">
+                        <div className="p-2 bg-buttom font-extrabold border-2 border-background rounded flex gap-2 items-center justify-center text-sm">
                             <input
                                 type="submit"
                                 value="CADASTRAR" />
@@ -79,7 +79,7 @@ export default function Register() {
                             await signIn("google")
                         }}
                     >
-                        <div className="flex gap-2 bg-background p-2 rounded-full justify-center">
+                        <div className="flex gap-2 bg-buttom p-2 rounded-full justify-center">
                             <GoogleIcon />
                             <button
                                 className="text-xs"

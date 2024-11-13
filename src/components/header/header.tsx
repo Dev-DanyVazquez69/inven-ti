@@ -26,34 +26,34 @@ export const Header: React.FC<HeaderProps> = ({ title }) => {
                 {/* Menu */}
                 <div className="flex flex-1 lg:hidden">
                     <button onClick={handleModalMenu}>
-                        <MenuIcon className="size-6 lg:size-10 text-foreground" />
+                        <MenuIcon className="size-6 lg:size-10 text-white" />
                     </button>
                 </div>
                 {/* Link tela grande */}
                 <div className="hidden lg:flex flex-1 items-center justify-center">
-                    <ul className="flex flex-row gap-5 font-md text-xl justify-between">
+                    <ul className="flex text-white flex-row gap-5 font-md text-xl justify-between">
                         <li className="hover:animate-pulse">
                             <a href="/">Inicio</a>
                         </li>
                         <li className="hover:animate-pulse">
-                            <a href="health">Saúde</a>
+                            <a href="devices">Dispositivos</a>
                         </li>
                         <li className="hover:animate-pulse">
-                            <a href="medicines">Remédio</a>
+                            <a href="medicines">xxxxxx</a>
                         </li>
                         <li className="hover:animate-pulse">
-                            <a href="exams">Exame</a>
+                            <a href="exams">xxxxxx</a>
                         </li>
                     </ul>
                 </div>
                 {/* titulo da página */}
-                <div className="bg-primary flex-1 text-center rounded-md max-w-sm lg:max-w-36 p-1 border border-black">
+                <div className="bg-transparent flex-1 text-center rounded-md max-w-sm lg:max-w-36 p-1 border border-white">
                     <h1 className="text-base text-white font-bold">{title}</h1>
                 </div>
                 {/* avatar perfil */}
                 <div className="flex flex-1 justify-end">
                     <Link
-                        href={'/profile/tutor'}
+                        href={'/profile'}
                         className="rounded-full h-10 w-10 bg-slate-600">
                         <Image
                             src={user?.user?.image ?? '/assets/avatar.png'}
@@ -68,23 +68,23 @@ export const Header: React.FC<HeaderProps> = ({ title }) => {
                 {
                     modalMenu &&
                     <div className="fixed size-full top-0 left-0 bg-black/50 z-50">
-                        <div className="h-72 w-full bg-primary flex p-5 rounded-b-3xl">
+                        <div className="h-72 w-full bg-buttom flex p-5 rounded-b-3xl">
                             <section className="flex-1">
 
                             </section>
                             <section className="flex-1 flex items-start justify-center">
-                                <ul className="flex flex-col gap-5 font-bold text-lg">
+                                <ul className="flex flex-col gap-5 font-bold text-lg text-white">
                                     <li className="text-center hover:animate-pulse">
                                         <a href="/">Inicio</a>
                                     </li>
                                     <li className="text-center hover:animate-pulse">
-                                        <a href="health">Saúde</a>
+                                        <a href="devices">Dispositivos</a>
                                     </li>
                                     <li className="text-center hover:animate-pulse">
-                                        <a href="medicines">Remedio</a>
+                                        <a href="medicines">xxxxxx</a>
                                     </li>
                                     <li className="text-center hover:animate-pulse">
-                                        <a href="exams">Exame</a>
+                                        <a href="exams">xxxxxx</a>
                                     </li>
                                 </ul>
                             </section>
