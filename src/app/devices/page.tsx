@@ -3,6 +3,8 @@
 import { Header } from "@/components/header/header"
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { useState } from "react";
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import Link from "next/link";
 
 const Devices: React.FC = () => {
 
@@ -11,7 +13,7 @@ const Devices: React.FC = () => {
     return (
         <>
             <Header title="Dispositivos" />
-            <main className="flex flex-1 flex-col p-3 items-center justify-around">
+            <main className="flex flex-1 flex-col p-3 items-center justify-start">
                 <div className="py-10 text-center w-full font-extrabold">
                     <h1>Lista de Dispositivos</h1>
                 </div>
@@ -21,7 +23,7 @@ const Devices: React.FC = () => {
                     <p>Filtrar</p>
                     <FilterListIcon />
                 </button>
-                <div className="flex flex-1 w-full max-w-4xl flex-col bg-foreground rounded-xl items-end">
+                <div className="flex w-full max-w-4xl flex-col bg-foreground rounded-xl items-end">
                     <table className="w-full border-collapse">
                         <thead>
                             <tr className="font-bold bg-buttom rounded-xl h-10 border-white">
@@ -29,26 +31,33 @@ const Devices: React.FC = () => {
                                 <th>Nome</th>
                                 <th>Setor</th>
                                 <th>Usuário</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr className="text-center border-b border-white/20 h-20">
+                            <tr className="text-center border-b border-white h-20 hover:bg-buttom/10 rounded-xl overflow-hidden">
                                 <td className="">25</td>
                                 <td className="">Desktop HP</td>
                                 <td className="">Cobep</td>
                                 <td className="">Anderson</td>
+                                <td>
+                                    <Link
+                                    href={"/device/454544"}>
+                                        <VisibilityIcon />
+                                    </Link>
+                                </td>
                             </tr>
-                            <tr className="text-center border-b border-white/20 h-20">
-                                <td className="">13</td>
-                                <td className="">Notebook</td>
-                                <td className="">TI</td>
-                                <td className="">Daniel</td>
-                            </tr>
-                            <tr className="text-center border-b border-white/20 h-20">
-                                <td className="">45</td>
-                                <td className="">Teclado</td>
-                                <td className="">TI</td>
+                            <tr className="text-center border-b border-white h-20 hover:bg-buttom/10 rounded-xl overflow-hidden">
+                                <td className="">25</td>
+                                <td className="">Desktop HP</td>
+                                <td className="">Cobep</td>
                                 <td className="">Anderson</td>
+                                <td>
+                                    <Link
+                                    href={"/device/454544"}>
+                                        <VisibilityIcon />
+                                    </Link>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -59,7 +68,7 @@ const Devices: React.FC = () => {
                     <div className="fixed inset-0 flex items-center justify-center">
                         <div className="bg-white rounded-lg shadow-lg h-1/2 md:h-3/5 w-3/4 max-w-2xl flex flex-col p-4 justify-around">
                             <h2 className="text-xl font-bold text-black text-center">Filtre o resultado</h2>
-                            <div className="flex-1 flex flex-col bg-foreground text-black gap-3 p-2 justify-center">
+                            <div className="flex-1 flex flex-col text-black gap-3 p-2 justify-center">
                                 <div className="flex flex-col gap-2">
                                     <label
                                         className="text-background font-bold"
