@@ -1,8 +1,8 @@
 {
     "name": "inven-ti",
     "short_name": "invent-ti",
-    "theme_color": "#E6CA16",
-    "background_color": "#E6CA16",
+    "theme_color": "#0f1330",
+    "background_color": "#0f1330",
     "start_url": "/",
     "display": "standalone",
     "orientation": "portrait",
