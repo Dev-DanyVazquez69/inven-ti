@@ -8,5 +8,13 @@ export const devicePostSchema = z.object({
     description: z.string().nullish(),
     clientId: z.string().min(1, 'O Id do cliente é obrigatório').cuid(),
     registerNumber: z.number().int().nullish(),
-    manufacturer: z.string().nullish(),
+    manufacturerId: z.number().int().nullish(),
+    ownerId: z.number().int().nullish()
 });
+
+export const deviceGetSchema = z.object({
+    collaboratorId: z.string().cuid().optional(),
+    sectorId: z.string().cuid().optional(),
+    manufacturerId: z.coerce.number().int().optional(),
+    ownerId: z.coerce.number().int().optional()
+})

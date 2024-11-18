@@ -1,12 +1,20 @@
 import { z } from 'zod';
-import { NextResponse, NextRequest } from "next/server"
-import { prisma } from "@/lib/db"
-import { auth } from "@/app/auth"
-import { devicePostSchema } from "@/schema/device"
-import { deviceRequestApi } from '@/interfaces/devices';
+import { NextResponse, NextRequest } from "next/server";
+import { prisma } from "@/lib/db";
+import { auth } from "@/app/auth";
+import { deviceGetSchema, devicePostSchema } from "@/schema/device";
+import { devicePostRequestApi } from '@/interfaces/devices';
 
-export async function GET() {
+//CONSULTAR DISPOSITIVOS
+export async function GET(request: NextRequest) {
+
     const session = await auth()
+
+    const { searchParams } = new URL(request.url);
+    const params = Object.fromEntries(searchParams.entries());
+
+    deviceGetSchema.parse(params);
+
     if (!session)
         return NextResponse.json({ erro: "Acesso não autorizado, Faça login" }, { status: 401 })
     try {
@@ -18,13 +26,13 @@ export async function GET() {
                 clientId: true
             }
         })
-        console.log(session)
         if (userClient?.clientId === null)
             return NextResponse.json({ erro: "o usuário não esta vinculado a um cliente" })
 
         const devices = await prisma.device.findMany({
             where: {
                 clientId: userClient?.clientId
+
             }
         })
 
@@ -33,25 +41,35 @@ export async function GET() {
 
         return NextResponse.json({ devices: devices }, { status: 200 })
 
-    } catch (erro) {
-        return NextResponse.json({ erro: erro }, { status: 500 })
+    } catch (error) {
+        if (error instanceof z.ZodError) {
+
+            return NextResponse.json(
+                { errors: error.errors.map((err) => ({ path: err.path, message: err.message })) },
+                { status: 400 }
+            );
+        }
+
+        // Erro genérico
+        return NextResponse.json({ message: 'Erro interno' }, { status: 500 });
     }
 }
 
+//CRIAR DISPOSITIVO
 export async function POST(request: NextRequest) {
 
     try {
-        const body: deviceRequestApi = await request.json()
+        const body: devicePostRequestApi = await request.json()
         devicePostSchema.parse(body);
 
-        const [ collaboratorIsValid, sectorIsValid, clientIsValid ] = await Promise.all([
-            
+        const [collaboratorIsValid, sectorIsValid, clientIsValid] = await Promise.all([
+
             prisma.collaborator.findFirst({
                 where: {
                     id: body.collaboratorId
                 }
             }),
-            
+
             prisma.sector.findFirst({
                 where: {
                     id: body.sectorId
@@ -64,8 +82,8 @@ export async function POST(request: NextRequest) {
             })
         ])
 
-        if((collaboratorIsValid === null) || (sectorIsValid === null) || (clientIsValid === null))
-            return NextResponse.json({erro: "o id do colaborador, cliente ou setor não correspodem a nenhum registro"}, {status: 500})
+        if ((collaboratorIsValid === null) || (sectorIsValid === null) || (clientIsValid === null))
+            return NextResponse.json({ erro: "o id do colaborador, cliente ou setor não correspodem a nenhum registro" }, { status: 500 })
 
         const newDevice = await prisma.device.create({
             data: {
@@ -76,16 +94,17 @@ export async function POST(request: NextRequest) {
                 clientId: body.clientId,
                 image: body.image,
                 registerNumber: body.registerNumber,
-                manufacturer: body.manufacturer,
+                manufacturerId: body.manufacturerId,
+                ownerId: body.ownerId
             }
         })
-            
-        return NextResponse.json({ sucesso: newDevice}, { status: 201 })
-        
+
+        return NextResponse.json({ sucesso: newDevice }, { status: 201 })
+
     } catch (error) {
         if (error instanceof z.ZodError) {
-          return NextResponse.json({errorFormatBody: error.errors }, { status: 400 });
+            return NextResponse.json({ errorFormatBody: error.errors }, { status: 400 });
         }
         return NextResponse.json({ message: 'Erro do servidor' }, { status: 500 });
-      }
+    }
 }

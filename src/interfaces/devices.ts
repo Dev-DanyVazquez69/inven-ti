@@ -6,14 +6,14 @@ export interface deviceProps {
         id: number;
         name: string;
     };
-    owner: string;
+    ownerId: number;
     registerNumber?: number;
-    manufacturer: string;
+    manufacturerId: number;
     createdAt: Date;
     updatedAt: Date;
 }
 
-export interface deviceRequestApi {
+export interface devicePostRequestApi {
     name: string;
     description?: string | undefined | null,
     sectorId: string;
@@ -21,5 +21,6 @@ export interface deviceRequestApi {
     clientId: string,
     image: string | undefined | null,
     registerNumber: number | undefined | null,
-    manufacturer: string | undefined | null,
+    manufacturerId: number | undefined | null,
+    ownerId: number | undefined | null,
 }

@@ -34,6 +34,8 @@ model Client {
   sector       Sector[]
   user         User[]
   device       Device[]
+  Owner        Owner[]
+  Manufacturer Manufacturer[]
 }
 
 model Collaborator {
@@ -56,13 +58,16 @@ model Device {
   description    String?
   clientId       String
   registerNumber Int?     @unique
-  manufacturer   String?
+  manufacturerId Int?
+  ownerId        Int?
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
 
-  collaborator Collaborator? @relation(fields: [collaboratorId], references: [id], onDelete: SetNull)
-  sector       Sector?       @relation(fields: [sectorId], references: [id], onDelete: SetNull)
+  Collaborator Collaborator? @relation(fields: [collaboratorId], references: [id], onDelete: SetNull)
+  Sector       Sector?       @relation(fields: [sectorId], references: [id], onDelete: SetNull)
   Client       Client        @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  Manufacturer Manufacturer? @relation(fields: [manufacturerId], references: [id], onDelete: SetNull)
+  Owner        Owner?        @relation(fields: [ownerId], references: [id], onDelete: SetNull)
 }
 
 model Sector {
@@ -73,6 +78,24 @@ model Sector {
   Device       Device[]
   Collaborator Collaborator[]
   Client       Client         @relation(fields: [clientId], references: [id], onDelete: Cascade)
+}
+
+model Manufacturer {
+  id       Int      @id @default(autoincrement())
+  nome     String   @unique
+  clientId String
+  Device   Device[]
+
+  Client Client @relation(fields: [clientId], references: [id], onDelete: Cascade)
+}
+
+model Owner {
+  id       Int      @id @default(autoincrement())
+  nome     String   @unique
+  clientId String
+  Device   Device[]
+
+  Client Client @relation(fields: [clientId], references: [id], onDelete: Cascade)
 }
 
 ///////////////////////////////////////////////

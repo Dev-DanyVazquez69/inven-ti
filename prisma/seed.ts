@@ -28,6 +28,22 @@ const seed = async () => {
                 clientId: "cm3kkkvno000f356gz3qxuokt"
             }
         }),
+        //criar fabricante padrão
+        await prisma.manufacturer.create({
+            data: {
+                id: 1,
+                nome: "Asus",
+                clientId: "cm3kkkvno000f356gz3qxuokt"
+            }
+        }),
+        //criar propietário padrão
+        await prisma.owner.create({
+            data: {
+                id: 1,
+                nome: "ipam",
+                clientId: "cm3kkkvno000f356gz3qxuokt"
+            }
+        }),
         //criar dispositivo padrão
         await prisma.device.create({
             data: {
@@ -36,10 +52,11 @@ const seed = async () => {
                 collaboratorId: "cm3keiw2v000b356g1xgep7ug",
                 description: "notebook alucom",
                 image: "https://m.media-amazon.com/images/I/61GXHXSa4TL._AC_SL1500_.jpg",
-                manufacturer: "Asus",
+                manufacturerId: 1,
                 registerNumber: 45454,
                 sectorId: "cm3keifxj0009356glxczyvna",
-                clientId: "cm3kkkvno000f356gz3qxuokt"
+                clientId: "cm3kkkvno000f356gz3qxuokt",
+                ownerId: 1
             }
         })
     ])
