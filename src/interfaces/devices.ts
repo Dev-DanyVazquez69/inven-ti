@@ -11,4 +11,15 @@ export interface deviceProps {
     manufacturer: string;
     createdAt: Date;
     updatedAt: Date;
-}  
+}
+
+export interface deviceRequestApi {
+    name: string;
+    description?: string | undefined | null,
+    sectorId: string;
+    collaboratorId: string;
+    clientId: string,
+    image: string | undefined | null,
+    registerNumber: number | undefined | null,
+    manufacturer: string | undefined | null,
+}

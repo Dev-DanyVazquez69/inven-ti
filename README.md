@@ -12,6 +12,8 @@ yarn dev
 pnpm dev
 # or
 bun dev
+#run seed prisma
+npx prisma db seed
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.

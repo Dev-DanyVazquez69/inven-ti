@@ -15,6 +15,7 @@ model User {
   emailVerified DateTime?
   image         String?
   password      String?
+  clientId      String?
   accounts      Account[]
   sessions      Session[]
   // Optional for WebAuthn support
@@ -22,8 +23,61 @@ model User {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  Client    Client?  @relation(fields: [clientId], references: [id])
 }
 
+model Client {
+  id           String         @id @default(cuid())
+  name         String         @unique
+  addrees      String?
+  collaborator Collaborator[]
+  sector       Sector[]
+  user         User[]
+  device       Device[]
+}
+
+model Collaborator {
+  id           String   @id @default(cuid())
+  name         String   @unique
+  imageProfile String?
+  clientId     String
+  sectorId     String?
+  Device       Device[]
+  sector       Sector?  @relation(fields: [sectorId], references: [id], onDelete: SetNull)
+  client       Client   @relation(fields: [clientId], references: [id], onDelete: Cascade)
+}
+
+model Device {
+  id             String   @id @default(cuid())
+  sectorId       String?
+  collaboratorId String?
+  image          String?
+  name           String
+  description    String?
+  clientId       String
+  registerNumber Int?     @unique
+  manufacturer   String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  collaborator Collaborator? @relation(fields: [collaboratorId], references: [id], onDelete: SetNull)
+  sector       Sector?       @relation(fields: [sectorId], references: [id], onDelete: SetNull)
+  Client       Client        @relation(fields: [clientId], references: [id], onDelete: Cascade)
+}
+
+model Sector {
+  id           String         @id @default(cuid())
+  name         String         @unique
+  coordinator  String?
+  clientId     String
+  Device       Device[]
+  Collaborator Collaborator[]
+  Client       Client         @relation(fields: [clientId], references: [id], onDelete: Cascade)
+}
+
+///////////////////////////////////////////////
+///////////////////////////////////////////////
+//gerenciamento de conta e autenticação
 model Account {
   id                       String  @id @default(cuid())
   userId                   String  @unique

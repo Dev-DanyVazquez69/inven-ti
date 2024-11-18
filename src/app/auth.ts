@@ -1,4 +1,4 @@
-import NextAuth from "next-auth"
+import NextAuth, { type DefaultSession } from "next-auth"
 import Google from "next-auth/providers/google"
 import Credentials from "next-auth/providers/credentials"
 import type { Provider } from "next-auth/providers"
@@ -60,11 +60,34 @@ export const providerMap = providers
   .filter((provider) => provider.id !== "credentials")
 
 
+declare module "next-auth" {
+  /**
+   * Returned by `auth`, `useSession`, `getSession` and received as a prop on the `SessionProvider` React Context
+   */
+  interface Session {
+    user: {
+      /** The user's postal address. */
+      id: string
+      /**
+       * By default, TypeScript merges new interface properties and overwrites existing ones.
+       * In this case, the default session user properties will be overwritten,
+       * with the new ones defined above. To keep the default session user properties,
+       * you need to add them back into the newly declared interface.
+       */
+    } & DefaultSession["user"]
+  }
+}
+
 export const { handlers, signIn, signOut, auth } = NextAuth({
   callbacks: {
     authorized: async ({ auth }) => {
-      //Usuários logados são autenticados, caso contrário, redirecionam para a página de login      return !!auth
       return !!auth
+    },
+    jwt({ token }) {
+      return token
+    },
+    session({ session, token }) {
+      return { ...session, id: token.sub }
     },
   },
   adapter: PrismaAdapter(prisma),
@@ -75,6 +98,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   pages: {
     signIn: "/signin",
     error: "error",
-    signOut:"/signout"
+    signOut: "/signout"
   },
 })

@@ -12,3 +12,5 @@ export default auth((req) => {
 export const config = {
     matcher: ['/', '/profile/:patch*'],
 }
+
+// , '/api/:patch*'
