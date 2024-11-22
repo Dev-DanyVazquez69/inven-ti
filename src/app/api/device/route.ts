@@ -2,37 +2,49 @@ import { z } from 'zod';
 import { NextResponse, NextRequest } from "next/server";
 import { prisma } from "@/lib/db";
 import { auth } from "@/app/auth";
-import { deviceGetSchema, devicePostSchema } from "@/schema/device";
+import { devicePostSchema } from "@/schema/device";
 import { devicePostRequestApi } from '@/interfaces/devices';
 
 //CONSULTAR DISPOSITIVOS
 export async function GET(request: NextRequest) {
 
     const session = await auth()
-
     const { searchParams } = new URL(request.url);
-    const params = Object.fromEntries(searchParams.entries());
+    const collaborator = searchParams.get("collaborator");
+    const search = searchParams.get("search");
+    const owner = searchParams.get("owner")
+    const manufacturer = searchParams.get("manufacturer")
+    const sector = searchParams.get("sector")
 
-    deviceGetSchema.parse(params);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const filters: any = {};
+    if (collaborator) filters.collaboratorId = collaborator;
+    if (owner) filters.ownerId = Number(owner);
+    if (sector) filters.sectorId = sector
+    if (manufacturer) filters.manufacturerId = Number(manufacturer)
+    if (search) filters.name = { contains: search, mode: "insensitive" };
+
+    console.log(filters)
 
     if (!session)
         return NextResponse.json({ erro: "Acesso não autorizado, Faça login" }, { status: 401 })
+
     try {
         const userClient = await prisma.user.findFirst({
             where: {
-                id: session?.user?.id
+                id: session?.user?.id,
             },
             select: {
                 clientId: true
             }
         })
-        if (userClient?.clientId === null)
+        if (userClient?.clientId === null || userClient === null)
             return NextResponse.json({ erro: "o usuário não esta vinculado a um cliente" })
-
+        console.log(`userClient: ${userClient}`)
         const devices = await prisma.device.findMany({
             where: {
-                clientId: userClient?.clientId
-
+                clientId: userClient?.clientId,
+                ...filters
             }
         })
 
