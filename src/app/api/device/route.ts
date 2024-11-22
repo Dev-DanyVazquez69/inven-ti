@@ -22,7 +22,6 @@ export async function GET(request: NextRequest) {
     if (owner) filters.ownerId = Number(owner);
     if (sector) filters.sectorId = sector
     if (manufacturer) filters.manufacturerId = Number(manufacturer)
-    if (search) filters.name = { contains: search, mode: "insensitive" };
 
     console.log(filters)
 
@@ -44,7 +43,11 @@ export async function GET(request: NextRequest) {
         const devices = await prisma.device.findMany({
             where: {
                 clientId: userClient?.clientId,
-                ...filters
+                ...filters,
+                ...(search && { name: { contains: search } }),
+            },
+            orderBy: {
+                updatedAt: "desc"
             }
         })
 
