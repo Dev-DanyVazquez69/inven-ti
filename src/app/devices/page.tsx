@@ -42,7 +42,7 @@ const Devices: React.FC = () => {
                                 <td className="">Anderson</td>
                                 <td>
                                     <Link
-                                    href={"/device/454544"}>
+                                    href={"/devices/454544"}>
                                         <VisibilityIcon />
                                     </Link>
                                 </td>
@@ -54,7 +54,7 @@ const Devices: React.FC = () => {
                                 <td className="">Anderson</td>
                                 <td>
                                     <Link
-                                    href={"/device/454544"}>
+                                    href={"/devices/454544"}>
                                         <VisibilityIcon />
                                     </Link>
                                 </td>

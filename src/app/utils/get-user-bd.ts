@@ -7,7 +7,7 @@ export const getUserBd = async () => {
     //const session = await auth()
     const session = {
         user: {
-            id: "cm3w7yqiq0000w4lwolimymtg"
+            id: "cm3x9i0vq00002b87dnyajc28"
         }
     }
 
