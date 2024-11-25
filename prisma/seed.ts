@@ -11,38 +11,68 @@ const seed = async () => {
             }
         }),
         //criar setor padrão
-        await prisma.sector.create({
-            data: {
-                id: "cm3keifxj0009356glxczyvna",
-                name: "supre",
-                coordinator: "Guiomary",
-                clientId: "cm3kkkvno000f356gz3qxuokt"
-            }
+        await prisma.sector.createMany({
+            data: [
+                {
+                    id: "cm3keifxj0009356glxczyvna",
+                    name: "supre",
+                    coordinator: "Guiomary",
+                    clientId: "cm3kkkvno000f356gz3qxuokt"
+                },
+                {
+                    id: "cm3vxgl4900010cl48ybsd5lb",
+                    name: "cobep",
+                    coordinator: "José Carlos",
+                    clientId: "cm3kkkvno000f356gz3qxuokt"
+                }
+            ]
         }),
         //criar colaborador padrão
-        await prisma.collaborator.create({
-            data: {
-                id: "cm3keiw2v000b356g1xgep7ug",
-                name: "Claire",
-                sectorId: "cm3keifxj0009356glxczyvna",
-                clientId: "cm3kkkvno000f356gz3qxuokt"
-            }
+        await prisma.collaborator.createMany({
+            data: [
+                {
+                    id: "cm3keiw2v000b356g1xgep7ug",
+                    name: "Claire",
+                    sectorId: "cm3keifxj0009356glxczyvna",
+                    clientId: "cm3kkkvno000f356gz3qxuokt"
+                },
+                {
+                    id: "cm3vxhl5x00020cl41s5l7viu",
+                    name: "Rosa",
+                    sectorId: "cm3vxgl4900010cl48ybsd5lb",
+                    clientId: "cm3kkkvno000f356gz3qxuokt"
+                }
+            ]
         }),
         //criar fabricante padrão
-        await prisma.manufacturer.create({
-            data: {
-                id: 1,
-                nome: "Asus",
-                clientId: "cm3kkkvno000f356gz3qxuokt"
-            }
+        await prisma.manufacturer.createMany({
+            data: [
+                {
+                    id: 1,
+                    nome: "Asus",
+                    clientId: "cm3kkkvno000f356gz3qxuokt"
+                },
+                {
+                    id: 2,
+                    nome: "c3tech",
+                    clientId: "cm3kkkvno000f356gz3qxuokt"
+                }
+            ],
         }),
         //criar propietário padrão
-        await prisma.owner.create({
-            data: {
-                id: 1,
-                nome: "ipam",
-                clientId: "cm3kkkvno000f356gz3qxuokt"
-            }
+        await prisma.owner.createMany({
+            data: [
+                {
+                    id: 1,
+                    nome: "ipam",
+                    clientId: "cm3kkkvno000f356gz3qxuokt"
+                },
+                {
+                    id: 2,
+                    nome: "alucom",
+                    clientId: "cm3kkkvno000f356gz3qxuokt"
+                }
+            ]
         }),
         //criar dispositivo padrão
         await prisma.device.create({

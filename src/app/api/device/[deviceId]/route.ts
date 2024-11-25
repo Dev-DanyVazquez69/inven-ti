@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from "next/server"
 import { prisma } from "@/lib/db"
-import { devicePostSchema } from "@/schema/device"
+import { deviceUpdateSchema } from "@/schema/device"
 
 export async function GET(
+    request: NextRequest,
     { params }: { params: Promise<{ deviceId: string }> }
 ) {
     const deviceId = (await params).deviceId
@@ -22,12 +23,13 @@ export async function GET(
     }
 }
 export async function DELETE(
+    request: NextRequest,
     { params }: { params: Promise<{ deviceId: string }> }
 ) {
     const deviceId = (await params).deviceId
 
     try {
-        const device = await prisma.device.findUnique({
+        const device = await prisma.device.findFirst({
             where: {
                 id: deviceId
             }
@@ -36,7 +38,7 @@ export async function DELETE(
             return NextResponse.json({ Erro: "O ID não corresponde a nenhum dispositivo cadastrado" }, { status: 500 })
         }
 
-        prisma.device.delete({
+        await prisma.device.delete({
             where: {
                 id: deviceId
             }
@@ -54,7 +56,7 @@ export async function PATCH(
         const deviceId = (await params).deviceId
 
         const body = await request.json();
-        const validatedData = devicePostSchema.parse(body);
+        const validatedData = deviceUpdateSchema.parse(body);
 
         const device = await prisma.device.findUnique({
             where: {
@@ -65,13 +67,13 @@ export async function PATCH(
             return NextResponse.json({ Erro: "O ID não corresponde a nenhum dispositivo cadastrado" }, { status: 500 })
         }
 
-        prisma.device.update({
+        await prisma.device.update({
             where: {
                 id: deviceId
             },
             data: validatedData
         })
-        return NextResponse.json({ device: "Dispositio deletado com sucesso" }, { status: 200 })
+        return NextResponse.json({ device: "As informações do dispositivo foram atualizadas" }, { status: 200 })
     } catch (error) {
         return NextResponse.json({ Erro: error }, { status: 500 })
     }

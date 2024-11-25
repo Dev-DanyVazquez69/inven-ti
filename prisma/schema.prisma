@@ -57,7 +57,7 @@ model Device {
   name           String
   description    String?
   clientId       String
-  registerNumber Int?     @unique
+  registerNumber Int?
   manufacturerId Int?
   ownerId        Int?
   createdAt      DateTime @default(now())

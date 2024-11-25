@@ -1,14 +1,16 @@
 import { z } from 'zod';
 import { NextResponse, NextRequest } from "next/server";
 import { prisma } from "@/lib/db";
-import { auth } from "@/app/auth";
 import { devicePostSchema } from "@/schema/device";
 import { devicePostRequestApi } from '@/interfaces/devices';
+import { TypeFilter } from '@/interfaces/filters';
+import { getUserBd } from '@/app/utils/get-user-bd';
+
+const user = await getUserBd()
 
 //CONSULTAR DISPOSITIVOS
 export async function GET(request: NextRequest) {
 
-    const session = await auth()
     const { searchParams } = new URL(request.url);
     const collaborator = searchParams.get("collaborator");
     const search = searchParams.get("search");
@@ -17,7 +19,7 @@ export async function GET(request: NextRequest) {
     const sector = searchParams.get("sector")
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const filters: any = {};
+    const filters: TypeFilter = {};
     if (collaborator) filters.collaboratorId = collaborator;
     if (owner) filters.ownerId = Number(owner);
     if (sector) filters.sectorId = sector
@@ -25,24 +27,17 @@ export async function GET(request: NextRequest) {
 
     console.log(filters)
 
-    if (!session)
+    if (!user)
         return NextResponse.json({ erro: "Acesso não autorizado, Faça login" }, { status: 401 })
 
     try {
-        const userClient = await prisma.user.findFirst({
-            where: {
-                id: session?.user?.id,
-            },
-            select: {
-                clientId: true
-            }
-        })
-        if (userClient?.clientId === null || userClient === null)
-            return NextResponse.json({ erro: "o usuário não esta vinculado a um cliente" })
-        console.log(`userClient: ${userClient}`)
+
+        if (user?.clientId === null || user === null)
+            return NextResponse.json({ erro: "o usuário não esta vinculado a um cliente" }, { status: 409 })
+        console.log(`userClient: ${user}`)
         const devices = await prisma.device.findMany({
             where: {
-                clientId: userClient?.clientId,
+                clientId: user.clientId,
                 ...filters,
                 ...(search && { name: { contains: search } }),
             },
@@ -52,7 +47,7 @@ export async function GET(request: NextRequest) {
         })
 
         if (devices === null)
-            return NextResponse.json({ erro: "o cliente a qual o usuário está vinculado não possui dispositivos cadastrados" })
+            return NextResponse.json({ erro: "o cliente a qual o usuário está vinculado não possui dispositivos cadastrados" }, { status: 409 })
 
         return NextResponse.json({ devices: devices }, { status: 200 })
 
@@ -69,15 +64,18 @@ export async function GET(request: NextRequest) {
         return NextResponse.json({ message: 'Erro interno' }, { status: 500 });
     }
 }
-
 //CRIAR DISPOSITIVO
 export async function POST(request: NextRequest) {
 
     try {
+
+        if (!user)
+            return NextResponse.json({ erro: "Acesso não autorizado, Faça login" }, { status: 401 })
+
         const body: devicePostRequestApi = await request.json()
         devicePostSchema.parse(body);
 
-        const [collaboratorIsValid, sectorIsValid, clientIsValid] = await Promise.all([
+        const [collaboratorIsValid, sectorIsValid] = await Promise.all([
 
             prisma.collaborator.findFirst({
                 where: {
@@ -90,15 +88,10 @@ export async function POST(request: NextRequest) {
                     id: body.sectorId
                 }
             }),
-            prisma.client.findFirst({
-                where: {
-                    id: body.clientId
-                }
-            })
         ])
 
-        if ((collaboratorIsValid === null) || (sectorIsValid === null) || (clientIsValid === null))
-            return NextResponse.json({ erro: "o id do colaborador, cliente ou setor não correspodem a nenhum registro" }, { status: 500 })
+        if ((collaboratorIsValid === null) || (sectorIsValid === null))
+            return NextResponse.json({ erro: "o id do colaborador, setor não correspodem a nenhum registro" }, { status: 401 })
 
         const newDevice = await prisma.device.create({
             data: {
@@ -106,7 +99,7 @@ export async function POST(request: NextRequest) {
                 description: body.description,
                 sectorId: body.sectorId,
                 collaboratorId: body.collaboratorId,
-                clientId: body.clientId,
+                clientId: user?.clientId ?? "",
                 image: body.image,
                 registerNumber: body.registerNumber,
                 manufacturerId: body.manufacturerId,

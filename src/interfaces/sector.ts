@@ -4,3 +4,8 @@ export interface sector {
     createdAt: Date;
     updatedAt: Date;
 }
+
+export interface bodyPostSector {
+    name: string,
+    coordinator?: string 
+}

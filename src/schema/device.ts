@@ -6,7 +6,6 @@ export const devicePostSchema = z.object({
     collaboratorId: z.string().min(1, 'O Id do colaborador é obrigatório').cuid(),
     image: z.string().nullish(),
     description: z.string().nullish(),
-    clientId: z.string().min(1, 'O Id do cliente é obrigatório').cuid(),
     registerNumber: z.number().int().nullish(),
     manufacturerId: z.number().int().nullish(),
     ownerId: z.number().int().nullish()
@@ -25,7 +24,6 @@ export const deviceUpdateSchema = z.object({
     collaboratorId: z.string().cuid().optional(),
     image: z.string().optional(),
     description: z.string().optional(),
-    clientId: z.string().cuid().optional(),
     registerNumber: z.number().int().optional(),
     manufacturerId: z.number().int().optional(),
     ownerId: z.number().int().optional()
