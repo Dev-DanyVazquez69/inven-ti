@@ -4,12 +4,13 @@ import { prisma } from "@/lib/db";
 import { devicePostSchema } from "@/schema/device";
 import { devicePostRequestApi } from '@/interfaces/devices';
 import { TypeFilter } from '@/interfaces/filters';
-import { getUserBd } from '@/app/utils/get-user-bd';
-
-const user = await getUserBd()
+import { auth } from '@/app/auth';
 
 //CONSULTAR DISPOSITIVOS
 export async function GET(request: NextRequest) {
+
+    const session = await auth()
+    const user = session?.user
 
     const { searchParams } = new URL(request.url);
     const collaborator = searchParams.get("collaborator");
@@ -32,14 +33,48 @@ export async function GET(request: NextRequest) {
 
     try {
 
-        if (user?.clientId === null || user === null)
+        if (user?.id === null || user === null)
             return NextResponse.json({ erro: "o usuário não esta vinculado a um cliente" }, { status: 409 })
         console.log(`userClient: ${user}`)
         const devices = await prisma.device.findMany({
             where: {
-                clientId: user.clientId,
+                clientId: user.id,
                 ...filters,
                 ...(search && { name: { contains: search } }),
+            },
+            select: {
+                id: true,
+                name: true,
+                description: true,
+                image: true,
+                Collaborator: {
+                    select: {
+                        name: true
+                    }
+                },
+                Client: {
+                    select: {
+                        name: true,
+                    }
+                },
+                Manufacturer: {
+                    select: {
+                        nome: true,
+                    }
+                },
+                Owner: {
+                    select: {
+                        nome: true,
+                    }
+                },
+                Sector: {
+                    select: {
+                        name: true,
+                    }
+                },
+                registerNumber: true,
+                createdAt: true,
+                updatedAt: true,
             },
             orderBy: {
                 updatedAt: "desc"
@@ -66,6 +101,9 @@ export async function GET(request: NextRequest) {
 }
 //CRIAR DISPOSITIVO
 export async function POST(request: NextRequest) {
+
+    const session = await auth()
+    const user = session?.user
 
     try {
 
@@ -99,7 +137,7 @@ export async function POST(request: NextRequest) {
                 description: body.description,
                 sectorId: body.sectorId,
                 collaboratorId: body.collaboratorId,
-                clientId: user?.clientId ?? "",
+                clientId: user?.id ?? "",
                 image: body.image,
                 registerNumber: body.registerNumber,
                 manufacturerId: body.manufacturerId,

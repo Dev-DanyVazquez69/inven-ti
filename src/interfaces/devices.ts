@@ -1,16 +1,28 @@
 export interface deviceProps {
-    id: number;
-    name: string;
-    description?: string;
-    sector: {
-        id: number;
-        name: string;
-    };
-    ownerId: number;
-    registerNumber?: number;
-    manufacturerId: number;
-    createdAt: Date;
-    updatedAt: Date;
+    devices: {
+        id: string,
+        name: string,
+        description: string,
+        image: string,
+        Collaborator: {
+            name: string
+        },
+        Client: {
+            name: string
+        },
+        Manufacturer: {
+            nome: string
+        },
+        Owner: {
+            nome: string
+        },
+        Sector: {
+            name: string
+        },
+        registerNumber: number,
+        createdAt: Date,
+        updatedAt: Date
+    }[]
 }
 
 export interface devicePostRequestApi {

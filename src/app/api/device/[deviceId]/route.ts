@@ -12,7 +12,41 @@ export async function GET(
         const device = await prisma.device.findUnique({
             where: {
                 id: deviceId
-            }
+            },
+            select: {
+                id: true,
+                name: true,
+                description: true,
+                image: true,
+                Collaborator: {
+                    select: {
+                        name: true
+                    }
+                },
+                Client: {
+                    select: {
+                        name: true,
+                    }
+                },
+                Manufacturer: {
+                    select: {
+                        nome: true,
+                    }
+                },
+                Owner: {
+                    select: {
+                        nome: true,
+                    }
+                },
+                Sector: {
+                    select: {
+                        name: true,
+                    }
+                },
+                registerNumber: true,
+                createdAt: true,
+                updatedAt: true,
+            },
         })
         if (device === null) {
             return NextResponse.json({ Erro: "O ID não corresponde a nenhum dispositivo cadastrado" }, { status: 500 })

@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/react"
 import { GlobalProvider } from "@/context/global-context";
+import { ReactQueryProvider } from "@/components/reactQueryProvider/reactQueryProvider";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -51,9 +52,10 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <GlobalProvider>
-          <main className="min-h-screen flex flex-col">
+          <ReactQueryProvider>
             {children}
-          </main>
+          </ReactQueryProvider>
+
         </GlobalProvider>
         {/* Ferramenta de analise de dados da vercel */}
         <Analytics />

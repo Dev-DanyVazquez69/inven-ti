@@ -5,10 +5,17 @@ import FilterListIcon from '@mui/icons-material/FilterList';
 import { useState } from "react";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import Link from "next/link";
+import { usePets } from "@/hooks/devices/index";
+
 
 const Devices: React.FC = () => {
 
     const [modalFilter, setModalFilter] = useState<boolean>(false)
+    const { data, isLoading, error } = usePets();
+
+
+    if (isLoading) return <p>Carregando...</p>;
+    if (error) return <p>Ocorreu um erro: {(error as Error).message}</p>;
 
     return (
         <>
@@ -26,42 +33,36 @@ const Devices: React.FC = () => {
                 <div className="flex w-full max-w-4xl flex-col bg-foreground rounded-xl items-end">
                     <table className="w-full border-collapse">
                         <thead>
-                            <tr className="font-bold bg-buttom rounded-xl h-10 border-white">
-                                <th>ID</th>
+                            <tr className="font-bold bg-buttom rounded-xl h-10 border-white text-xs sm:text-base">
                                 <th>Nome</th>
                                 <th>Setor</th>
                                 <th>Usuário</th>
+                                <th>Marca</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr className="text-center border-b border-white h-20 hover:bg-buttom/10 rounded-xl overflow-hidden">
-                                <td className="">25</td>
-                                <td className="">Desktop HP</td>
-                                <td className="">Cobep</td>
-                                <td className="">Anderson</td>
-                                <td>
-                                    <Link
-                                    href={"/devices/454544"}>
-                                        <VisibilityIcon />
-                                    </Link>
-                                </td>
-                            </tr>
-                            <tr className="text-center border-b border-white h-20 hover:bg-buttom/10 rounded-xl overflow-hidden">
-                                <td className="">25</td>
-                                <td className="">Desktop HP</td>
-                                <td className="">Cobep</td>
-                                <td className="">Anderson</td>
-                                <td>
-                                    <Link
-                                    href={"/devices/454544"}>
-                                        <VisibilityIcon />
-                                    </Link>
-                                </td>
-                            </tr>
+                            {
+                                data?.devices.map((device, index) => {
+                                    return (
+                                        <tr key={index} className="text-center border-b border-white h-20 hover:bg-buttom/10 rounded-xl overflow-hidden  text-xs sm:text-base">
+                                            <td className="">{device.name}</td>
+                                            <td className="">{device.Sector.name}</td>
+                                            <td className="">{device.Collaborator.name}</td>
+                                            <td>{device.Sector.name}</td>
+                                            <td>
+                                                <Link
+                                                    href={"/devices/454544"}>
+                                                    <VisibilityIcon />
+                                                </Link>
+                                            </td>
+                                        </tr>
+                                    )
+                                }
+                                )
+                            }
                         </tbody>
                     </table>
-
                 </div>
                 {
                     modalFilter &&

@@ -16,22 +16,47 @@ const Device = async ({
         <>
             <Header title={deviceId} />
             <main className="flex flex-1 flex-col p-3 items-center justify-start">
-                <header className="w-full h-14 flex justify-end items-center gap-3 px-5">
-                    <EditIcon />
-                    <DeleteForeverIcon />
-                </header>
-                <div className="bg-green-400 flex flex-1 w-full">
-                    <section className="flex justify-center">
-                        <Image
-                            src={'/assets/avatar.png'}
-                            alt="imagem device"
-                            width={50}
-                            height={50}
-                            className="object-contain"
-                        />
-                        <h1>
-                            Device
-                        </h1>
+                <div className="flex flex-1 flex-col w-full">
+                    <header className="flex w-full flex-col justify-center items-center">
+                        <div className="relative w-24 h-24 rounded-full">
+                            <Image
+                                src={'/assets/avatar.png'}
+                                alt="imagem device"
+                                fill
+                                className="object-fill bg-cover rounded-full"
+                            />
+                        </div>
+                        <h1 className="font-black">Device</h1>
+                        <div className="flex w-full justify-end gap-3">
+                            <button>
+                                <EditIcon />
+                            </button>
+                            <button>
+                                <DeleteForeverIcon />
+                            </button>
+                        </div>
+                    </header>
+                    <section className="flex flex-col flex-1 w-full justify-between p-5">
+                        <div className="">
+                            <h1>Setor</h1>
+                            <p>{}</p>
+                        </div>
+                        <div className="">
+                            <h1>Colaborador</h1>
+                            <p></p>
+                        </div>
+                        <div className="">
+                            <h1>Marca</h1>
+                            <p></p>
+                        </div>
+                        <div className="">
+                            <h1>Propiedade</h1>
+                            <p></p>
+                        </div>
+                        <div className="">
+                            <h1>Numero de indentificação</h1>
+                            <p></p>
+                        </div>
                     </section>
                 </div>
             </main>
