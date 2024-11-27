@@ -10,7 +10,6 @@ import { auth } from '@/app/auth';
 export async function GET(request: NextRequest) {
 
     const session = await auth()
-    const user = session?.user
 
     const { searchParams } = new URL(request.url);
     const collaborator = searchParams.get("collaborator");
@@ -26,19 +25,28 @@ export async function GET(request: NextRequest) {
     if (sector) filters.sectorId = sector
     if (manufacturer) filters.manufacturerId = Number(manufacturer)
 
-    console.log(filters)
-
-    if (!user)
+    if (!session)
         return NextResponse.json({ erro: "Acesso não autorizado, Faça login" }, { status: 401 })
 
     try {
 
-        if (user?.id === null || user === null)
+        const clientId = await prisma.user.findFirst({
+            where: {
+                id: session.user.id
+            },
+            select: {
+                clientId: true
+            }
+        })
+
+        if (clientId?.clientId === null)
             return NextResponse.json({ erro: "o usuário não esta vinculado a um cliente" }, { status: 409 })
-        console.log(`userClient: ${user}`)
+
+        console.log(`filtros: ${JSON.stringify(filters)}`)
+
         const devices = await prisma.device.findMany({
             where: {
-                clientId: user.id,
+                clientId: clientId?.clientId,
                 ...filters,
                 ...(search && { name: { contains: search } }),
             },
@@ -59,12 +67,12 @@ export async function GET(request: NextRequest) {
                 },
                 Manufacturer: {
                     select: {
-                        nome: true,
+                        name: true,
                     }
                 },
                 Owner: {
                     select: {
-                        nome: true,
+                        name: true,
                     }
                 },
                 Sector: {
@@ -103,11 +111,10 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
 
     const session = await auth()
-    const user = session?.user
 
     try {
 
-        if (!user)
+        if (!session)
             return NextResponse.json({ erro: "Acesso não autorizado, Faça login" }, { status: 401 })
 
         const body: devicePostRequestApi = await request.json()
@@ -129,7 +136,7 @@ export async function POST(request: NextRequest) {
         ])
 
         if ((collaboratorIsValid === null) || (sectorIsValid === null))
-            return NextResponse.json({ erro: "o id do colaborador, setor não correspodem a nenhum registro" }, { status: 401 })
+            return NextResponse.json({ erro: "o id do colaborador ou setor não correspodem a nenhum registro" }, { status: 401 })
 
         const newDevice = await prisma.device.create({
             data: {
@@ -137,7 +144,7 @@ export async function POST(request: NextRequest) {
                 description: body.description,
                 sectorId: body.sectorId,
                 collaboratorId: body.collaboratorId,
-                clientId: user?.id ?? "",
+                clientId: session.user.id ?? "",
                 image: body.image,
                 registerNumber: body.registerNumber,
                 manufacturerId: body.manufacturerId,

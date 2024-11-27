@@ -49,12 +49,12 @@ const seed = async () => {
             data: [
                 {
                     id: 1,
-                    nome: "Asus",
+                    name: "Asus",
                     clientId: "cm3kkkvno000f356gz3qxuokt"
                 },
                 {
                     id: 2,
-                    nome: "c3tech",
+                    name: "c3tech",
                     clientId: "cm3kkkvno000f356gz3qxuokt"
                 }
             ],
@@ -64,12 +64,12 @@ const seed = async () => {
             data: [
                 {
                     id: 1,
-                    nome: "ipam",
+                    name: "ipam",
                     clientId: "cm3kkkvno000f356gz3qxuokt"
                 },
                 {
                     id: 2,
-                    nome: "alucom",
+                    name: "alucom",
                     clientId: "cm3kkkvno000f356gz3qxuokt"
                 }
             ]

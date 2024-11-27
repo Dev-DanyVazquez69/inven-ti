@@ -82,7 +82,7 @@ model Sector {
 
 model Manufacturer {
   id       Int      @id @default(autoincrement())
-  nome     String   @unique
+  name     String   @unique
   clientId String
   Device   Device[]
 
@@ -91,7 +91,7 @@ model Manufacturer {
 
 model Owner {
   id       Int      @id @default(autoincrement())
-  nome     String   @unique
+  name     String   @unique
   clientId String
   Device   Device[]
 

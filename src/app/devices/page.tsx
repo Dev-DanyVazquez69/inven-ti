@@ -5,17 +5,38 @@ import FilterListIcon from '@mui/icons-material/FilterList';
 import { useState } from "react";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import Link from "next/link";
-import { usePets } from "@/hooks/devices/index";
+import { usePets } from "@/hooks/device";
+import { ItemsFilters, TypeFilter } from "@/interfaces/filters";
+import { useFilters } from "@/hooks/filters";
 
 
 const Devices: React.FC = () => {
 
+    const [filters, setFilters] = useState<TypeFilter>({
+        search: "",
+        collaboratorId: "",
+        manufacturerId: 0,
+        ownerId: 0,
+        sectorId: ""
+    })
     const [modalFilter, setModalFilter] = useState<boolean>(false)
-    const { data, isLoading, error } = usePets();
+    const { data, isLoading, error, refetch } = usePets(filters);
+    const { data: dataFilter, isLoading: loadingFilter, error: errorFilter } = useFilters()
 
 
-    if (isLoading) return <p>Carregando...</p>;
-    if (error) return <p>Ocorreu um erro: {(error as Error).message}</p>;
+    const changeFilters = (key: ItemsFilters, value: string & number & undefined) => {
+        const newFilter = { ...filters }
+        newFilter[key] = value
+        setFilters(newFilter)
+    }
+
+    const handleFilter = () => {
+        setModalFilter(false)
+        refetch()
+    }
+
+    if (isLoading || loadingFilter) return <p>Carregando...</p>;
+    if (error || errorFilter) return <p>Ocorreu um erro: {(error as Error).message}</p>;
 
     return (
         <>
@@ -78,10 +99,16 @@ const Devices: React.FC = () => {
                                     <select
                                         className="text-xs block w-full px-4 py-1 border border-background rounded-md shadow-sm focus:outline-none focus:ring-2 focus:bg-buttom focus:text-white"
                                         name="user"
-                                        id="user">
+                                        id="user"
+                                        onChange={(e) => changeFilters('collaboratorId', e.target.value as never)}>
                                         <option value="">Não selecionado</option>
-                                        <option value="Daniel">Daniel</option>
-                                        <option value="Daniel">Anderson</option>
+                                        {
+                                            dataFilter?.filters.collaborators ?
+                                                dataFilter.filters.collaborators.map((item, key) => (
+                                                    <option key={key} value={item.id}>{item.name}</option>
+                                                )) :
+                                                <option value="">Sem opções</option>
+                                        }
                                     </select>
                                 </div>
                                 <div>
@@ -92,10 +119,16 @@ const Devices: React.FC = () => {
                                     <select
                                         className="text-xs block w-full px-4 py-1 border border-background rounded-md shadow-sm focus:outline-none focus:ring-2 focus:bg-buttom focus:text-white"
                                         name="manufacturer"
-                                        id="manufacturer">
+                                        id="manufacturer"
+                                        onChange={(e) => changeFilters('manufacturerId', e.target.value as never)}>
                                         <option value="">Não selecionado</option>
-                                        <option value="Daniel">HP</option>
-                                        <option value="Daniel">C3tech</option>
+                                        {
+                                            dataFilter?.filters.manufactures ?
+                                                dataFilter.filters.manufactures.map((item, key) => (
+                                                    <option key={key} value={item.id}>{item.name}</option>
+                                                )) :
+                                                <option value="">Sem opções</option>
+                                        }
                                     </select>
                                 </div>
                                 <div>
@@ -106,10 +139,16 @@ const Devices: React.FC = () => {
                                     <select
                                         className="block text-xs w-full px-4 py-1 border border-background rounded-md shadow-sm focus:outline-none focus:ring-2 focus:bg-buttom focus:text-white"
                                         name="owner"
-                                        id="owner">
+                                        id="owner"
+                                        onChange={(e) => changeFilters('ownerId', e.target.value as never)}>
                                         <option value="">Não selecionado</option>
-                                        <option value="Daniel">Ipam</option>
-                                        <option value="Daniel">Alucom</option>
+                                        {
+                                            dataFilter?.filters.owners ?
+                                                dataFilter.filters.owners.map((item, key) => (
+                                                    <option key={key} value={item.id}>{item.name}</option>
+                                                )) :
+                                                <option value="">Sem opções</option>
+                                        }
                                     </select>
                                 </div>
                                 <div>
@@ -120,18 +159,23 @@ const Devices: React.FC = () => {
                                     <select
                                         className="block w-full text-xs px-4 py-1 border border-background rounded-md shadow-sm focus:outline-none focus:ring-2 focus:bg-buttom focus:text-white"
                                         name="sector"
-                                        id="sector">
+                                        id="sector"
+                                        onChange={(e) => changeFilters('sectorId', e.target.value as never)}>
                                         <option value="">Não selecionado</option>
-                                        <option value="Daniel">cobep</option>
-                                        <option value="Daniel">supre</option>
+                                        {
+                                            dataFilter?.filters.sectors ?
+                                                dataFilter.filters.sectors.map((item, key) => (
+                                                    <option key={key} value={item.id}>{item.name}</option>
+                                                )) :
+                                                <option value="">Sem opções</option>
+                                        }
                                     </select>
                                 </div>
                             </div>
                             <div className="flex w-full justify-around">
                                 <button
-                                    disabled
                                     className="bg-buttom px-4 py-2 rounded-lg size-fit sm:w-40"
-                                    onClick={() => { }}>
+                                    onClick={handleFilter}>
                                     Filtrar
                                 </button>
                                 <button

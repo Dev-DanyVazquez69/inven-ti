@@ -87,7 +87,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       return token
     },
     session({ session, token }) {
-      return { ...session, id: token.sub }
+      session.user.id = token.sub as string
+      return session
     },
   },
   adapter: PrismaAdapter(prisma),
