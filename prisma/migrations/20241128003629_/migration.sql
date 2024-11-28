@@ -70,20 +70,20 @@ CREATE TABLE `Sector` (
 -- CreateTable
 CREATE TABLE `Manufacturer` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `nome` VARCHAR(191) NOT NULL,
+    `name` VARCHAR(191) NOT NULL,
     `clientId` VARCHAR(191) NOT NULL,
 
-    UNIQUE INDEX `Manufacturer_nome_key`(`nome`),
+    UNIQUE INDEX `Manufacturer_name_key`(`name`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
 CREATE TABLE `Owner` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `nome` VARCHAR(191) NOT NULL,
+    `name` VARCHAR(191) NOT NULL,
     `clientId` VARCHAR(191) NOT NULL,
 
-    UNIQUE INDEX `Owner_nome_key`(`nome`),
+    UNIQUE INDEX `Owner_name_key`(`name`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 

@@ -3,6 +3,7 @@ import { Header } from "@/components/header/header"
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import EditIcon from '@mui/icons-material/Edit';
 import Image from "next/image";
+import { useDevices } from "@/hooks/device";
 
 const Device = async ({
     params,
@@ -12,12 +13,19 @@ const Device = async ({
 
     const deviceId = (await params).deviceId
 
+    const { data, isLoading, error } = useDevices(undefined, deviceId)
+
+
+    if (isLoading) return <p>Carregando...</p>;
+    if (error) return <p>Ocorreu um erro: {(error as Error).message}</p>;
+
     return (
         <>
             <Header title={deviceId} />
             <main className="flex flex-1 flex-col p-3 items-center justify-start">
                 <div className="flex flex-1 flex-col w-full">
                     <header className="flex w-full flex-col justify-center items-center">
+                        <p>{JSON.stringify(data)}</p>
                         <div className="relative w-24 h-24 rounded-full">
                             <Image
                                 src={'/assets/avatar.png'}
@@ -39,7 +47,7 @@ const Device = async ({
                     <section className="flex flex-col flex-1 w-full justify-between p-5">
                         <div className="">
                             <h1>Setor</h1>
-                            <p>{}</p>
+                            <p>{ }</p>
                         </div>
                         <div className="">
                             <h1>Colaborador</h1>

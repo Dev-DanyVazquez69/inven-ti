@@ -5,10 +5,10 @@ import FilterListIcon from '@mui/icons-material/FilterList';
 import { useState } from "react";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import Link from "next/link";
-import { usePets } from "@/hooks/device";
 import { ItemsFilters, TypeFilter } from "@/interfaces/filters";
 import { useFilters } from "@/hooks/filters";
-
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import { useDevices } from "@/hooks/device";
 
 const Devices: React.FC = () => {
 
@@ -20,7 +20,7 @@ const Devices: React.FC = () => {
         sectorId: ""
     })
     const [modalFilter, setModalFilter] = useState<boolean>(false)
-    const { data, isLoading, error, refetch } = usePets(filters);
+    const { data, isLoading, error, refetch } = useDevices(filters);
     const { data: dataFilter, isLoading: loadingFilter, error: errorFilter } = useFilters()
 
 
@@ -45,12 +45,20 @@ const Devices: React.FC = () => {
                 <div className="py-10 text-center w-full font-extrabold">
                     <h1>Lista de Dispositivos</h1>
                 </div>
-                <button
-                    onClick={() => setModalFilter(true)}
-                    className="flex justify-end items-center gap-2 p-2 text-xl size-fit self-end">
-                    <p>Filtrar</p>
-                    <FilterListIcon />
-                </button>
+                <div className="flex justify-between items-center w-full">
+                    <Link
+                        href={"/addDevice"}
+                        className="flex gap-2">
+                        <AddCircleOutlineIcon />
+                        <p>Adicionar</p>
+                    </Link>
+                    <button
+                        onClick={() => setModalFilter(true)}
+                        className="flex justify-end items-center gap-2 p-2 size-fit ">
+                        <p>Filtrar</p>
+                        <FilterListIcon />
+                    </button>
+                </div>
                 <div className="flex w-full max-w-4xl flex-col bg-foreground rounded-xl items-end">
                     <table className="w-full border-collapse">
                         <thead>
@@ -73,7 +81,7 @@ const Devices: React.FC = () => {
                                             <td>{device.Sector.name}</td>
                                             <td>
                                                 <Link
-                                                    href={"/devices/454544"}>
+                                                    href={`/devices/${device.id}`}>
                                                     <VisibilityIcon />
                                                 </Link>
                                             </td>
@@ -100,6 +108,7 @@ const Devices: React.FC = () => {
                                         className="text-xs block w-full px-4 py-1 border border-background rounded-md shadow-sm focus:outline-none focus:ring-2 focus:bg-buttom focus:text-white"
                                         name="user"
                                         id="user"
+                                        value={filters.collaboratorId}
                                         onChange={(e) => changeFilters('collaboratorId', e.target.value as never)}>
                                         <option value="">Não selecionado</option>
                                         {
@@ -120,6 +129,7 @@ const Devices: React.FC = () => {
                                         className="text-xs block w-full px-4 py-1 border border-background rounded-md shadow-sm focus:outline-none focus:ring-2 focus:bg-buttom focus:text-white"
                                         name="manufacturer"
                                         id="manufacturer"
+                                        value={filters.manufacturerId}
                                         onChange={(e) => changeFilters('manufacturerId', e.target.value as never)}>
                                         <option value="">Não selecionado</option>
                                         {
@@ -140,6 +150,7 @@ const Devices: React.FC = () => {
                                         className="block text-xs w-full px-4 py-1 border border-background rounded-md shadow-sm focus:outline-none focus:ring-2 focus:bg-buttom focus:text-white"
                                         name="owner"
                                         id="owner"
+                                        value={filters.ownerId}
                                         onChange={(e) => changeFilters('ownerId', e.target.value as never)}>
                                         <option value="">Não selecionado</option>
                                         {
@@ -160,6 +171,7 @@ const Devices: React.FC = () => {
                                         className="block w-full text-xs px-4 py-1 border border-background rounded-md shadow-sm focus:outline-none focus:ring-2 focus:bg-buttom focus:text-white"
                                         name="sector"
                                         id="sector"
+                                        value={filters.sectorId}
                                         onChange={(e) => changeFilters('sectorId', e.target.value as never)}>
                                         <option value="">Não selecionado</option>
                                         {
