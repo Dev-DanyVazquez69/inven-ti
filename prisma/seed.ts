@@ -74,6 +74,42 @@ const seed = async () => {
                 }
             ]
         }),
+        await prisma.typeDevice.createMany({
+            data: [
+                {
+                    id: 1,
+                    name: "desktop",
+                },
+                {
+                    id: 2,
+                    name: "notebook",
+                },
+                {
+                    id: 3,
+                    name: "impressora",
+                },
+                {
+                    id: 4,
+                    name: "switch",
+                },
+                {
+                    id: 5,
+                    name: "monitor",
+                },
+                {
+                    id: 6,
+                    name: "teclado",
+                },
+                {
+                    id: 7,
+                    name: "mouse",
+                },
+                {
+                    id: 8,
+                    name: "nobreak",
+                }
+            ]
+        }),
         //criar dispositivo padrão
         await prisma.device.create({
             data: {
@@ -86,7 +122,8 @@ const seed = async () => {
                 registerNumber: 45454,
                 sectorId: "cm3keifxj0009356glxczyvna",
                 clientId: "cm3kkkvno000f356gz3qxuokt",
-                ownerId: 1
+                ownerId: 1,
+                typeDeviceId: 2
             }
         })
     ])

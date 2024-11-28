@@ -20,7 +20,7 @@ CREATE TABLE `User` (
 CREATE TABLE `Client` (
     `id` VARCHAR(191) NOT NULL,
     `name` VARCHAR(191) NOT NULL,
-    `addrees` VARCHAR(191) NULL,
+    `address` VARCHAR(191) NULL,
 
     UNIQUE INDEX `Client_name_key`(`name`),
     PRIMARY KEY (`id`)
@@ -49,6 +49,7 @@ CREATE TABLE `Device` (
     `clientId` VARCHAR(191) NOT NULL,
     `registerNumber` INTEGER NULL,
     `manufacturerId` INTEGER NULL,
+    `typeDeviceId` INTEGER NULL,
     `ownerId` INTEGER NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL,
@@ -84,6 +85,14 @@ CREATE TABLE `Owner` (
     `clientId` VARCHAR(191) NOT NULL,
 
     UNIQUE INDEX `Owner_name_key`(`name`),
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `TypeDevice` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `name` VARCHAR(191) NOT NULL,
+
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -172,6 +181,9 @@ ALTER TABLE `Device` ADD CONSTRAINT `Device_manufacturerId_fkey` FOREIGN KEY (`m
 
 -- AddForeignKey
 ALTER TABLE `Device` ADD CONSTRAINT `Device_ownerId_fkey` FOREIGN KEY (`ownerId`) REFERENCES `Owner`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `Device` ADD CONSTRAINT `Device_typeDeviceId_fkey` FOREIGN KEY (`typeDeviceId`) REFERENCES `TypeDevice`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `Sector` ADD CONSTRAINT `Sector_clientId_fkey` FOREIGN KEY (`clientId`) REFERENCES `Client`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;

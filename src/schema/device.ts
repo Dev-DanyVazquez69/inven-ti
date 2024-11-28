@@ -2,8 +2,8 @@ import { z } from 'zod';
 
 export const devicePostSchema = z.object({
     name: z.string().min(1, 'O nome é obrigatório'),
-    sectorId: z.string().min(1, 'O Id do setor é obrigatório').cuid(),
-    collaboratorId: z.string().min(1, 'O Id do colaborador é obrigatório').cuid(),
+    sectorId: z.string().cuid().nullish(),
+    collaboratorId: z.string().cuid().nullable(),
     image: z.string().nullish(),
     description: z.string().nullish(),
     registerNumber: z.number().int().nullish(),
