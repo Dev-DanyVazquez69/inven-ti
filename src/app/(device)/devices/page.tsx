@@ -20,7 +20,7 @@ const Devices: React.FC = () => {
         sectorId: ""
     })
     const [modalFilter, setModalFilter] = useState<boolean>(false)
-    const { data, isLoading, error, refetch } = useDevices(filters);
+    const { data, isLoading, error, refetch, isSuccess } = useDevices(filters);
     const { data: dataFilter, isLoading: loadingFilter, error: errorFilter } = useFilters()
 
 
@@ -72,6 +72,7 @@ const Devices: React.FC = () => {
                         </thead>
                         <tbody>
                             {
+                                isSuccess &&
                                 data?.devices.map((device, index) => {
                                     return (
                                         <tr key={index} className="text-center border-b border-white h-20 hover:bg-buttom/10 rounded-xl overflow-hidden  text-xs sm:text-base">

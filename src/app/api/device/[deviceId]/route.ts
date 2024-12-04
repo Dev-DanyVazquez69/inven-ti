@@ -30,12 +30,12 @@ export async function GET(
                 },
                 Manufacturer: {
                     select: {
-                        nome: true,
+                        name: true,
                     }
                 },
                 Owner: {
                     select: {
-                        nome: true,
+                        name: true,
                     }
                 },
                 Sector: {

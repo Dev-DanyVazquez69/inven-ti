@@ -55,7 +55,6 @@ export default function RootLayout({
           <ReactQueryProvider>
             {children}
           </ReactQueryProvider>
-
         </GlobalProvider>
         {/* Ferramenta de analise de dados da vercel */}
         <Analytics />
