@@ -41,7 +41,7 @@ const AddDevice: React.FC = () => {
                         <form
                             action={formAction}
                             className="flex flex-col gap-4">
-                            <p className="text-red-600" aria-live="polite">{state?.message}</p>
+                            <p className="text-red-600" aria-live="polite">{String(state?.message)}</p>
                             {/* Nome */}
                             <label
                                 className="font-extrabold"
