@@ -61,4 +61,5 @@ export interface devicePostRequestApi {
     registerNumber: number | undefined | null,
     manufacturerId: number | undefined | null,
     ownerId: number | undefined | null,
+    typeDeviceId: number
 }

@@ -18,7 +18,7 @@ export async function GET() {
         if (userClient?.clientId === null)
             return NextResponse.json({ erro: "o usuário não esta vinculado a um cliente" })
 
-        const [collaborator, sector, owner, manufacture] = await Promise.all([
+        const [collaborator, sector, owner, manufacture, typeDevices] = await Promise.all([
 
             prisma.collaborator.findMany({
                 where: {
@@ -59,6 +59,13 @@ export async function GET() {
                     name: true
                 }
             }),
+
+            prisma.typeDevice.findMany({
+                select: {
+                    id: true,
+                    name: true
+                }
+            }),
         ])
 
         return NextResponse.json({
@@ -66,7 +73,8 @@ export async function GET() {
                 collaborators: collaborator,
                 sectors: sector,
                 owners: owner,
-                manufactures: manufacture
+                manufactures: manufacture,
+                typeDevices: typeDevices
             }
         }, { status: 200 })
 

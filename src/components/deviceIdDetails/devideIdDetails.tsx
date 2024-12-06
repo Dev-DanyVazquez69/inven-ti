@@ -17,7 +17,7 @@ const DeviceIdDetails: React.FC<DeviceIdProps> = ({ deviceId }) => {
     if (error) return <p>Ocorreu um erro: {(error as Error).message}</p>;
 
     return (
-        <div className="flex flex-1 flex-col w-full">
+        <div className="flex flex-1 flex-col w-full gap-5">
             {
                 isSuccess &&
                 <>
@@ -27,7 +27,7 @@ const DeviceIdDetails: React.FC<DeviceIdProps> = ({ deviceId }) => {
                                 src={'/assets/notebook-asus.png'}
                                 alt="imagem device"
                                 fill
-                                className="object-fill bg-cover rounded-full"
+                                className="object-fill bg-cover"
                             />
                         </div>
                         <h1 className="font-black">{data?.device.name}</h1>
@@ -40,25 +40,25 @@ const DeviceIdDetails: React.FC<DeviceIdProps> = ({ deviceId }) => {
                             </button>
                         </div>
                     </header>
-                    <section className="flex flex-col flex-1 w-full justify-between p-5">
+                    <section className="flex flex-col w-full gap-5 p-5 bg-foreground rounded-lg">
                         <div className="">
-                            <h1>Setor</h1>
+                            <h1 className="font-extrabold uppercase">Setor</h1>
                             <p>{data?.device.Sector?.name ?? ""}</p>
                         </div>
                         <div className="">
-                            <h1>Colaborador</h1>
+                            <h1 className="font-extrabold uppercase">Colaborador</h1>
                             <p>{data?.device.Collaborator?.name ?? ""}</p>
                         </div>
                         <div className="">
-                            <h1>Marca</h1>
+                            <h1 className="font-extrabold uppercase">Marca</h1>
                             <p>{data?.device.Manufacturer?.name ?? ""}</p>
                         </div>
                         <div className="">
-                            <h1>Propiedade</h1>
+                            <h1 className="font-extrabold uppercase">Propiedade</h1>
                             <p>{data?.device.Owner?.name ?? ""}</p>
                         </div>
                         <div className="">
-                            <h1>Numero de indentificação</h1>
+                            <h1 className="font-extrabold uppercase">Numero de indentificação</h1>
                             <p>{data?.device.registerNumber}</p>
                         </div>
                     </section>

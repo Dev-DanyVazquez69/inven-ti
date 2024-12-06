@@ -26,6 +26,10 @@ export interface PropGetFilters {
         manufactures: {
             id: number,
             name: string
+        }[] | [],
+        typeDevices: {
+            id: number,
+            name: string
         }[] | []
 
     }

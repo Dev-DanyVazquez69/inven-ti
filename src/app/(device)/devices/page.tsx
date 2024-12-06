@@ -42,22 +42,24 @@ const Devices: React.FC = () => {
         <>
             <Header title="Dispositivos" />
             <main className="flex flex-1 flex-col p-3 items-center justify-start">
-                <div className="py-10 text-center w-full font-extrabold">
-                    <h1>Lista de Dispositivos</h1>
-                </div>
-                <div className="flex justify-between items-center w-full">
-                    <Link
-                        href={"/addDevice"}
-                        className="flex gap-2">
-                        <AddCircleOutlineIcon />
-                        <p>Adicionar</p>
-                    </Link>
-                    <button
-                        onClick={() => setModalFilter(true)}
-                        className="flex justify-end items-center gap-2 p-2 size-fit ">
-                        <p>Filtrar</p>
-                        <FilterListIcon />
-                    </button>
+                <div className="flex w-full max-w-4xl flex-col">
+                    <div className="py-10 text-center w-full font-extrabold">
+                        <h1>Lista de Dispositivos</h1>
+                    </div>
+                    <div className="flex justify-between items-center w-full">
+                        <Link
+                            href={"/addDevice"}
+                            className="flex gap-2">
+                            <AddCircleOutlineIcon />
+                            <p>Adicionar</p>
+                        </Link>
+                        <button
+                            onClick={() => setModalFilter(true)}
+                            className="flex justify-end items-center gap-2 p-2 size-fit ">
+                            <p>Filtrar</p>
+                            <FilterListIcon />
+                        </button>
+                    </div>
                 </div>
                 <div className="flex w-full max-w-4xl flex-col bg-foreground rounded-xl items-end">
                     <table className="w-full border-collapse">

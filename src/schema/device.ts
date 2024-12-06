@@ -8,7 +8,8 @@ export const devicePostSchema = z.object({
     description: z.string().nullish(),
     registerNumber: z.number().int().nullish(),
     manufacturerId: z.number().int().nullish(),
-    ownerId: z.number().int().nullish()
+    ownerId: z.number().int().nullish(),
+    typeDeviceId: z.number().int()
 });
 
 export const deviceGetSchema = z.object({

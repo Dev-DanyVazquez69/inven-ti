@@ -15,7 +15,7 @@ export const useDevices = (filters: TypeFilter) => {
 export const useDevice = (deviceId: string) => {
 
     return useQuery({
-        queryKey: ["devices"],
+        queryKey: ["device"],
         queryFn: () => fetchDevice(deviceId),
         staleTime: 1000 * 60 * 5, // Cache válido por 5 minutos
 

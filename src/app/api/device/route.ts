@@ -148,7 +148,8 @@ export async function POST(request: NextRequest) {
                 image: body.image,
                 registerNumber: body.registerNumber,
                 manufacturerId: body.manufacturerId,
-                ownerId: body.ownerId
+                ownerId: body.ownerId,
+                typeDeviceId: body.typeDeviceId
             }
         })
 

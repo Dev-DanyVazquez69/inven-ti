@@ -15,7 +15,7 @@ const Device = async ({
     return (
         <>
             <Header title={"Dispositivo"} />
-            <main className="flex flex-1 flex-col p-3 items-center justify-start">
+            <main className="flex flex-1 flex-col p-3 pt-10 items-center justify-start">
                 <DeviceIdDetails deviceId={deviceId} />
             </main>
         </>
