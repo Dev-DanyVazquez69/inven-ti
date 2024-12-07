@@ -56,7 +56,7 @@ const AddDevice: React.FC = () => {
                     </header>
                     <section className="flex flex-col w-full gap-5 p-5 bg-foreground rounded-lg max-w-4xl">
                         <p>{errorDevicePost && JSON.stringify(errorDevicePost)}</p>
-                        <p>{ && "Cadastrado com sucesso"}</p>
+                        <p>{isSuccess && "Cadastrado com sucesso"}</p>
                         <form
                             onSubmit={handleCreatePost}
                             className="flex flex-col gap-4">
