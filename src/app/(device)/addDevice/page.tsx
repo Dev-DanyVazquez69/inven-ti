@@ -3,22 +3,39 @@
 import { Header } from "@/components/header/header";
 import { useFilters } from "@/hooks/filters";
 import Image from "next/image";
-import { createDevice } from "@/app/actions";
-import { useFormState, useFormStatus } from "react-dom";
-
-const initialState = {
-    message: '',
-}
+import { useCreateDevice } from "@/hooks/device";
+import { useState } from "react";
+import { devicePostBody, ItemsDevicePostBody } from "@/interfaces/devices";
 
 const AddDevice: React.FC = () => {
 
+    const [formData, setFormData] = useState<devicePostBody>({
+        name: "",
+        description: null,
+        sectorId: "",
+        collaboratorId: "",
+        image: null,
+        registerNumber: undefined,
+        manufacturerId: undefined,
+        ownerId: undefined,
+        typeDeviceId: 0
+    })
+
     const { error, isLoading, data } = useFilters()
-    const [state, formAction] = useFormState(createDevice, initialState)
-    const { pending } = useFormStatus()
+    const { mutate, error: errorDevicePost, isSuccess} = useCreateDevice(formData)
 
+    const handleCreatePost = (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault()
+        mutate()
+    }
 
+    const changeDataForm = (key: ItemsDevicePostBody, value: string & number & undefined) => {
+        const newFormData = { ...formData }
+        newFormData[key] = value
+        setFormData(newFormData)
+    }
 
-    if (isLoading || pending) return <p>Carregando...</p>;
+    if (isLoading) return <p>Carregando...</p>;
     if (error) return <p>Ocorreu um erro: {(error as Error).message}</p>;
 
     return (
@@ -38,10 +55,11 @@ const AddDevice: React.FC = () => {
                         <h1 className="font-black">{"Adicionar Dispositivo"}</h1>
                     </header>
                     <section className="flex flex-col w-full gap-5 p-5 bg-foreground rounded-lg max-w-4xl">
+                        <p>{errorDevicePost && JSON.stringify(errorDevicePost)}</p>
+                        <p>{ && "Cadastrado com sucesso"}</p>
                         <form
-                            action={formAction}
+                            onSubmit={handleCreatePost}
                             className="flex flex-col gap-4">
-                            <p className="text-red-600" aria-live="polite">{String(state?.message)}</p>
                             {/* Nome */}
                             <label
                                 className="font-extrabold"
@@ -51,6 +69,8 @@ const AddDevice: React.FC = () => {
                                 type="text"
                                 id="name"
                                 name="name"
+                                value={formData.name}
+                                onChange={(e) => changeDataForm('name', e.target.value as never)}
                                 placeholder="Insira o nome do dispositivo"
                                 className="w-full max-w-4xl py-1 border-b border-white shadow-sm focus:outline-none bg-transparent" />
                             {/* Descrição */}
@@ -61,6 +81,8 @@ const AddDevice: React.FC = () => {
                                 type="text"
                                 id="description"
                                 name="description"
+                                value={formData.description as string}
+                                onChange={(e) => changeDataForm('description', e.target.value as never)}
                                 placeholder="Insira a descrição do dispositivo"
                                 className="w-full max-w-4xl py-1 border-b border-white shadow-sm focus:outline-none bg-transparent" />
                             {/*Colaborador*/}
@@ -70,6 +92,8 @@ const AddDevice: React.FC = () => {
                             <select
                                 className="bg-transparent w-full py-1 border-b border-white shadow-sm focus:outline-none focus:ring-2 focus:bg-black focus:text-white"
                                 name="collaboratorId"
+                                value={formData.collaboratorId as string}
+                                onChange={(e) => changeDataForm('collaboratorId', e.target.value as never)}
                                 id="collaboratorId">
                                 <option value="">Não selecionado</option>
                                 {
@@ -87,6 +111,8 @@ const AddDevice: React.FC = () => {
                             <select
                                 className="bg-transparent w-full py-1 border-b border-white shadow-sm focus:outline-none focus:ring-2 focus:bg-black focus:text-white"
                                 name="sectorId"
+                                value={formData.sectorId as string}
+                                onChange={(e) => changeDataForm('sectorId', e.target.value as never)}
                                 id="sectorId">
                                 <option value="">Não selecionado</option>
                                 {
@@ -104,6 +130,8 @@ const AddDevice: React.FC = () => {
                             <select
                                 className="bg-transparent w-full py-1 border-b border-white shadow-sm focus:outline-none focus:ring-2 focus:bg-black focus:text-white"
                                 name="manufacturerId"
+                                value={formData.manufacturerId as number}
+                                onChange={(e) => changeDataForm('manufacturerId', e.target.value as never)}
                                 id="manufacturerId">
                                 <option value="">Não selecionado</option>
                                 {
@@ -121,6 +149,8 @@ const AddDevice: React.FC = () => {
                             <select
                                 className="bg-transparent w-full py-1 border-b border-white shadow-sm focus:outline-none focus:ring-2 focus:bg-black focus:text-white"
                                 name="ownerId"
+                                value={formData.ownerId as number}
+                                onChange={(e) => changeDataForm('ownerId', e.target.value as never)}
                                 id="ownerId">
                                 <option value="">Não selecionado</option>
                                 {
@@ -138,6 +168,8 @@ const AddDevice: React.FC = () => {
                             <select
                                 className="bg-transparent w-full py-1 border-b border-white shadow-sm focus:outline-none focus:ring-2 focus:bg-black focus:text-white"
                                 name="typeDeviceId"
+                                value={formData.typeDeviceId as number}
+                                onChange={(e) => changeDataForm('typeDeviceId', e.target.value as never)}
                                 id="typeDeviceId">
                                 <option value="">Não selecionado</option>
                                 {
@@ -157,6 +189,8 @@ const AddDevice: React.FC = () => {
                                 id="registerNumber"
                                 name="registerNumber"
                                 placeholder="Insira o numero de indetificação"
+                                value={formData.registerNumber as number}
+                                onChange={(e) => changeDataForm('registerNumber', e.target.value as never)}
                                 className="w-full max-w-4xl py-1 border-b border-white shadow-sm focus:outline-none bg-transparent" />
                             <button
                                 type="submit"

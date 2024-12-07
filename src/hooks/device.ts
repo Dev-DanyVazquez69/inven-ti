@@ -1,6 +1,7 @@
-import { fetchDevice, fetchDevices } from "@/api/device";
+import { createDevice, fetchDevice, fetchDevices } from "@/api/device";
+import { devicePostBody } from "@/interfaces/devices";
 import { TypeFilter } from "@/interfaces/filters";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 export const useDevices = (filters: TypeFilter) => {
 
@@ -22,3 +23,11 @@ export const useDevice = (deviceId: string) => {
     });
 };
 
+
+export const useCreateDevice = (bodyContent: devicePostBody) => {
+
+    return useMutation({
+        mutationKey: ["devices"],
+        mutationFn: () => createDevice(bodyContent),
+    });
+};

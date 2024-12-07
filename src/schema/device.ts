@@ -6,10 +6,10 @@ export const devicePostSchema = z.object({
     collaboratorId: z.string().cuid().nullable(),
     image: z.string().nullish(),
     description: z.string().nullish(),
-    registerNumber: z.number().int().nullish(),
-    manufacturerId: z.number().int().nullish(),
-    ownerId: z.number().int().nullish(),
-    typeDeviceId: z.number().int()
+    registerNumber: z.coerce.number().int().nullish(),
+    manufacturerId: z.coerce.number().int().nullish(),
+    ownerId: z.coerce.number().int().nullish(),
+    typeDeviceId: z.coerce.number().int(),
 });
 
 export const deviceGetSchema = z.object({

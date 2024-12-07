@@ -63,3 +63,19 @@ export interface devicePostRequestApi {
     ownerId: number | undefined | null,
     typeDeviceId: number
 }
+
+export interface devicePostBody {
+    name: string;
+    description?: string | undefined | null,
+    sectorId: string;
+    collaboratorId: string;
+    image: string | undefined | null,
+    registerNumber: number | undefined | null,
+    manufacturerId: number | undefined | null,
+    ownerId: number | undefined | null,
+    typeDeviceId: number
+}
+
+export type ItemsDevicePostRequest = keyof devicePostRequestApi 
+
+export type ItemsDevicePostBody = keyof devicePostBody

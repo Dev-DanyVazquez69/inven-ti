@@ -4,21 +4,21 @@
 export async function createDevice(prevState: any, formData: FormData) {
 
     try {
-
         const rawFormData = Object.fromEntries(formData)
-        
-        const res = await fetch(url.(), {
+
+        const res = await fetch("/api/device", {
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(rawFormData),
-            method: 'POST'
+            method: 'POST',
+            credentials: "include"
         })
 
         if (!res.ok) {
             // Extrai e retorna a mensagem de erro da resposta, se possível
             const error = await res.json();
-            return { message: error.message || 'Erro ao cadastrar dispositivo' };
+            return { message: JSON.stringify(error) };
         }
 
         const json = await res.json();

@@ -113,12 +113,21 @@ export async function POST(request: NextRequest) {
     const session = await auth()
 
     try {
-
+        console.log(session)
         if (!session)
-            return NextResponse.json({ erro: "Acesso não autorizado, Faça login" }, { status: 401 })
+            return NextResponse.json({ erro: "Acesso não autorizado, Faça login - teste" }, { status: 401 })
 
         const body: devicePostRequestApi = await request.json()
-        devicePostSchema.parse(body);
+        const bodyVerifiqued = devicePostSchema.parse(body);
+
+        const clientId = await prisma.user.findFirst({
+            where: {
+                id: session.user.id
+            },
+            select: {
+                clientId: true
+            }
+        })
 
         const [collaboratorIsValid, sectorIsValid] = await Promise.all([
 
@@ -137,19 +146,19 @@ export async function POST(request: NextRequest) {
 
         if ((collaboratorIsValid === null) || (sectorIsValid === null))
             return NextResponse.json({ erro: "o id do colaborador ou setor não correspodem a nenhum registro" }, { status: 401 })
-
+        console.log(bodyVerifiqued)
         const newDevice = await prisma.device.create({
             data: {
-                name: body.name,
-                description: body.description,
-                sectorId: body.sectorId,
-                collaboratorId: body.collaboratorId,
-                clientId: session.user.id ?? "",
-                image: body.image,
-                registerNumber: body.registerNumber,
-                manufacturerId: body.manufacturerId,
-                ownerId: body.ownerId,
-                typeDeviceId: body.typeDeviceId
+                name: bodyVerifiqued.name,
+                description: bodyVerifiqued.description,
+                sectorId: bodyVerifiqued.sectorId,
+                collaboratorId: bodyVerifiqued.collaboratorId,
+                clientId: clientId?.clientId ?? "",
+                image: bodyVerifiqued.image,
+                registerNumber: bodyVerifiqued.registerNumber,
+                manufacturerId: bodyVerifiqued.manufacturerId,
+                ownerId: bodyVerifiqued.ownerId,
+                typeDeviceId: bodyVerifiqued.typeDeviceId
             }
         })
 
@@ -159,6 +168,6 @@ export async function POST(request: NextRequest) {
         if (error instanceof z.ZodError) {
             return NextResponse.json({ errorFormatBody: error.errors }, { status: 400 });
         }
-        return NextResponse.json({ message: 'Erro do servidor' }, { status: 500 });
+        return NextResponse.json({ error: `Erro do servidor - ${error}` }, { status: 500 });
     }
 }
