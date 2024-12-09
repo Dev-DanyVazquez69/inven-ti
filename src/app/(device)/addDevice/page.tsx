@@ -6,10 +6,12 @@ import Image from "next/image";
 import { useCreateDevice } from "@/hooks/device";
 import { useState } from "react";
 import { devicePostBody, ItemsDevicePostBody } from "@/interfaces/devices";
+import SuccessModal from "@/components/modalStatus/successModal";
+import ErrorModal from "@/components/modalStatus/errorModal";
 
 const AddDevice: React.FC = () => {
 
-    const [formData, setFormData] = useState<devicePostBody>({
+    const formDataInit = {
         name: "",
         description: null,
         sectorId: "",
@@ -19,10 +21,12 @@ const AddDevice: React.FC = () => {
         manufacturerId: undefined,
         ownerId: undefined,
         typeDeviceId: 0
-    })
+    }
+
+    const [formData, setFormData] = useState<devicePostBody>(formDataInit)
 
     const { error, isLoading, data } = useFilters()
-    const { mutate, error: errorDevicePost, isSuccess} = useCreateDevice(formData)
+    const { mutate, error: errorDevicePost, isSuccess, reset } = useCreateDevice(formData)
 
     const handleCreatePost = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
@@ -33,6 +37,11 @@ const AddDevice: React.FC = () => {
         const newFormData = { ...formData }
         newFormData[key] = value
         setFormData(newFormData)
+    }
+
+    const closeModalStatus = () => {
+        setFormData(formDataInit)
+        reset()
     }
 
     if (isLoading) return <p>Carregando...</p>;
@@ -55,7 +64,19 @@ const AddDevice: React.FC = () => {
                         <h1 className="font-black">{"Adicionar Dispositivo"}</h1>
                     </header>
                     <section className="flex flex-col w-full gap-5 p-5 bg-foreground rounded-lg max-w-4xl">
-                        <p>{errorDevicePost && JSON.stringify(errorDevicePost)}</p>
+                        {isSuccess && (
+                            <SuccessModal
+                                message="A operação foi concluída com sucesso!"
+                                onClose={() => closeModalStatus()}
+                            />
+                        )}
+                        {
+                            //modalError
+                            errorDevicePost &&
+                            <ErrorModal
+                                error={errorDevicePost}
+                                onClose={closeModalStatus} />
+                        }
                         <p>{isSuccess && "Cadastrado com sucesso"}</p>
                         <form
                             onSubmit={handleCreatePost}

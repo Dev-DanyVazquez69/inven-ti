@@ -58,7 +58,7 @@ export const createDevice = async (bodyContent: devicePostBody) => {
         body: JSON.stringify(bodyContent)
     });
     if (!response.ok) {
-        throw new Error(`Failed to create device: ${JSON.stringify(response)}`);
+        throw new Error(`Failed to create device: ${response.status}`);
     }
 
     const data: Promise<deviceProps> = response.json()
