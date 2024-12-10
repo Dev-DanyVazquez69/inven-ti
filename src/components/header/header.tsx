@@ -78,13 +78,13 @@ export const Header: React.FC<HeaderProps> = ({ title }) => {
                                         <a href="/">Inicio</a>
                                     </li>
                                     <li className="text-center hover:animate-pulse">
-                                        <a href="devices">Dispositivos</a>
+                                        <a href="/devices">Dispositivos</a>
                                     </li>
                                     <li className="text-center hover:animate-pulse">
-                                        <a href="medicines">xxxxxx</a>
+                                        <a href="/medicines">xxxxxx</a>
                                     </li>
                                     <li className="text-center hover:animate-pulse">
-                                        <a href="exams">xxxxxx</a>
+                                        <a href="/exams">xxxxxx</a>
                                     </li>
                                 </ul>
                             </section>
