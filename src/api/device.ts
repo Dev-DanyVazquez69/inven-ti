@@ -16,6 +16,8 @@ export const fetchDevices = async (filters: TypeFilter) => {
         url.searchParams.append("search", filters.search)
     if (filters.sectorId)
         url.searchParams.append("sector", filters.sectorId)
+    if (filters.typeDeviceId)
+        url.searchParams.append("typeDevice", String(filters.typeDeviceId))
 
     const response = await fetch(url.toString(), {
         method: 'GET',
@@ -58,7 +60,11 @@ export const createDevice = async (bodyContent: devicePostBody) => {
         body: JSON.stringify(bodyContent)
     });
     if (!response.ok) {
-        throw new Error(`Failed to create device: ${response.status}`);
+        const errorResponse = await response.json();
+        if (errorResponse.errorFormatBody) {
+            throw new Error("Erro de validação do body")
+        }
+        throw new Error(errorResponse.erro || "Erro desconhecido ao criar o dispositivo");
     }
 
     const data: Promise<deviceProps> = response.json()

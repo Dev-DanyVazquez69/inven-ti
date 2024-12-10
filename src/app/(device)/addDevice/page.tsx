@@ -13,13 +13,13 @@ const AddDevice: React.FC = () => {
 
     const formDataInit = {
         name: "",
-        description: null,
+        description: "",
         sectorId: "",
         collaboratorId: "",
-        image: null,
-        registerNumber: undefined,
-        manufacturerId: undefined,
-        ownerId: undefined,
+        image: "",
+        registerNumber: null,
+        manufacturerId: 0,
+        ownerId: 0,
         typeDeviceId: 0
     }
 
@@ -40,7 +40,7 @@ const AddDevice: React.FC = () => {
     }
 
     const closeModalStatus = () => {
-        setFormData(formDataInit)
+        //setFormData(formDataInit)
         reset()
     }
 
@@ -88,6 +88,7 @@ const AddDevice: React.FC = () => {
                             <input
                                 required
                                 type="text"
+                                maxLength={15}
                                 id="name"
                                 name="name"
                                 value={formData.name}
@@ -102,6 +103,7 @@ const AddDevice: React.FC = () => {
                                 type="text"
                                 id="description"
                                 name="description"
+                                maxLength={15}
                                 value={formData.description as string}
                                 onChange={(e) => changeDataForm('description', e.target.value as never)}
                                 placeholder="Insira a descrição do dispositivo"
@@ -113,16 +115,17 @@ const AddDevice: React.FC = () => {
                             <select
                                 className="bg-transparent w-full py-1 border-b border-white shadow-sm focus:outline-none focus:ring-2 focus:bg-black focus:text-white"
                                 name="collaboratorId"
+                                required
                                 value={formData.collaboratorId as string}
                                 onChange={(e) => changeDataForm('collaboratorId', e.target.value as never)}
                                 id="collaboratorId">
-                                <option value="">Não selecionado</option>
+                                <option value={""}>Não selecionado</option>
                                 {
                                     data?.filters.collaborators ?
                                         data.filters.collaborators.map((item, key) => (
                                             <option key={key} value={item.id}>{item.name}</option>
                                         )) :
-                                        <option value="">Sem opções</option>
+                                        <option value={""}>Nenhum opção disponivel</option>
                                 }
                             </select>
                             {/*Setor*/}
@@ -132,16 +135,17 @@ const AddDevice: React.FC = () => {
                             <select
                                 className="bg-transparent w-full py-1 border-b border-white shadow-sm focus:outline-none focus:ring-2 focus:bg-black focus:text-white"
                                 name="sectorId"
+                                required
                                 value={formData.sectorId as string}
                                 onChange={(e) => changeDataForm('sectorId', e.target.value as never)}
                                 id="sectorId">
-                                <option value="">Não selecionado</option>
+                                <option value={""}>Não selecionado</option>
                                 {
                                     data?.filters.sectors ?
                                         data.filters.sectors.map((item, key) => (
                                             <option key={key} value={item.id}>{item.name}</option>
                                         )) :
-                                        <option value="">Sem opções</option>
+                                        <option value={""}>Nenhum opção disponivel</option>
                                 }
                             </select>
                             {/* Fabricante */}
@@ -151,16 +155,17 @@ const AddDevice: React.FC = () => {
                             <select
                                 className="bg-transparent w-full py-1 border-b border-white shadow-sm focus:outline-none focus:ring-2 focus:bg-black focus:text-white"
                                 name="manufacturerId"
+                                required
                                 value={formData.manufacturerId as number}
                                 onChange={(e) => changeDataForm('manufacturerId', e.target.value as never)}
                                 id="manufacturerId">
-                                <option value="">Não selecionado</option>
+                                <option value={""}>Não selecionado</option>
                                 {
                                     data?.filters.manufactures ?
                                         data.filters.manufactures.map((item, key) => (
                                             <option key={key} value={item.id}>{item.name}</option>
                                         )) :
-                                        <option value="">Sem opções</option>
+                                        <option value={""}>Nenhum opção disponivel</option>
                                 }
                             </select>
                             {/* Propiedade*/}
@@ -170,16 +175,17 @@ const AddDevice: React.FC = () => {
                             <select
                                 className="bg-transparent w-full py-1 border-b border-white shadow-sm focus:outline-none focus:ring-2 focus:bg-black focus:text-white"
                                 name="ownerId"
+                                required
                                 value={formData.ownerId as number}
                                 onChange={(e) => changeDataForm('ownerId', e.target.value as never)}
                                 id="ownerId">
-                                <option value="">Não selecionado</option>
+                                <option value={""}>Não selecionado</option>
                                 {
                                     data?.filters.owners ?
                                         data.filters.owners.map((item, key) => (
                                             <option key={key} value={item.id}>{item.name}</option>
                                         )) :
-                                        <option value="">Sem opções</option>
+                                        <option value={""}>Nenhum opção disponivel</option>
                                 }
                             </select>
                             {/*Tipo de dispositivo*/}
@@ -189,16 +195,17 @@ const AddDevice: React.FC = () => {
                             <select
                                 className="bg-transparent w-full py-1 border-b border-white shadow-sm focus:outline-none focus:ring-2 focus:bg-black focus:text-white"
                                 name="typeDeviceId"
+                                required
                                 value={formData.typeDeviceId as number}
                                 onChange={(e) => changeDataForm('typeDeviceId', e.target.value as never)}
                                 id="typeDeviceId">
-                                <option value="">Não selecionado</option>
+                                <option value={""}>Não selecionado</option>
                                 {
                                     data?.filters.typeDevices ?
                                         data.filters.typeDevices.map((item, key) => (
                                             <option key={key} value={item.id}>{item.name}</option>
                                         )) :
-                                        <option value="">Sem opções</option>
+                                        <option value={""}>Nenhum opção disponivel</option>
                                 }
                             </select>
                             {/* Numero de indetificação */}
@@ -207,6 +214,7 @@ const AddDevice: React.FC = () => {
                                 htmlFor="registerNumber">Numero de Indetificação</label>
                             <input
                                 type="text"
+                                maxLength={10}
                                 id="registerNumber"
                                 name="registerNumber"
                                 placeholder="Insira o numero de indetificação"

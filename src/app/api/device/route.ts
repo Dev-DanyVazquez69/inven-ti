@@ -17,6 +17,7 @@ export async function GET(request: NextRequest) {
     const owner = searchParams.get("owner")
     const manufacturer = searchParams.get("manufacturer")
     const sector = searchParams.get("sector")
+    const typeDevice = searchParams.get("typeDevice")
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const filters: TypeFilter = {};
@@ -24,6 +25,7 @@ export async function GET(request: NextRequest) {
     if (owner) filters.ownerId = Number(owner);
     if (sector) filters.sectorId = sector
     if (manufacturer) filters.manufacturerId = Number(manufacturer)
+    if (typeDevice) filters.typeDeviceId = Number(typeDevice)
 
     if (!session)
         return NextResponse.json({ erro: "Acesso não autorizado, Faça login" }, { status: 401 })
@@ -80,6 +82,11 @@ export async function GET(request: NextRequest) {
                         name: true,
                     }
                 },
+                TypeDevice: {
+                    select: {
+                        name: true
+                    }
+                },
                 registerNumber: true,
                 createdAt: true,
                 updatedAt: true,
@@ -104,7 +111,7 @@ export async function GET(request: NextRequest) {
         }
 
         // Erro genérico
-        return NextResponse.json({ message: 'Erro interno' }, { status: 500 });
+        return NextResponse.json({ erro: 'Erro interno do servidor' }, { status: 500 });
     }
 }
 //CRIAR DISPOSITIVO
@@ -115,11 +122,13 @@ export async function POST(request: NextRequest) {
     try {
         console.log(session)
         if (!session)
-            return NextResponse.json({ erro: "Acesso não autorizado, Faça login - teste" }, { status: 401 })
+            return NextResponse.json({ erro: "Acesso não autorizado, Faça login" }, { status: 401 })
 
+        //realiza a verificação dos dados com o ZOD
         const body: devicePostRequestApi = await request.json()
         const bodyVerifiqued = devicePostSchema.parse(body);
 
+        //consulta a qual cliente o Usuário está vinculado
         const clientId = await prisma.user.findFirst({
             where: {
                 id: session.user.id
@@ -129,7 +138,13 @@ export async function POST(request: NextRequest) {
             }
         })
 
-        const [collaboratorIsValid, sectorIsValid] = await Promise.all([
+        const [nameIsUnique, collaboratorIsValid, sectorIsValid] = await Promise.all([
+
+            prisma.device.findFirst({
+                where: {
+                    name: bodyVerifiqued.name
+                }
+            }),
 
             prisma.collaborator.findFirst({
                 where: {
@@ -144,9 +159,17 @@ export async function POST(request: NextRequest) {
             }),
         ])
 
+        // Verificar se o nome informado já existe
+        if (nameIsUnique !== null)
+            return NextResponse.json({ erro: "Já existe um dispositivo com esse nome" }, { status: 500 })
+
+        //Verifica se o colaborador e o setor existem
         if ((collaboratorIsValid === null) || (sectorIsValid === null))
             return NextResponse.json({ erro: "o id do colaborador ou setor não correspodem a nenhum registro" }, { status: 401 })
+
         console.log(bodyVerifiqued)
+
+        //cadastrar o novo dispositivo
         const newDevice = await prisma.device.create({
             data: {
                 name: bodyVerifiqued.name,
@@ -168,6 +191,6 @@ export async function POST(request: NextRequest) {
         if (error instanceof z.ZodError) {
             return NextResponse.json({ errorFormatBody: error.errors }, { status: 400 });
         }
-        return NextResponse.json({ error: `Erro do servidor - ${error}` }, { status: 500 });
+        return NextResponse.json({ erro: `Erro do servidor - ${error}` }, { status: 500 });
     }
 }
