@@ -39,10 +39,10 @@ export const Header: React.FC<HeaderProps> = ({ title }) => {
                             <a href="/devices">Dispositivos</a>
                         </li>
                         <li className="hover:animate-pulse">
-                            <a href="/medicines">xxxxxx</a>
+                            <a href="/sectors">Setores</a>
                         </li>
                         <li className="hover:animate-pulse">
-                            <a href="/exams">xxxxxx</a>
+                            <a href="/collaborators">Colaboradores</a>
                         </li>
                     </ul>
                 </div>
@@ -78,13 +78,13 @@ export const Header: React.FC<HeaderProps> = ({ title }) => {
                                         <a href="/">Inicio</a>
                                     </li>
                                     <li className="text-center hover:animate-pulse">
-                                        <a href="devices">Dispositivos</a>
+                                        <a href="/devices">Dispositivos</a>
                                     </li>
                                     <li className="text-center hover:animate-pulse">
-                                        <a href="medicines">xxxxxx</a>
+                                        <a href="/sectors">Setores</a>
                                     </li>
                                     <li className="text-center hover:animate-pulse">
-                                        <a href="exams">xxxxxx</a>
+                                        <a href="/collaborators">Colaboradores</a>
                                     </li>
                                 </ul>
                             </section>
