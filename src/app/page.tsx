@@ -3,7 +3,6 @@ import DesktopMacIcon from '@mui/icons-material/DesktopMac';
 import LaptopChromebookIcon from '@mui/icons-material/LaptopChromebook';
 import MouseIcon from '@mui/icons-material/Mouse';
 import BusinessIcon from '@mui/icons-material/Business';
-import PrintIcon from '@mui/icons-material/Print';
 import Link from "next/link";
 
 export default async function Home() {
@@ -74,22 +73,11 @@ export default async function Home() {
           </div>
         </section>
         <section className="bg-foreground w-full max-w-4xl flex-1 rounded-xl flex flex-col justify-between p-3">
-          <h1 className="font-extrabold">Gerenciar</h1>
-            <ul className="text-center flex-col bg-green-500 w-full flex-wrap">
-              <li>
-                <PrintIcon />
-                <h5>Cobep</h5>
-                <p>..50.82</p>
-              </li>
-              <li>
-                <PrintIcon />
-                <h5>Supre</h5>
-                <p>..50.69</p>
-              </li>
-              <li>
-                <MouseIcon />
-                <h5>Coadi</h5>
-                <p>..50.89</p>
+          <h1 className="fon-extrabold">Gerenciar</h1>
+            <ul className="flex-col w-full flex-wrap">
+              <li className="flex justify-evenly gap-5">
+                <h5>Setores</h5>
+                <button>Gerenciar</button>
               </li>
             </ul>
           <div className="flex items-end justify-end">
