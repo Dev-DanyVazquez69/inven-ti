@@ -8,7 +8,7 @@ interface ErrorRequestProps {
     error: Error
 }
 
-const LottieAnimation = dynamic(() => import("@/components/(lottieAnimation)/404/lottie"), {
+const LottieAnimation = dynamic(() => import("@/components/(lottieAnimation)/error/lottie"), {
     ssr: false,
 });
 

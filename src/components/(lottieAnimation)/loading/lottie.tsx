@@ -1,7 +1,7 @@
-import animationData from "../../../../public/assets/animations/error.json"; // Coloque aqui o caminho para o arquivo JSON da animação
+import animationData from "../../../../public/assets/animations/404.json"; // Coloque aqui o caminho para o arquivo JSON da animação
 import Lottie from 'react-lottie';
 
-export default function LottieConfError() {
+export default function LottieConf404() {
 
     const defaultOptions = {
         loop: true,
@@ -15,7 +15,7 @@ export default function LottieConfError() {
     return (
         <Lottie
             options={defaultOptions}
-            style={{ width: '100%', height: '65', maxHeight:'225px' }}
+            style={{ width: '100%', height: '100%' }}
             isStopped={false} // Controle manual para parar
             isPaused={false}  // Controle manual para pausar
         />

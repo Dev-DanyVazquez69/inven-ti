@@ -8,6 +8,8 @@ import { useState } from "react";
 import { devicePostBody, ItemsDevicePostBody } from "@/interfaces/devices";
 import SuccessModal from "@/components/modalStatus/successModal";
 import ErrorModal from "@/components/modalStatus/errorModal";
+import ErrorRequest from "@/components/statusApi/errorApi";
+import LoadingRequest from "@/components/statusApi/loadingApi";
 
 const AddDevice: React.FC = () => {
 
@@ -44,8 +46,8 @@ const AddDevice: React.FC = () => {
         reset()
     }
 
-    if (isLoading) return <p>Carregando...</p>;
-    if (error) return <p>Ocorreu um erro: {(error as Error).message}</p>;
+    if (isLoading) return <LoadingRequest />
+    if (error) return <ErrorRequest error={error} />
 
     return (
         <>

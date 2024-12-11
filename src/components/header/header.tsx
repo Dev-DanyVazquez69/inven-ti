@@ -81,7 +81,7 @@ export const Header: React.FC<HeaderProps> = ({ title }) => {
                                         <a href="/devices">Dispositivos</a>
                                     </li>
                                     <li className="text-center hover:animate-pulse">
-                                        <a href="/sectors">Setores</a>
+         <a href="/sectors">Setores</a>
                                     </li>
                                     <li className="text-center hover:animate-pulse">
                                         <a href="/collaborators">Colaboradores</a>

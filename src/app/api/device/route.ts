@@ -120,7 +120,7 @@ export async function POST(request: NextRequest) {
     const session = await auth()
 
     try {
-        console.log(session)
+        console.log(`sessão do usuário: ${session}`)
         if (!session)
             return NextResponse.json({ erro: "Acesso não autorizado, Faça login" }, { status: 401 })
 
@@ -166,10 +166,8 @@ export async function POST(request: NextRequest) {
         //Verifica se o colaborador e o setor existem
         if ((collaboratorIsValid === null) || (sectorIsValid === null))
             return NextResponse.json({ erro: "o id do colaborador ou setor não correspodem a nenhum registro" }, { status: 401 })
+        console.log(`Dados para criação do dispositivo ${bodyVerifiqued}`)
 
-        console.log(bodyVerifiqued)
-
-        //cadastrar o novo dispositivo
         const newDevice = await prisma.device.create({
             data: {
                 name: bodyVerifiqued.name,
