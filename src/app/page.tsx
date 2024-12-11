@@ -74,9 +74,8 @@ export default async function Home() {
           </div>
         </section>
         <section className="bg-foreground w-full max-w-4xl flex-1 rounded-xl flex flex-col justify-between p-3">
-          <h1 className="font-extrabold">Endereços</h1>
-          <div className="flex justify-around items-center">
-            <ul className="text-center flex flex-row w-full justify-around">
+          <h1 className="font-extrabold">Gerenciar</h1>
+            <ul className="text-center flex-col bg-green-500 w-full flex-wrap">
               <li>
                 <PrintIcon />
                 <h5>Cobep</h5>
@@ -93,7 +92,6 @@ export default async function Home() {
                 <p>..50.89</p>
               </li>
             </ul>
-          </div>
           <div className="flex items-end justify-end">
             <button className="p-1 bg-buttom text-xs rounded-sm">Ver mais</button>
           </div>

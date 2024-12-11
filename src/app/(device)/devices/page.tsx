@@ -10,17 +10,19 @@ import { useFilters } from "@/hooks/filters";
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { useDevices } from "@/hooks/device";
 
+const initalFilters = {
+    search: "",
+    collaboratorId: "",
+    manufacturerId: 0,
+    ownerId: 0,
+    sectorId: ""
+}
+
 const Devices: React.FC = () => {
 
-    const [filters, setFilters] = useState<TypeFilter>({
-        search: "",
-        collaboratorId: "",
-        manufacturerId: 0,
-        ownerId: 0,
-        sectorId: ""
-    })
+    const [filters, setFilters] = useState<TypeFilter>(initalFilters)
     const [modalFilter, setModalFilter] = useState<boolean>(false)
-    const { data, isLoading, error, refetch, isSuccess } = useDevices(filters);
+    const { data, isLoading, error, refetch } = useDevices(filters);
     const { data: dataFilter, isLoading: loadingFilter, error: errorFilter } = useFilters()
 
 
@@ -29,10 +31,12 @@ const Devices: React.FC = () => {
         newFilter[key] = value
         setFilters(newFilter)
     }
-
     const handleFilter = () => {
         setModalFilter(false)
         refetch()
+    }
+    const ResetFilters = () => {
+        setFilters(initalFilters)
     }
 
     if (isLoading || loadingFilter) return <p>Carregando...</p>;
@@ -53,6 +57,10 @@ const Devices: React.FC = () => {
                             <AddCircleOutlineIcon />
                             <p>Adicionar</p>
                         </Link>
+                        {
+                            data &&
+                            <p>{`Total: ${data.devices.length}`}</p>
+                        }
                         <button
                             onClick={() => setModalFilter(true)}
                             className="flex justify-end items-center gap-2 p-2 size-fit ">
@@ -60,6 +68,7 @@ const Devices: React.FC = () => {
                             <FilterListIcon />
                         </button>
                     </div>
+
                 </div>
                 <div className="flex w-full max-w-4xl flex-col bg-foreground rounded-xl items-end">
                     <table className="w-full border-collapse">
@@ -68,30 +77,34 @@ const Devices: React.FC = () => {
                                 <th>Nome</th>
                                 <th>Setor</th>
                                 <th>Usuário</th>
-                                <th>Marca</th>
+                                <th>Tipo</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
                             {
-                                isSuccess &&
-                                data?.devices.map((device, index) => {
-                                    return (
-                                        <tr key={index} className="text-center border-b border-white h-20 hover:bg-buttom/10 rounded-xl overflow-hidden  text-xs sm:text-base">
-                                            <td className="">{device.name}</td>
-                                            <td className="">{device.Sector.name}</td>
-                                            <td className="">{device.Collaborator.name}</td>
-                                            <td>{device.Sector.name}</td>
-                                            <td>
-                                                <Link
-                                                    href={`/devices/${device.id}`}>
-                                                    <VisibilityIcon />
-                                                </Link>
-                                            </td>
-                                        </tr>
+                                data?.devices.length !== 0 ?
+                                    data?.devices.map((device, index) => {
+                                        return (
+                                            <tr key={index} className="text-center border-b border-white h-20 hover:bg-buttom/10 rounded-xl overflow-hidden  text-xs sm:text-base">
+                                                <td className="">{device.name ?? "Não definido"}</td>
+                                                <td className="">{device.Sector.name ?? "Não definido"}</td>
+                                                <td className="">{device.Collaborator.name ?? "Não definido"}</td>
+                                                <td className="">{device.TypeDevice.name ?? "Não definido"}</td>
+                                                <td>
+                                                    <Link
+                                                        href={`/devices/${device.id}`}>
+                                                        <VisibilityIcon />
+                                                    </Link>
+                                                </td>
+                                            </tr>
+                                        )
+                                    }
                                     )
-                                }
-                                )
+                                    :
+                                    <tr className="text-center border-b border-white h-20 hover:bg-buttom/10 rounded-xl overflow-hidden  text-xs sm:text-base">
+                                        <td className="">{"Não há dispositivos cadastrados"}</td>
+                                    </tr>
                             }
                         </tbody>
                     </table>
@@ -99,9 +112,23 @@ const Devices: React.FC = () => {
                 {
                     modalFilter &&
                     <div className="fixed inset-0 flex items-center justify-center">
-                        <div className="bg-white rounded-lg shadow-lg h-1/2 md:h-3/5 w-3/4 max-w-2xl flex flex-col p-4 justify-around">
+                        <div className="bg-white rounded-lg shadow-lg h-2/3 md:h-3/4 w-3/4 max-w-2xl flex flex-col p-4 justify-around">
                             <h2 className="text-xl font-bold text-black text-center">Filtre o resultado</h2>
                             <div className="flex-1 flex flex-col text-black gap-3 p-2 justify-center">
+                                <div className="flex flex-col gap-2">
+                                    <label
+                                        className="text-background font-bold"
+                                        htmlFor="search">Nome</label>
+                                    {/* Usuário */}
+                                    <input
+                                        type="text"
+                                        className="text-xs block w-full px-4 py-1 border border-background rounded-md shadow-sm focus:outline-none focus:ring-2 focus:bg-buttom focus:text-white"
+                                        name="search"
+                                        id="search"
+                                        value={filters.search}
+                                        onChange={(e) => changeFilters('search', e.target.value as never)}>
+                                    </input>
+                                </div>
                                 <div className="flex flex-col gap-2">
                                     <label
                                         className="text-background font-bold"
@@ -166,7 +193,7 @@ const Devices: React.FC = () => {
                                     </select>
                                 </div>
                                 <div>
-                                    {/* Fabricante */}
+                                    {/* setor */}
                                     <label
                                         className="text-background font-bold"
                                         htmlFor="sector">Setor</label>
@@ -186,12 +213,38 @@ const Devices: React.FC = () => {
                                         }
                                     </select>
                                 </div>
+                                <div>
+                                    {/* Tipo de dispositivo */}
+                                    <label
+                                        className="text-background font-bold"
+                                        htmlFor="typeDevice">Tipo de dispositivo</label>
+                                    <select
+                                        className="block text-xs w-full px-4 py-1 border border-background rounded-md shadow-sm focus:outline-none focus:ring-2 focus:bg-buttom focus:text-white"
+                                        name="typeDevice"
+                                        id="typeDevice"
+                                        value={filters.typeDeviceId}
+                                        onChange={(e) => changeFilters('typeDeviceId', e.target.value as never)}>
+                                        <option value="">Não selecionado</option>
+                                        {
+                                            dataFilter?.filters.typeDevices ?
+                                                dataFilter.filters.typeDevices.map((item, key) => (
+                                                    <option key={key} value={item.id}>{item.name}</option>
+                                                )) :
+                                                <option value="">Sem opções</option>
+                                        }
+                                    </select>
+                                </div>
                             </div>
                             <div className="flex w-full justify-around">
                                 <button
                                     className="bg-buttom px-4 py-2 rounded-lg size-fit sm:w-40"
                                     onClick={handleFilter}>
                                     Filtrar
+                                </button>
+                                <button
+                                    className="bg-buttom px-4 py-2 rounded-lg size-fit sm:w-40"
+                                    onClick={() => ResetFilters()}>
+                                    Limpar
                                 </button>
                                 <button
                                     className="bg-buttom px-4 py-2 rounded-lg size-fit sm:w-40"

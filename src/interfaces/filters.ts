@@ -4,6 +4,7 @@ export type TypeFilter = {
     sectorId?: string;
     ownerId?: number;
     manufacturerId?: number;
+    typeDeviceId?: number
 
 }
 

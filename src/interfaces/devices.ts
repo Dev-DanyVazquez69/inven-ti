@@ -11,12 +11,15 @@ export interface devicesProps {
             name: string
         },
         Manufacturer: {
-            nome: string
+            name: string
         },
         Owner: {
-            nome: string
+            name: string
         },
         Sector: {
+            name: string
+        },
+        TypeDevice: {
             name: string
         },
         registerNumber: number,
@@ -46,6 +49,9 @@ export interface deviceProps {
         Sector: {
             name: string
         },
+        TypeDevice: {
+            name: string
+        },
         registerNumber: number,
         createdAt: Date,
         updatedAt: Date
@@ -68,7 +74,7 @@ export interface devicePostBody {
     name: string;
     description?: string | undefined | null,
     sectorId: string;
-    collaboratorId: string;
+    collaboratorId: string | undefined;
     image: string | undefined | null,
     registerNumber: number | undefined | null,
     manufacturerId: number | undefined | null,
@@ -76,6 +82,6 @@ export interface devicePostBody {
     typeDeviceId: number
 }
 
-export type ItemsDevicePostRequest = keyof devicePostRequestApi 
+export type ItemsDevicePostRequest = keyof devicePostRequestApi
 
 export type ItemsDevicePostBody = keyof devicePostBody
