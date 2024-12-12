@@ -20,7 +20,7 @@ const LoadingRequest: React.FC = () => {
             <h1 className="text-4xl font-bold">Carregando</h1>
             <div className="w-72 md:w-80 h-48 md:h-56 lg:h-60">
                 <p>Carregando...</p>
-                {/* {isClient && <LottieAnimation />} Só renderiza no cliente */}
+                {isClient && <LottieAnimation />}// Só renderiza no cliente
             </div>
         </div>
     );
