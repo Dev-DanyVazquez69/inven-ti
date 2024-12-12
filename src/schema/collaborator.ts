@@ -8,7 +8,7 @@ export const collaboratorUpdateSchema = z.object({
 })
 
 export const collaboratorPostSchema = z.object({
-    name: z.string().min(1, "o nome do setor é obrigatório"),
-    imageProfile: z.string().min(1).optional(),
-    sectorId: z.string().cuid(),
+    name: z.string().min(1, "o nome do Colaborador é obrigatório"),
+    imageProfile: z.string().min(1).optional().nullish(),
+    sectorId: z.string().min(1, "O setor do colaborador é obrigatório").cuid(),
 })

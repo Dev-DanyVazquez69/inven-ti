@@ -36,6 +36,8 @@ model Client {
   device       Device[]
   Owner        Owner[]
   Manufacturer Manufacturer[]
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
 }
 
 model Collaborator {
@@ -45,8 +47,11 @@ model Collaborator {
   clientId     String
   sectorId     String?
   Device       Device[]
-  sector       Sector?  @relation(fields: [sectorId], references: [id], onDelete: SetNull)
-  client       Client   @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  sector Sector? @relation(fields: [sectorId], references: [id], onDelete: SetNull)
+  client Client  @relation(fields: [clientId], references: [id], onDelete: Cascade)
 }
 
 model Device {
@@ -79,14 +84,19 @@ model Sector {
   clientId     String
   Device       Device[]
   Collaborator Collaborator[]
-  Client       Client         @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+
+  Client Client @relation(fields: [clientId], references: [id], onDelete: Cascade)
 }
 
 model Manufacturer {
-  id       Int      @id @default(autoincrement())
-  name     String   @unique
-  clientId String
-  Device   Device[]
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  clientId  String
+  Device    Device[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   Client Client @relation(fields: [clientId], references: [id], onDelete: Cascade)
 }
@@ -96,6 +106,8 @@ model Owner {
   name     String   @unique
   clientId String
   Device   Device[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   Client Client @relation(fields: [clientId], references: [id], onDelete: Cascade)
 }
@@ -104,6 +116,9 @@ model TypeDevice {
   id     Int      @id @default(autoincrement())
   name   String
   Device Device[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 ///////////////////////////////////////////////

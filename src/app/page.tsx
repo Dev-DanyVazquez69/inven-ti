@@ -45,53 +45,42 @@ export default async function Home() {
           </div>
         </section>
         <section className="bg-foreground w-full max-w-4xl flex-1 rounded-xl flex flex-col justify-between p-3">
-          <h1 className="font-extrabold">Usuários</h1>
+          <h1 className="font-extrabold">Colaboradores</h1>
           <div className="flex justify-around items-center">
             <ul className="text-center flex w-full justify-around">
               <li>
                 <BusinessIcon />
                 <h5>Cobep</h5>
                 <p>8</p>
-
-              </li>
-              <li>
-                <BusinessIcon />
-                <h5>Supre</h5>
-                <p>5</p>
-
-              </li>
-              <li>
-                <BusinessIcon />
-                <h5>Gabinete</h5>
-                <p>7</p>
-
               </li>
             </ul>
           </div>
           <div className="flex items-end justify-end">
-            <button className="p-1 bg-buttom text-xs rounded-sm">Ver mais</button>
+            <Link href={"/collaborators"} className="p-1 bg-buttom text-xs rounded-sm">Ver mais</Link>
           </div>
         </section>
-        <section className="bg-foreground w-full max-w-4xl flex-1 rounded-xl flex flex-col justify-between p-3">
+
+        <section className="bg-foreground w-full max-w-4xl flex-1 rounded-xl flex flex-col justify-around p-2">
           <h1 className="font-extrabold">Gerenciar</h1>
-            <ul className="flex-col w-full flex-wrap px-5">
-              <li className="flex justify-between items-center gap-5 p-1">
-                <h5>Setores</h5>
-                <button className="p-1 bg-buttom rounded-md">Gerenciar</button>
-              </li>
-              <li className="flex justify-between items-center gap-5 p-1">
-                <h5>Propiedades</h5>
-                <button className="p-1 bg-buttom rounded-md">Gerenciar</button>
-              </li>
-              <li className="flex justify-between items-center gap-5 p-1">
-                <h5>Fabricantes</h5>
-                <button className="p-1 bg-buttom rounded-md">Gerenciar</button>
-              </li>
-              <li className="flex justify-between items-center gap-5 p-1">
-                <h5>Tipos de dispositivos</h5>
-                <button className="p-1 bg-buttom rounded-md">Gerenciar</button>
-              </li>
-            </ul>
+          <ul className="flex-col w-full px-5">
+            <li className="flex justify-between gap-5 my-2 items-center">
+              <h5>Setores</h5>
+              <button className="bg-buttom p-1 rounded-sm">Gerenciar</button>
+            </li>
+            <li className="flex justify-between gap-5 my-2 items-center">
+              <h5>Fabricantes</h5>
+              <button className="bg-buttom p-1 rounded-sm">Gerenciar</button>
+            </li>
+            <li className="flex justify-between gap-5 my-2 items-center">
+              <h5>Propietários</h5>
+              <button className="bg-buttom p-1 rounded-sm">Gerenciar</button>
+            </li>
+            <li className="flex justify-between gap-5 my-2 items-center">
+              <h5>Tipo de Dispositivo</h5>
+              <button className="bg-buttom p-1 rounded-sm">Gerenciar</button>
+            </li>
+          </ul>
+
         </section>
       </main>
     </>
