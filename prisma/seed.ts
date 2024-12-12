@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client'
+import { hashSync } from 'bcrypt-ts'
 const prisma = new PrismaClient()
 
 const seed = async () => {
@@ -8,6 +9,15 @@ const seed = async () => {
             data: {
                 id: "cm3kkkvno000f356gz3qxuokt",
                 name: "Ipam",
+            }
+        }),
+        await prisma.user.create({
+            data: {
+                id: "cm4a86z3700009kpe7mk0pwpi",
+                name: "Daniel",
+                email: "daniel@inventi.com.br",
+                clientId: "cm3kkkvno000f356gz3qxuokt",
+                password: hashSync("Daniel@inventi123")
             }
         }),
         //criar setor padrão

@@ -1,4 +1,4 @@
-export type TypeFilter = {
+export type TypeFilterDevice = {
     search?: string;
     collaboratorId?: string;
     sectorId?: string;
@@ -6,6 +6,11 @@ export type TypeFilter = {
     manufacturerId?: number;
     typeDeviceId?: number
 
+}
+
+export type TypeFilterCollaborator = {
+    search?: string;
+    sectorId?: string;
 }
 
 export interface PropGetFilters {
@@ -36,4 +41,5 @@ export interface PropGetFilters {
     }
 }
 
-export type ItemsFilters = keyof TypeFilter 
+export type ItemsFiltersDevice = keyof TypeFilterDevice
+export type ItemsFiltersCollaborator = keyof TypeFilterCollaborator

@@ -6,8 +6,8 @@ import Image from "next/image";
 import { useCreateDevice } from "@/hooks/device";
 import { useState } from "react";
 import { devicePostBody, ItemsDevicePostBody } from "@/interfaces/devices";
-import SuccessModal from "@/components/modalStatus/successModal";
-import ErrorModal from "@/components/modalStatus/errorModal";
+import SuccessModal from "@/components/modal/successApi";
+import ErrorModal from "@/components/modal/errorApi";
 import ErrorRequest from "@/components/statusApi/errorApi";
 import LoadingRequest from "@/components/statusApi/loadingApi";
 

@@ -5,7 +5,7 @@ import FilterListIcon from '@mui/icons-material/FilterList';
 import { useState } from "react";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import Link from "next/link";
-import { ItemsFilters, TypeFilter } from "@/interfaces/filters";
+import { ItemsFiltersDevice, TypeFilterDevice } from "@/interfaces/filters";
 import { useFilters } from "@/hooks/filters";
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { useDevices } from "@/hooks/device";
@@ -20,13 +20,13 @@ const initalFilters = {
 
 const Devices: React.FC = () => {
 
-    const [filters, setFilters] = useState<TypeFilter>(initalFilters)
+    const [filters, setFilters] = useState<TypeFilterDevice>(initalFilters)
     const [modalFilter, setModalFilter] = useState<boolean>(false)
     const { data, isLoading, error, refetch } = useDevices(filters);
     const { data: dataFilter, isLoading: loadingFilter, error: errorFilter } = useFilters()
 
 
-    const changeFilters = (key: ItemsFilters, value: string & number & undefined) => {
+    const changeFilters = (key: ItemsFiltersDevice, value: string & number & undefined) => {
         const newFilter = { ...filters }
         newFilter[key] = value
         setFilters(newFilter)
@@ -88,9 +88,9 @@ const Devices: React.FC = () => {
                                         return (
                                             <tr key={index} className="text-center border-b border-white h-20 hover:bg-buttom/10 rounded-xl overflow-hidden  text-xs sm:text-base">
                                                 <td className="">{device.name ?? "Não definido"}</td>
-                                                <td className="">{device.Sector.name ?? "Não definido"}</td>
-                                                <td className="">{device.Collaborator.name ?? "Não definido"}</td>
-                                                <td className="">{device.TypeDevice.name ?? "Não definido"}</td>
+                                                <td className="">{device.Sector?.name ?? "Não definido"}</td>
+                                                <td className="">{device.Collaborator?.name ?? "Não definido"}</td>
+                                                <td className="">{device.TypeDevice?.name ?? "Não definido"}</td>
                                                 <td>
                                                     <Link
                                                         href={`/devices/${device.id}`}>

@@ -1,7 +1,7 @@
 import { devicePostBody, deviceProps, devicesProps } from "@/interfaces/devices";
-import { TypeFilter } from "@/interfaces/filters";
+import { TypeFilterDevice } from "@/interfaces/filters";
 
-export const fetchDevices = async (filters: TypeFilter) => {
+export const fetchDevices = async (filters: TypeFilterDevice) => {
 
     const patch = "/api/device"
     const url = new URL(patch, window.location.origin)

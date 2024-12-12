@@ -1,6 +1,6 @@
 import React from "react"
 import { Header } from "@/components/header/header"
-import DeviceIdDetails from "@/components/deviceIdDetails/devideIdDetails"
+import DeviceIdDetails from "@/components/itemsDetails/devideIdDetails"
 
 
 const Device = async ({

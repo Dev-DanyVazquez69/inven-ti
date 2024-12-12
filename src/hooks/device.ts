@@ -1,9 +1,9 @@
 import { createDevice, fetchDevice, fetchDevices } from "@/api/device";
 import { devicePostBody } from "@/interfaces/devices";
-import { TypeFilter } from "@/interfaces/filters";
+import { TypeFilterDevice } from "@/interfaces/filters";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
-export const useDevices = (filters: TypeFilter) => {
+export const useDevices = (filters: TypeFilterDevice) => {
 
     return useQuery({
         queryKey: ["devices"],
