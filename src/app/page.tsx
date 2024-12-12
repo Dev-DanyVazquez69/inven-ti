@@ -59,6 +59,7 @@ export default async function Home() {
             <Link href={"/collaborators"} className="p-1 bg-buttom text-xs rounded-sm">Ver mais</Link>
           </div>
         </section>
+
         <section className="bg-foreground w-full max-w-4xl flex-1 rounded-xl flex flex-col justify-around p-2">
           <h1 className="font-extrabold">Gerenciar</h1>
           <ul className="flex-col w-full px-5">
@@ -79,6 +80,7 @@ export default async function Home() {
               <button className="bg-buttom p-1 rounded-sm">Gerenciar</button>
             </li>
           </ul>
+
         </section>
       </main>
     </>

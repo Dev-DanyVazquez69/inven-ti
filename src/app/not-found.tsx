@@ -23,7 +23,7 @@ const NotFound = () => {
                 {isClient && <LottieAnimation />} {/* Só renderiza no cliente */}
             </div>
             <Link
-                className="bg-background p-2 rounded"
+                className="bg-buttom p-2 rounded"
                 href={'/'}>Retorne ao inicio</Link>
         </div>
     );
