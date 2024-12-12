@@ -73,16 +73,25 @@ export default async function Home() {
           </div>
         </section>
         <section className="bg-foreground w-full max-w-4xl flex-1 rounded-xl flex flex-col justify-between p-3">
-          <h1 className="fon-extrabold">Gerenciar</h1>
-            <ul className="flex-col w-full flex-wrap">
-              <li className="flex justify-evenly gap-5">
+          <h1 className="font-extrabold">Gerenciar</h1>
+            <ul className="flex-col w-full flex-wrap px-5">
+              <li className="flex justify-between items-center gap-5 p-1">
                 <h5>Setores</h5>
-                <button>Gerenciar</button>
+                <button className="p-1 bg-buttom rounded-md">Gerenciar</button>
+              </li>
+              <li className="flex justify-between items-center gap-5 p-1">
+                <h5>Propiedades</h5>
+                <button className="p-1 bg-buttom rounded-md">Gerenciar</button>
+              </li>
+              <li className="flex justify-between items-center gap-5 p-1">
+                <h5>Fabricantes</h5>
+                <button className="p-1 bg-buttom rounded-md">Gerenciar</button>
+              </li>
+              <li className="flex justify-between items-center gap-5 p-1">
+                <h5>Tipos de dispositivos</h5>
+                <button className="p-1 bg-buttom rounded-md">Gerenciar</button>
               </li>
             </ul>
-          <div className="flex items-end justify-end">
-            <button className="p-1 bg-buttom text-xs rounded-sm">Ver mais</button>
-          </div>
         </section>
       </main>
     </>
