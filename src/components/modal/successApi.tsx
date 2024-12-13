@@ -2,10 +2,10 @@ import { useState, useEffect } from "react";
 
 interface SuccessModalProps {
     message: string;
-    onClose: () => void;
+    onFinally: () => void;
 }
 
-const SuccessModal: React.FC<SuccessModalProps> = ({ message, onClose }) => {
+const SuccessModal: React.FC<SuccessModalProps> = ({ message, onFinally }) => {
     const [progress, setProgress] = useState(100);
 
     useEffect(() => {
@@ -13,12 +13,12 @@ const SuccessModal: React.FC<SuccessModalProps> = ({ message, onClose }) => {
             setProgress((prev) => (prev > 0 ? prev - 2 : 0));
         }, 100);
 
-        const timeout = setTimeout(onClose, 5000);
+        const timeout = setTimeout(onFinally, 5000);
         return () => {
             clearInterval(interval);
             clearTimeout(timeout);
         };
-    }, [onClose]);
+    }, [onFinally]);
 
     return (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">

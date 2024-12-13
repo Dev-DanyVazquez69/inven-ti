@@ -87,7 +87,7 @@ const Collaborators: React.FC = () => {
                     {isSuccess && (
                         <SuccessModal
                             message="A operação foi concluída com sucesso!"
-                            onClose={() => closeModalStatus()}
+                            onFinally={() => closeModalStatus()}
                         />
                     )}
                     {
