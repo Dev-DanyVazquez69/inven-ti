@@ -2,7 +2,7 @@
   "name": "inven-ti",
   "version": "0.1.0",
   "prisma": {
-    "seed": "ts-node --project tsconfig.seed.json prisma/seed.ts"
+    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
 
   },
   "private": true,
