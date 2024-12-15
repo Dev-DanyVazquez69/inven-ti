@@ -16,13 +16,10 @@ export const useCollaborators = (filters: TypeFilterCollaborator) => {
 export const useCollaborator = (collaboratorId: string) => {
 
     return useQuery({
-        queryKey: ["collaborator"],
+        queryKey: ["collaborator", collaboratorId],
         queryFn: () => fetchCollaborator(collaboratorId),
-        staleTime: 1000 * 60 * 5, // Cache válido por 5 minutos
-
     });
 };
-
 
 export const useCreateCollaborator = (bodyContent: bodyPostCollaborator) => {
 
@@ -45,7 +42,7 @@ export const useUpdateCollaborator = (bodyContent: bodyPostCollaborator, collabo
         mutationKey: ["collaboratorsUpdate"],
         mutationFn: () => UpdateCollaborator(bodyContent, collaboratorId),
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['collaborators'] })
+            queryClient.invalidateQueries({ queryKey: ['collaborator', 'collaborators'] })
         },
     });
 };

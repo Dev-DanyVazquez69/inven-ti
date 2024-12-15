@@ -1,5 +1,6 @@
 import { devicePostBody, deviceProps, devicesProps } from "@/interfaces/devices";
 import { TypeFilterDevice } from "@/interfaces/filters";
+import handleFetchErrors from "./error";
 
 export const fetchDevices = async (filters: TypeFilterDevice) => {
 
@@ -25,14 +26,9 @@ export const fetchDevices = async (filters: TypeFilterDevice) => {
             'content-type': 'application/json'
         },
     });
-    if (!response.ok) {
-        throw new Error(`Failed to fetch devices: ${response.status}`);
-    }
 
-    const data: Promise<devicesProps> = response.json()
-    return data;
+    return handleFetchErrors<devicesProps>(response)
 };
-
 
 export const fetchDevice = async (deviceId: string) => {
 
@@ -42,12 +38,8 @@ export const fetchDevice = async (deviceId: string) => {
             'content-type': 'application/json'
         },
     });
-    if (!response.ok) {
-        throw new Error(`Failed to fetch devices: ${response.status}`);
-    }
 
-    const data: Promise<deviceProps> = response.json()
-    return data;
+    return handleFetchErrors<deviceProps>(response)
 };
 
 export const createDevice = async (bodyContent: devicePostBody) => {
@@ -59,14 +51,6 @@ export const createDevice = async (bodyContent: devicePostBody) => {
         },
         body: JSON.stringify(bodyContent)
     });
-    if (!response.ok) {
-        const errorResponse = await response.json();
-        if (errorResponse.errorFormatBody) {
-            throw new Error("Erro de validação do body")
-        }
-        throw new Error(errorResponse.erro || "Erro desconhecido ao criar o dispositivo");
-    }
 
-    const data: Promise<deviceProps> = response.json()
-    return data;
+    return handleFetchErrors<deviceProps>(response)
 };

@@ -12,7 +12,7 @@ const SuccessModal: React.FC<SuccessModalProps> = ({ message, onFinally }) => {
         const interval = setInterval(() => {
             setProgress((prev) => (prev > 0 ? prev - 2 : 0));
         }, 100);
-
+        
         const timeout = setTimeout(onFinally, 5000);
         return () => {
             clearInterval(interval);

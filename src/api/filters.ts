@@ -1,4 +1,5 @@
 import { PropGetFilters } from "@/interfaces/filters";
+import handleFetchErrors from "./error";
 
 export const fetchFilters = async () => {
 
@@ -8,10 +9,6 @@ export const fetchFilters = async () => {
             'content-type': 'application/json'
         },
     });
-    if (!response.ok) {
-        throw new Error(`Failed to fetch devices: ${response.status}`);
-    }
-
-    const data: Promise<PropGetFilters> = response.json()
-    return data;
+ 
+    return handleFetchErrors<PropGetFilters>(response)
 };

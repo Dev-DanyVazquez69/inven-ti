@@ -1,10 +1,10 @@
-import { z } from 'zod';
 import { NextResponse, NextRequest } from "next/server";
 import { prisma } from "@/lib/db";
 import { TypeFilterDevice } from '@/interfaces/filters';
 import { auth } from '@/app/auth';
 import { bodyPostCollaborator } from '@/interfaces/collaborator';
 import { collaboratorPostSchema } from '@/schema/collaborator';
+import { handleApiError } from '@/app/utils/handleApiError';
 
 //CONSULTAR COLABORADORES
 export async function GET(request: NextRequest) {
@@ -75,16 +75,7 @@ export async function GET(request: NextRequest) {
         return NextResponse.json({ collaborators: collaborators }, { status: 200 })
 
     } catch (error) {
-        if (error instanceof z.ZodError) {
-
-            return NextResponse.json(
-                { errors: error.errors.map((err) => ({ path: err.path, message: err.message })) },
-                { status: 400 }
-            );
-        }
-
-        // Erro genérico
-        return NextResponse.json({ erro: 'Erro interno do servidor' }, { status: 500 });
+        return handleApiError(error);
     }
 }
 //CRIAR COLABORADOR
@@ -126,7 +117,7 @@ export async function POST(request: NextRequest) {
 
         // Verificar se o nome informado já existe
         if (nameIsUnique !== null)
-            return NextResponse.json({ erro: "Já existe um Setor com esse nome" }, { status: 500 })
+            return NextResponse.json({ erro: "Já existe um Colaborador com esse nome" }, { status: 500 })
 
         //Verifica se o colaborador e o setor existem
         if (sectorIsValid === null)
@@ -144,9 +135,6 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({ sucesso: newCollaborator }, { status: 201 })
 
     } catch (error) {
-        if (error instanceof z.ZodError) {
-            return NextResponse.json({ errorFormatBody: error.errors }, { status: 400 });
-        }
-        return NextResponse.json({ erro: `Erro do servidor - ${error}` }, { status: 500 });
+        return handleApiError(error);
     }
 }

@@ -1,5 +1,6 @@
 import { bodyPostCollaborator, bodyUpdateCollaborator, CollaboratorProps, CollaboratorsProps } from "@/interfaces/collaborator";
 import { TypeFilterDevice } from "@/interfaces/filters";
+import handleFetchErrors from "./error";
 
 //fetch de todos os colaboradores
 export const fetchCollaborators = async (filters: TypeFilterDevice) => {
@@ -18,12 +19,8 @@ export const fetchCollaborators = async (filters: TypeFilterDevice) => {
             'content-type': 'application/json'
         },
     });
-    if (!response.ok) {
-        throw new Error(`Failed to fetch collaborators: ${response.status}`);
-    }
 
-    const data: Promise<CollaboratorsProps> = response.json()
-    return data;
+    return handleFetchErrors<CollaboratorsProps>(response)
 };
 
 //fetch de um colaborador especifico
@@ -35,13 +32,8 @@ export const fetchCollaborator = async (collaboratorId: string) => {
             'content-type': 'application/json'
         },
     });
-    if (!response.ok) {
-        const errorResponse = await response.json();
-        throw new Error(errorResponse.erro || "Erro desconhecido ao consultar colaboradore");
-    }
 
-    const data: Promise<CollaboratorProps> = response.json()
-    return data;
+    return handleFetchErrors<CollaboratorProps>(response)
 };
 //criação de um usuário
 export const createCollaborator = async (bodyContent: bodyPostCollaborator) => {
@@ -75,13 +67,8 @@ export const UpdateCollaborator = async (bodyContent: bodyUpdateCollaborator, co
         },
         body: JSON.stringify(bodyContent)
     });
-    if (!response.ok) {
-        const errorResponse = await response.json();
-        throw new Error(errorResponse.erro || "Erro desconhecido ao atualizar colaboradore");
-    }
 
-    const data: Promise<CollaboratorProps> = response.json()
-    return data;
+    return handleFetchErrors<CollaboratorProps>(response)
 };
 //exclusão do colaborador
 export const deleteCollaborator = async (collaboratorId: string) => {
@@ -92,11 +79,6 @@ export const deleteCollaborator = async (collaboratorId: string) => {
             'content-type': 'application/json'
         },
     });
-    if (!response.ok) {
-        const errorResponse = await response.json();
-        throw new Error(errorResponse.erro || "Erro desconhecido ao excluir colaborador");
-    }
 
-    const data = response.json()
-    return data;
+    return handleFetchErrors(response)
 };

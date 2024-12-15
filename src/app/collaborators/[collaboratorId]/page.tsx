@@ -16,7 +16,8 @@ const Collaborator = async ({
         <>
             <Header title={"Colaboradores"} />
             <main className="flex flex-1 flex-col p-3 pt-10 items-center justify-start">
-                <CollaboratorIdDetails CollaboratorId={collaboratorId} />
+                {/* Componente cliente criado para que seja possivel utilizar o react query já que uma pagina dinamixa deve ser necessáriamente use server*/}
+                <CollaboratorIdDetails collaboratorId={collaboratorId} />
             </main>
         </>
     )

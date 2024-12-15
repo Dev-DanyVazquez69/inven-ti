@@ -42,7 +42,7 @@ const AddDevice: React.FC = () => {
     }
 
     const closeModalStatus = () => {
-        //setFormData(formDataInit)
+        setFormData(formDataInit)
         reset()
     }
 
@@ -69,7 +69,7 @@ const AddDevice: React.FC = () => {
                         {isSuccess && (
                             <SuccessModal
                                 message="A operação foi concluída com sucesso!"
-                                onClose={() => closeModalStatus()}
+                                onFinally={() => closeModalStatus()}
                             />
                         )}
                         {

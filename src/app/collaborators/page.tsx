@@ -11,9 +11,9 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { useCollaborators, useCreateCollaborator, useDeleteCollaborator } from "@/hooks/collaborator";
 import { bodyPostCollaborator, ItemsCollaboratorPostBody } from "@/interfaces/collaborator";
 import SuccessModal from "@/components/modal/successApi";
-import ErrorModal from "@/components/modal/errorApi";
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import DeleteConfirmation from "@/components/modal/deletionConfirmation";
+import ErrorDisplay from "../utils/getErrorsMessage";
 
 const Collaborators: React.FC = () => {
 
@@ -84,6 +84,7 @@ const Collaborators: React.FC = () => {
             <Header title="Colaboradores" />
             <main className="flex flex-1 flex-col p-3 items-center justify-start">
                 <div className="flex w-full max-w-4xl flex-col">
+                    <ErrorDisplay errors={[error, errorFilter, errorDelete, errorDevicePost]} />
                     {isSuccess && (
                         <SuccessModal
                             message="A operação foi concluída com sucesso!"
@@ -91,15 +92,8 @@ const Collaborators: React.FC = () => {
                         />
                     )}
                     {
-                        //modalError
-                        errorDevicePost &&
-                        <ErrorModal
-                            error={errorDevicePost}
-                            onClose={closeModalStatus} />
-                    }
-                    {
-                        modalDeleteConfirmation && 
-                        <DeleteConfirmation closeModal={setModalDeleteConfirmation} functionDelete={mutateDelete}/>
+                        modalDeleteConfirmation &&
+                        <DeleteConfirmation closeModal={setModalDeleteConfirmation} functionDelete={mutateDelete} />
                     }
                     <div className="py-10 text-center w-full font-extrabold">
                         <h1>Lista de Colaboradores</h1>

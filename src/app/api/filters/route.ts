@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server"
 import { prisma } from "@/lib/db"
 import { auth } from "@/app/auth"
+import { handleApiError } from "@/app/utils/handleApiError"
 
 export async function GET() {
     const session = await auth()
@@ -78,7 +79,7 @@ export async function GET() {
             }
         }, { status: 200 })
 
-    } catch (erro) {
-        return NextResponse.json({ erro: erro }, { status: 500 })
+    } catch (error) {
+        return handleApiError(error);
     }
 }

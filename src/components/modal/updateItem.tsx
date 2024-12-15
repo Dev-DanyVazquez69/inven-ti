@@ -18,7 +18,7 @@ interface ModalProps {
   onClose: () => void;
 }
 
-const ModalUpdateItem: React.FC<ModalProps> = ({ isOpen, title, fields, onSubmit, onClose }) => {
+const ModalFormItem: React.FC<ModalProps> = ({ isOpen, title, fields, onSubmit, onClose }) => {
   if (!isOpen) return null;
 
   const handleSubmit = (event: React.FormEvent) => {
@@ -90,4 +90,4 @@ const ModalUpdateItem: React.FC<ModalProps> = ({ isOpen, title, fields, onSubmit
   );
 };
 
-export default ModalUpdateItem;
+export default ModalFormItem;

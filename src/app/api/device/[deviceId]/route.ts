@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import { prisma } from "@/lib/db"
 import { deviceUpdateSchema } from "@/schema/device"
+import { handleApiError } from "@/app/utils/handleApiError"
 
 export async function GET(
     request: NextRequest,
@@ -53,7 +54,7 @@ export async function GET(
         }
         return NextResponse.json({ device: device }, { status: 200 })
     } catch (error) {
-        return NextResponse.json({ Erro: error }, { status: 500 })
+        return handleApiError(error);
     }
 }
 export async function DELETE(
@@ -79,7 +80,7 @@ export async function DELETE(
         })
         return NextResponse.json({ device: "Dispositio deletado com sucesso" }, { status: 200 })
     } catch (error) {
-        return NextResponse.json({ Erro: error }, { status: 500 })
+        return handleApiError(error);
     }
 }
 export async function PATCH(
@@ -109,6 +110,6 @@ export async function PATCH(
         })
         return NextResponse.json({ device: "As informações do dispositivo foram atualizadas" }, { status: 200 })
     } catch (error) {
-        return NextResponse.json({ Erro: error }, { status: 500 })
+        return handleApiError(error);
     }
 }

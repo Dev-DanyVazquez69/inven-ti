@@ -1,6 +1,6 @@
 "use server";
 import { prisma } from '@/lib/db';
-import { hashSync } from 'bcrypt-ts';
+import { hashSync } from 'bcryptjs';
 import { redirect } from 'next/navigation';
 
 const register = async (formData: FormData) => {
@@ -27,7 +27,7 @@ const register = async (formData: FormData) => {
         data: {
             name,
             email,
-            password: hashSync(password)
+            password: hashSync(password, 8)
         }
     })
     redirect("/")
