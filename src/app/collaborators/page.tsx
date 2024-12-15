@@ -13,7 +13,7 @@ import { bodyPostCollaborator, ItemsCollaboratorPostBody } from "@/interfaces/co
 import SuccessModal from "@/components/modal/successApi";
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import DeleteConfirmation from "@/components/modal/deletionConfirmation";
-import ErrorDisplay from "../utils/getErrorsMessage";
+import ErrorDisplay from "../../components/getErrorsMessage";
 
 const Collaborators: React.FC = () => {
 

@@ -41,7 +41,7 @@ export const handleApiError = (error: unknown) => {
     return NextResponse.json(
       {
         success: false,
-        erro: "Erro de validação",
+        erro: "Erro de validação dos dados",
         details: error.errors.map((e) => ({
           field: e.path.join("."),
           message: e.message,

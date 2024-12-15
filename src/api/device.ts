@@ -1,7 +1,8 @@
-import { devicePostBody, deviceProps, devicesProps } from "@/interfaces/devices";
+import { bodyDevicePost, bodyDeviceUpdate, deviceProps, devicesProps } from "@/interfaces/devices";
 import { TypeFilterDevice } from "@/interfaces/filters";
 import handleFetchErrors from "./error";
 
+//consulta fetch a todos os dispositivos
 export const fetchDevices = async (filters: TypeFilterDevice) => {
 
     const patch = "/api/device"
@@ -29,7 +30,7 @@ export const fetchDevices = async (filters: TypeFilterDevice) => {
 
     return handleFetchErrors<devicesProps>(response)
 };
-
+//consulta fetch a um dispositivo especifico
 export const fetchDevice = async (deviceId: string) => {
 
     const response = await fetch(`/api/device/${deviceId}`, {
@@ -41,8 +42,8 @@ export const fetchDevice = async (deviceId: string) => {
 
     return handleFetchErrors<deviceProps>(response)
 };
-
-export const createDevice = async (bodyContent: devicePostBody) => {
+//criação de um dispositivo
+export const createDevice = async (bodyContent: bodyDevicePost) => {
 
     const response = await fetch(`/api/device`, {
         method: 'POST',
@@ -50,6 +51,31 @@ export const createDevice = async (bodyContent: devicePostBody) => {
             'content-type': 'application/json'
         },
         body: JSON.stringify(bodyContent)
+    });
+
+    return handleFetchErrors<deviceProps>(response)
+};
+//atualização de dados de um dispostivo
+export const updateDevice = async (bodyContent: bodyDeviceUpdate, deviceId: string) => {
+
+    const response = await fetch(`/api/device/${deviceId}`, {
+        method: 'PATCH',
+        headers: {
+            'content-type': 'application/json'
+        },
+        body: JSON.stringify(bodyContent)
+    });
+
+    return handleFetchErrors<deviceProps>(response)
+};
+//deleção de um dispositivo
+export const DeleteDevice = async (deviceId: string) => {
+
+    const response = await fetch(`/api/device/${deviceId}`, {
+        method: 'DELETE',
+        headers: {
+            'content-type': 'application/json'
+        },
     });
 
     return handleFetchErrors<deviceProps>(response)

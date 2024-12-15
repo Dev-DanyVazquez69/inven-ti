@@ -9,6 +9,8 @@ import { ItemsFiltersDevice, TypeFilterDevice } from "@/interfaces/filters";
 import { useFilters } from "@/hooks/filters";
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { useDevices } from "@/hooks/device";
+import LoadingRequest from "@/components/loadingApi";
+import ErrorDisplay from "@/components/getErrorsMessage";
 
 const initalFilters = {
     search: "",
@@ -39,14 +41,14 @@ const Devices: React.FC = () => {
         setFilters(initalFilters)
     }
 
-    if (isLoading || loadingFilter) return <p>Carregando...</p>;
-    if (error || errorFilter) return <p>Ocorreu um erro: {(error as Error).message}</p>;
+    if (isLoading || loadingFilter) return <LoadingRequest />;
 
     return (
         <>
             <Header title="Dispositivos" />
             <main className="flex flex-1 flex-col p-3 items-center justify-start">
                 <div className="flex w-full max-w-4xl flex-col">
+                    <ErrorDisplay errors={[error, errorFilter]} />
                     <div className="py-10 text-center w-full font-extrabold">
                         <h1>Lista de Dispositivos</h1>
                     </div>

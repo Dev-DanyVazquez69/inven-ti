@@ -5,11 +5,10 @@ import { useFilters } from "@/hooks/filters";
 import Image from "next/image";
 import { useCreateDevice } from "@/hooks/device";
 import { useState } from "react";
-import { devicePostBody, ItemsDevicePostBody } from "@/interfaces/devices";
+import { bodyDevicePost, ItemsbodyDevicePost } from "@/interfaces/devices";
 import SuccessModal from "@/components/modal/successApi";
-import ErrorModal from "@/components/modal/errorApi";
-import ErrorRequest from "@/components/statusApi/errorApi";
-import LoadingRequest from "@/components/statusApi/loadingApi";
+import LoadingRequest from "@/components/loadingApi";
+import ErrorDisplay from "@/components/getErrorsMessage";
 
 const AddDevice: React.FC = () => {
 
@@ -25,7 +24,7 @@ const AddDevice: React.FC = () => {
         typeDeviceId: 0
     }
 
-    const [formData, setFormData] = useState<devicePostBody>(formDataInit)
+    const [formData, setFormData] = useState<bodyDevicePost>(formDataInit)
 
     const { error, isLoading, data } = useFilters()
     const { mutate, error: errorDevicePost, isSuccess, reset } = useCreateDevice(formData)
@@ -35,7 +34,7 @@ const AddDevice: React.FC = () => {
         mutate()
     }
 
-    const changeDataForm = (key: ItemsDevicePostBody, value: string & number & undefined) => {
+    const changeDataForm = (key: ItemsbodyDevicePost, value: string & number & undefined) => {
         const newFormData = { ...formData }
         newFormData[key] = value
         setFormData(newFormData)
@@ -47,13 +46,13 @@ const AddDevice: React.FC = () => {
     }
 
     if (isLoading) return <LoadingRequest />
-    if (error) return <ErrorRequest error={error} />
 
     return (
         <>
             <Header title={"Adicionar"} />
             <main className="flex flex-1 flex-col p-3 pt-10 items-center justify-start">
                 <div className="flex flex-1 flex-col w-full gap-5 items-center">
+                    <ErrorDisplay errors={[errorDevicePost, error]} />
                     <header className="flex w-full flex-col justify-center items-center">
                         <div className="relative w-24 h-20 rounded-full">
                             <Image
@@ -72,13 +71,6 @@ const AddDevice: React.FC = () => {
                                 onFinally={() => closeModalStatus()}
                             />
                         )}
-                        {
-                            //modalError
-                            errorDevicePost &&
-                            <ErrorModal
-                                error={errorDevicePost}
-                                onClose={closeModalStatus} />
-                        }
                         <p>{isSuccess && "Cadastrado com sucesso"}</p>
                         <form
                             onSubmit={handleCreatePost}

@@ -70,7 +70,7 @@ export interface devicePostRequestApi {
     typeDeviceId: number
 }
 
-export interface devicePostBody {
+export interface bodyDevicePost {
     name: string;
     description?: string | undefined | null,
     sectorId: string;
@@ -82,6 +82,18 @@ export interface devicePostBody {
     typeDeviceId: number
 }
 
+export interface bodyDeviceUpdate {
+    name: string | undefined | null ;
+    description?: string | undefined | null,
+    sectorId: string | undefined | null;
+    collaboratorId: string | undefined | null;
+    image: string | undefined | null,
+    registerNumber: number | undefined | null,
+    manufacturerId: number | undefined | null,
+    ownerId: number | undefined | null,
+    typeDeviceId: number | undefined | null
+}
+
 export type ItemsDevicePostRequest = keyof devicePostRequestApi
 
-export type ItemsDevicePostBody = keyof devicePostBody
+export type ItemsbodyDevicePost = keyof bodyDevicePost

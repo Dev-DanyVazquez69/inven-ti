@@ -4,13 +4,14 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import EditIcon from '@mui/icons-material/Edit';
 import { useCollaborator, useDeleteCollaborator, useUpdateCollaborator } from "@/hooks/collaborator";
 import BadgeIcon from '@mui/icons-material/Badge'; import { useEffect, useState } from 'react'
-import ModalFormItem from '../modal/updateItem';
+import ModalFormItem from '../modal/formItem';
 import { useFilters } from '@/hooks/filters';
 import DeleteConfirmation from '../modal/deletionConfirmation';
 import { redirect } from 'next/navigation';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import Link from 'next/link';
-import ErrorDisplay from '@/app/utils/getErrorsMessage';
+import ErrorDisplay from '@/components/getErrorsMessage';
+import LoadingRequest from '../loadingApi';
 
 interface CollaboratorProps {
     collaboratorId: string
@@ -55,8 +56,7 @@ const CollaboratorIdDetails: React.FC<CollaboratorProps> = ({ collaboratorId }) 
     }, [successDelete]);
 
 
-
-    if (isLoading || loadingFilter) return <p>Carregando...</p>;
+    if (isLoading || loadingFilter) return <LoadingRequest />
 
     return (
         <div className="flex flex-1 flex-col w-full gap-5">

@@ -6,7 +6,7 @@ interface ErrorDisplayProps {
 
 const ErrorDisplay: React.FC<ErrorDisplayProps> = ({ errors }) => {
   const [visible, setVisible] = useState<boolean>(false);
-  const [progress, setProgress] = useState<number>(100); // Estado para controlar a barra de progresso
+  const [progress, setProgress] = useState<number>(100);
 
   // Filtra, consolida e remove mensagens duplicadas
   const errorMessage = Array.from(
@@ -17,20 +17,18 @@ const ErrorDisplay: React.FC<ErrorDisplayProps> = ({ errors }) => {
     )
   ).join("; ") || null;
 
-  // Controla a visibilidade e reinicia o progresso quando o erro muda
   useEffect(() => {
     if (errorMessage) {
       setVisible(true);
-      setProgress(100); // Reinicia o progresso para 100% ao receber novos erros
-
+      setProgress(100);
       const timer = setTimeout(() => setVisible(false), 5000);
       const intervalId = setInterval(() => {
-        setProgress((prev) => Math.max(0, prev - 1)); // Reduz o progresso até 0%
+        setProgress((prev) => Math.max(0, prev - 1));
       }, 50);
 
       return () => {
         clearTimeout(timer);
-        clearInterval(intervalId); // Limpa o intervalo quando o erro desaparece ou muda
+        clearInterval(intervalId);
       };
     }
   }, [errorMessage]);
@@ -38,7 +36,7 @@ const ErrorDisplay: React.FC<ErrorDisplayProps> = ({ errors }) => {
   if (!errorMessage || !visible) return null;
 
   return (
-    <div className="p-4 bg-red-100 border border-red-400 text-red-700 rounded relative">
+    <div className="p-4 bg-red-100 border border-red-400 text-red-700 rounded fixed z-50">
       <p className="font-bold">Erro:</p>
       <p>{errorMessage}</p>
       <div className="absolute bottom-0 left-0 w-full h-1 bg-red-300">
@@ -46,7 +44,7 @@ const ErrorDisplay: React.FC<ErrorDisplayProps> = ({ errors }) => {
           className="h-full bg-red-600"
           style={{
             width: `${progress}%`,
-            transition: "width 50ms linear", // Suaviza o progresso
+            transition: "width 50ms linear",
           }}
         ></div>
       </div>

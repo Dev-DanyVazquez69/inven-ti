@@ -4,8 +4,8 @@ interface Field {
   label: string;
   name: string;
   type: 'text' | 'select' | 'textarea';
-  options?: { value: string; label: string }[]; // Para select
-  value?: string; // Valor inicial do campo
+  options?: { value: string | number; label: string }[]; // Para select
+  value?: string | number; // Valor inicial do campo
   required: boolean
 }
 
@@ -29,7 +29,7 @@ const ModalFormItem: React.FC<ModalProps> = ({ isOpen, title, fields, onSubmit, 
   };
 
   return (
-    <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center">
+    <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-white p-4 rounded shadow-md w-3/4 py-5">
         <h2 className="text-lg text-center font-bold mb-4 text-black">{title}</h2>
         <form onSubmit={handleSubmit}>

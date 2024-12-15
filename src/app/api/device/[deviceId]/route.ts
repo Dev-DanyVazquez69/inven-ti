@@ -44,6 +44,11 @@ export async function GET(
                         name: true,
                     }
                 },
+                TypeDevice: {
+                    select: {
+                        name: true
+                    }
+                },
                 registerNumber: true,
                 createdAt: true,
                 updatedAt: true,
