@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "postinstall": "prisma generate && prisma migrate deploy && prisma migrate dev",
+    "postinstall": "prisma generate && prisma migrate deploy && prisma db push",
     "start": "next start",
     "lint": "next lint"
   },
