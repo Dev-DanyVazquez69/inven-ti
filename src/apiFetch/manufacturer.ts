@@ -1,13 +1,13 @@
 import { apiRequest } from "./apiFetch";
-import { manufacturerBody, manufacturersProps } from "@/interfaces/manufacture";
+import { ManufacturerBody, ManufacturersProps } from "@/interfaces/manufacturer";
 
 //fetch de todos as marcas
 export const fetchManufacturers = async () => {
-    return apiRequest<manufacturersProps>('/api/manufacturer', { method: 'GET' });
+    return apiRequest<ManufacturersProps>('/api/manufacturer', { method: 'GET' });
 };
 
 //criação de uma marca
-export const createManufacturer = async (bodyContent: manufacturerBody) => {
+export const createManufacturer = async (bodyContent: ManufacturerBody) => {
     return apiRequest(`/api/manufacturer`, {
         method: 'POST',
         body: JSON.stringify(bodyContent)
@@ -15,7 +15,7 @@ export const createManufacturer = async (bodyContent: manufacturerBody) => {
 };
 
 //atualização de um colaborador
-export const updateManufcturer = async (bodyContent: manufacturerBody, manufacturerId: string) => {
+export const updateManufacturer = async (bodyContent: ManufacturerBody, manufacturerId: string) => {
     return apiRequest(`/api/manufacturer/${manufacturerId}`, {
         method: 'PATCH',
         body: JSON.stringify(bodyContent)

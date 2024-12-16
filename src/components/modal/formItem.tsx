@@ -3,7 +3,7 @@ import React from 'react';
 interface Field {
   label: string;
   name: string;
-  type: 'text' | 'select' | 'textarea';
+  type: 'text' | 'select' | 'textarea' | 'number';
   options?: { value: string | number; label: string }[]; // Para select
   value?: string | number; // Valor inicial do campo
   required: boolean
@@ -39,6 +39,17 @@ const ModalFormItem: React.FC<ModalProps> = ({ isOpen, title, fields, onSubmit, 
               {field.type === 'text' && (
                 <input
                   type="text"
+                  maxLength={20}
+                  name={field.name}
+                  required={field.required}
+                  defaultValue={field.value}
+                  className="text-black text-xs block w-full px-4 py-1 border border-background rounded-md shadow-sm focus:outline-none focus:ring-2 focus:bg-buttom focus:text-white"
+                />
+              )}
+               {field.type === 'number' && (
+                <input
+                  type="number"
+                  maxLength={20}
                   name={field.name}
                   required={field.required}
                   defaultValue={field.value}

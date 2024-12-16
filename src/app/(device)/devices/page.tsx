@@ -6,9 +6,9 @@ import { useState } from "react";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import Link from "next/link";
 import { ItemsFiltersDevice, TypeFilterDevice } from "@/interfaces/filters";
-import { useFilters } from "@/hooks/filters";
+import { useFilters } from "@/hooks/useFilters";
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import { useDevices } from "@/hooks/device";
+import { useDevices } from "@/hooks/useDevice";
 import LoadingRequest from "@/components/loadingApi";
 import ErrorDisplay from "@/components/getErrorsMessage";
 

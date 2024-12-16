@@ -1,11 +1,13 @@
-export interface sector {
-    id: number;
-    name: string;
-    createdAt: Date;
-    updatedAt: Date;
+export interface SectorProps {
+    sectors: {
+        id: string;
+        name: string;
+        createdAt: Date;
+        updatedAt: Date;
+    }[]
 }
 
-export interface bodyPostSector {
+export interface bodySector {
     name: string,
-    coordinator?: string 
+    coordinator?: string
 }

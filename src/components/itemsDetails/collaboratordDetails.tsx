@@ -2,10 +2,10 @@
 
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import EditIcon from '@mui/icons-material/Edit';
-import { useCollaborator, useDeleteCollaborator, useUpdateCollaborator } from "@/hooks/collaborator";
+import { useCollaborator, useDeleteCollaborator, useUpdateCollaborator } from "@/hooks/useCollaborator";
 import BadgeIcon from '@mui/icons-material/Badge'; import { useEffect, useState } from 'react'
 import ModalFormItem from '../modal/formItem';
-import { useFilters } from '@/hooks/filters';
+import { useFilters } from '@/hooks/useFilters';
 import DeleteConfirmation from '../modal/deletionConfirmation';
 import { redirect } from 'next/navigation';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
@@ -80,7 +80,7 @@ const CollaboratorIdDetails: React.FC<CollaboratorProps> = ({ collaboratorId }) 
                                     name: "sectorId",
                                     type: "select",
                                     required: true,
-                                    value: data?.collaborator.sector.name,
+                                    value: data?.collaborator.sector?.name ?? "Não definido",
                                     options: dataFilter.filters.sectors.map((sector) => (
                                         { value: sector.id, label: sector.name }
                                     ))
@@ -104,7 +104,7 @@ const CollaboratorIdDetails: React.FC<CollaboratorProps> = ({ collaboratorId }) 
                     <section className="flex flex-col w-full gap-5 p-5 bg-foreground rounded-lg">
                         <div className="">
                             <h1 className="font-extrabold uppercase">Setor</h1>
-                            <p>{data?.collaborator.sector?.name ?? ""}</p>
+                            <p>{data?.collaborator.sector?.name ?? "Não definido"}</p>
                         </div>
                         <div className="flex flex-col gap-2">
                             <h1 className="font-extrabold uppercase">Dispositivos</h1>
@@ -118,7 +118,7 @@ const CollaboratorIdDetails: React.FC<CollaboratorProps> = ({ collaboratorId }) 
                                             </Link>
                                         </div>
                                     ) :
-                                    <p>O usuário não possui Dispositivos</p>
+                                    <p>Sem Dispositivos Vinculados</p>
                             }
                         </div>
                     </section>

@@ -6,9 +6,9 @@ import { useState } from "react";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import Link from "next/link";
 import { ItemsFiltersCollaborator, TypeFilterCollaborator } from "@/interfaces/filters";
-import { useFilters } from "@/hooks/filters";
+import { useFilters } from "@/hooks/useFilters";
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import { useCollaborators, useCreateCollaborator, useDeleteCollaborator } from "@/hooks/collaborator";
+import { useCollaborators, useCreateCollaborator, useDeleteCollaborator } from "@/hooks/useCollaborator";
 import { bodyPostCollaborator, ItemsCollaboratorPostBody } from "@/interfaces/collaborator";
 import SuccessModal from "@/components/modal/successApi";
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
@@ -134,8 +134,8 @@ const Collaborators: React.FC = () => {
                                     data?.collaborators.map((collaborator, index) => {
                                         return (
                                             <tr key={index} className="text-center border-b border-white h-20 hover:bg-buttom/10 rounded-xl overflow-hidden  text-xs sm:text-base">
-                                                <td className="">{collaborator.name ?? "Não definido"}</td>
-                                                <td className="">{collaborator.sector.name ?? "Não definido"}</td>
+                                                <td className="">{collaborator?.name ?? "Não definido"}</td>
+                                                <td className="">{collaborator.sector?.name ?? "Não definido"}</td>
                                                 <td></td>
                                                 <td className="">
                                                     <button onClick={() => deleteCollaborator(collaborator.id)}>

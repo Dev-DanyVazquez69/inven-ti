@@ -15,7 +15,7 @@ export const createOwner = async (bodyContent: OwnerBody) => {
 };
 
 //atualização de um propietário
-export const updateManufcturer = async (bodyContent: OwnerBody, ownerId: string) => {
+export const updateOwner = async (bodyContent: OwnerBody, ownerId: string) => {
     return apiRequest(`/api/owner/${ownerId}`, {
         method: 'PATCH',
         body: JSON.stringify(bodyContent)

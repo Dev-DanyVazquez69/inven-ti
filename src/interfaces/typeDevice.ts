@@ -1,12 +1,12 @@
 export interface TypesDeivceProps {
-    manufacturers:{
+    typeDevices:{
         id: number;
         name: string;
     }[]
 }
 
 export interface TypeDeviceProps {
-    manufacturer:{
+    typeDevices:{
         id: number;
         name: string;
     }

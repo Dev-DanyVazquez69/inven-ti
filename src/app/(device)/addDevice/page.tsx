@@ -1,9 +1,9 @@
 "use client"
 
 import { Header } from "@/components/header/header";
-import { useFilters } from "@/hooks/filters";
+import { useFilters } from "@/hooks/useFilters";
 import Image from "next/image";
-import { useCreateDevice } from "@/hooks/device";
+import { useCreateDevice } from "@/hooks/useDevice";
 import { useState } from "react";
 import { bodyDevicePost, ItemsbodyDevicePost } from "@/interfaces/devices";
 import SuccessModal from "@/components/modal/successApi";
@@ -207,7 +207,7 @@ const AddDevice: React.FC = () => {
                                 className="font-bold"
                                 htmlFor="registerNumber">Numero de Indetificação</label>
                             <input
-                                type="text"
+                                type="number"
                                 maxLength={10}
                                 id="registerNumber"
                                 name="registerNumber"

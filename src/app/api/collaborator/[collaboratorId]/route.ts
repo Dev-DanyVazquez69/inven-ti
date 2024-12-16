@@ -104,7 +104,7 @@ export async function PATCH(
         if (collaboratorIsExist === null)
             return NextResponse.json({ erro: "O ID não corresponde a nenhum colaborador cadastrado" }, { status: 401 })
 
-        if (nameCollaboratorIsExist !== null)
+        if (nameCollaboratorIsExist !== null && nameCollaboratorIsExist?.name !== bodyVerifiqued.name)
             return NextResponse.json({ erro: "Já existe um colaborador com esse nome" }, { status: 500 })
 
         await prisma.collaborator.update({

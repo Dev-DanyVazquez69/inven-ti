@@ -3,13 +3,13 @@
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import EditIcon from '@mui/icons-material/Edit';
 import Image from "next/image";
-import { useDeleteDevice, useDevice, useUpdateDevice } from "@/hooks/device";
+import { useDeleteDevice, useDevice, useUpdateDevice } from "@/hooks/useDevice";
 import LoadingRequest from '../loadingApi';
 import ErrorDisplay from '../getErrorsMessage';
 import { useEffect, useState } from 'react';
 import { bodyDeviceUpdate } from '@/interfaces/devices';
 import ModalFormItem from '../modal/formItem';
-import { useFilters } from '@/hooks/filters';
+import { useFilters } from '@/hooks/useFilters';
 import { redirect } from 'next/navigation';
 import DeleteConfirmation from '../modal/deletionConfirmation';
 
@@ -23,7 +23,7 @@ const dataUpdateDeviceInit = {
     sectorId: "",
     collaboratorId: "",
     image: null,
-    registerNumber: 0,
+    registerNumber: null,
     manufacturerId: 0,
     ownerId: 0,
     typeDeviceId: null
@@ -126,7 +126,7 @@ const DeviceIdDetails: React.FC<DeviceIdProps> = ({ deviceId }) => {
                                     ))
                                 },
                                 {
-                                    label: "Numero de Registro", name: "registerNumber", type: "text", value: data?.device.registerNumber, required: false
+                                    label: "Numero de Registro", name: "registerNumber", type: "number", value: data?.device.registerNumber, required: false
                                 },
                             ]} />
                         <div className="relative w-24 h-24 rounded-full">

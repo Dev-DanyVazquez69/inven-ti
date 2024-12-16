@@ -90,34 +90,42 @@ const seed = async () => {
                 {
                     id: 1,
                     name: "desktop",
+                    clientId: "cm3kkkvno000f356gz3qxuokt"
                 },
                 {
                     id: 2,
                     name: "notebook",
+                    clientId: "cm3kkkvno000f356gz3qxuokt"
                 },
                 {
                     id: 3,
                     name: "impressora",
+                    clientId: "cm3kkkvno000f356gz3qxuokt"
                 },
                 {
                     id: 4,
                     name: "switch",
+                    clientId: "cm3kkkvno000f356gz3qxuokt"
                 },
                 {
                     id: 5,
                     name: "monitor",
+                    clientId: "cm3kkkvno000f356gz3qxuokt"
                 },
                 {
                     id: 6,
                     name: "teclado",
+                    clientId: "cm3kkkvno000f356gz3qxuokt"
                 },
                 {
                     id: 7,
                     name: "mouse",
+                    clientId: "cm3kkkvno000f356gz3qxuokt"
                 },
                 {
                     id: 8,
                     name: "nobreak",
+                    clientId: "cm3kkkvno000f356gz3qxuokt"
                 }
             ]
         }),

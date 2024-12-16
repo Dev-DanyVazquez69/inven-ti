@@ -36,6 +36,7 @@ model Client {
   device       Device[]
   Owner        Owner[]
   Manufacturer Manufacturer[]
+  TypeDevice   TypeDevice[]
   createdAt    DateTime       @default(now())
   updatedAt    DateTime       @updatedAt
 }
@@ -62,7 +63,7 @@ model Device {
   name           String
   description    String?
   clientId       String
-  registerNumber Int?
+  registerNumber Int?     @unique
   manufacturerId Int?
   typeDeviceId   Int?
   ownerId        Int?
@@ -102,10 +103,10 @@ model Manufacturer {
 }
 
 model Owner {
-  id       Int      @id @default(autoincrement())
-  name     String   @unique
-  clientId String
-  Device   Device[]
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  clientId  String
+  Device    Device[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -119,6 +120,8 @@ model TypeDevice {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  Client    Client?  @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  clientId  String?
 }
 
 ///////////////////////////////////////////////

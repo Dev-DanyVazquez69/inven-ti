@@ -4,7 +4,7 @@ import { Header } from "@/components/header/header";
 import DesktopMacIcon from '@mui/icons-material/DesktopMac';
 import BusinessIcon from '@mui/icons-material/Business';
 import Link from "next/link";
-import { useFetchcountItems } from "@/hooks/countItems";
+import { useFetchcountItems } from "@/hooks/useCountItems";
 import ErrorDisplay from "@/components/getErrorsMessage";
 import LoadingRequest from "@/components/loadingApi";
 
@@ -77,19 +77,19 @@ export default function Home() {
           <ul className="flex-col w-full px-5">
             <li className="flex justify-between gap-5 my-2 items-center">
               <h5>Setores</h5>
-              <button className="bg-buttom p-1 rounded-sm">Gerenciar</button>
+              <Link href={"/sectors"} className="bg-buttom p-1 rounded-sm">Gerenciar</Link>
             </li>
             <li className="flex justify-between gap-5 my-2 items-center">
               <h5>Fabricantes</h5>
-              <button className="bg-buttom p-1 rounded-sm">Gerenciar</button>
+              <Link href={"/manufacturers"} className="bg-buttom p-1 rounded-sm">Gerenciar</Link>
             </li>
             <li className="flex justify-between gap-5 my-2 items-center">
               <h5>Propietários</h5>
-              <button className="bg-buttom p-1 rounded-sm">Gerenciar</button>
+              <Link href={"/owners"} className="bg-buttom p-1 rounded-sm">Gerenciar</Link>
             </li>
             <li className="flex justify-between gap-5 my-2 items-center">
               <h5>Tipo de Dispositivo</h5>
-              <button className="bg-buttom p-1 rounded-sm">Gerenciar</button>
+              <Link href={"/typeDevices"} className="bg-buttom p-1 rounded-sm">Gerenciar</Link>
             </li>
           </ul>
 

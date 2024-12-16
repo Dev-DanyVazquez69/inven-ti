@@ -130,7 +130,7 @@ export async function POST(request: NextRequest) {
             }
         })
 
-        const [nameIsUnique, collaboratorIsValid, sectorIsValid] = await Promise.all([
+        const [nameIsUnique, collaboratorIsValid, sectorIsValid, registerNumberIsUnique] = await Promise.all([
 
             prisma.device.findFirst({
                 where: {
@@ -148,13 +148,20 @@ export async function POST(request: NextRequest) {
                     id: body.sectorId
                 }
             }),
+
+            prisma.device.findFirst({
+                where: {
+                    registerNumber: body.registerNumber
+                }
+            }),
         ])
 
-        // Verificar se o nome informado já existe
+        if (registerNumberIsUnique !== null)
+            return NextResponse.json({ erro: "O numero de registro informado já existe" })
+
         if (nameIsUnique !== null)
             return NextResponse.json({ erro: "Já existe um dispositivo com esse nome" }, { status: 500 })
 
-        //Verifica se o colaborador e o setor existem
         if ((collaboratorIsValid === null && body.collaboratorId) || (sectorIsValid === null))
             return NextResponse.json({ erro: "o id do colaborador ou setor não correspodem a nenhum registro" }, { status: 401 })
         console.log(`Dados para criação do dispositivo ${bodyVerifiqued}`)

@@ -1,12 +1,12 @@
 export interface OwnersProps {
-    manufacturers:{
+    owners:{
         id: number;
         name: string;
     }[]
 }
 
 export interface OwnerProps {
-    manufacturer:{
+    owner:{
         id: number;
         name: string;
     }

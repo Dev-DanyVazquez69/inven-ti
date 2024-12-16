@@ -42,7 +42,7 @@ export const useUpdateCollaborator = (bodyContent: bodyPostCollaborator, collabo
         mutationKey: ["collaboratorsUpdate", collaboratorId],
         mutationFn: () => updateCollaborator(bodyContent, collaboratorId),
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['collaborator', 'collaborators'] })
+            queryClient.invalidateQueries({ queryKey: ['collaborator', collaboratorId] })
         },
     });
 };

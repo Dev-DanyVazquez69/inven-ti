@@ -1,11 +1,11 @@
-export interface manufacturersProps {
+export interface ManufacturersProps {
     manufacturers:{
         id: number;
         name: string;
     }[]
 }
 
-export interface manufacturerProps {
+export interface ManufacturerProps {
     manufacturer:{
         id: number;
         name: string;
@@ -13,6 +13,6 @@ export interface manufacturerProps {
 
 }
 
-export interface manufacturerBody {
+export interface ManufacturerBody {
     name: string
 }
