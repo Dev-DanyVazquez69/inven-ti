@@ -1,10 +1,10 @@
-import { z } from 'zod';
 import { NextResponse, NextRequest } from "next/server";
 import { prisma } from "@/lib/db";
 import { devicePostSchema } from "@/schema/device";
 import { devicePostRequestApi } from '@/interfaces/devices';
 import { TypeFilterDevice } from '@/interfaces/filters';
 import { auth } from '@/app/auth';
+import { handleApiError } from '@/app/utils/handleApiError';
 
 //CONSULTAR DISPOSITIVOS
 export async function GET(request: NextRequest) {
@@ -102,16 +102,8 @@ export async function GET(request: NextRequest) {
         return NextResponse.json({ devices: devices }, { status: 200 })
 
     } catch (error) {
-        if (error instanceof z.ZodError) {
+        return handleApiError(error);
 
-            return NextResponse.json(
-                { errors: error.errors.map((err) => ({ path: err.path, message: err.message })) },
-                { status: 400 }
-            );
-        }
-
-        // Erro genérico
-        return NextResponse.json({ erro: 'Erro interno do servidor' }, { status: 500 });
     }
 }
 //CRIAR DISPOSITIVO
@@ -145,10 +137,9 @@ export async function POST(request: NextRequest) {
                     name: bodyVerifiqued.name
                 }
             }),
-
             prisma.collaborator.findFirst({
                 where: {
-                    id: body.collaboratorId
+                    id: body.collaboratorId ?? ""
                 }
             }),
 
@@ -164,7 +155,7 @@ export async function POST(request: NextRequest) {
             return NextResponse.json({ erro: "Já existe um dispositivo com esse nome" }, { status: 500 })
 
         //Verifica se o colaborador e o setor existem
-        if ((collaboratorIsValid === null) || (sectorIsValid === null))
+        if ((collaboratorIsValid === null && body.collaboratorId) || (sectorIsValid === null))
             return NextResponse.json({ erro: "o id do colaborador ou setor não correspodem a nenhum registro" }, { status: 401 })
         console.log(`Dados para criação do dispositivo ${bodyVerifiqued}`)
 
@@ -186,9 +177,6 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({ sucesso: newDevice }, { status: 201 })
 
     } catch (error) {
-        if (error instanceof z.ZodError) {
-            return NextResponse.json({ errorFormatBody: error.errors }, { status: 400 });
-        }
-        return NextResponse.json({ erro: `Erro do servidor - ${error}` }, { status: 500 });
+        return handleApiError(error);
     }
 }

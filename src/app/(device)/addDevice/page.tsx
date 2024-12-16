@@ -16,7 +16,7 @@ const AddDevice: React.FC = () => {
         name: "",
         description: "",
         sectorId: "",
-        collaboratorId: "",
+        collaboratorId: null,
         image: "",
         registerNumber: null,
         manufacturerId: 0,
@@ -107,9 +107,9 @@ const AddDevice: React.FC = () => {
                                 className="font-extrabold"
                                 htmlFor="collaboratorId">Colaborador</label>
                             <select
+                                required
                                 className="bg-transparent w-full py-1 border-b border-white shadow-sm focus:outline-none focus:ring-2 focus:bg-black focus:text-white"
                                 name="collaboratorId"
-                                required
                                 value={formData.collaboratorId as string}
                                 onChange={(e) => changeDataForm('collaboratorId', e.target.value as never)}
                                 id="collaboratorId">

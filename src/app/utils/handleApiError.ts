@@ -28,7 +28,7 @@ export const handleApiError = (error: unknown) => {
         return NextResponse.json(
           {
             success: false,
-            erro: "Erro do banco de dados",
+            erro: "Erro de conexão com o banco de dados",
             details: error.message,
           },
           { status: 500 }

@@ -1,7 +1,7 @@
 import Image from "next/image"
 import GoogleIcon from '@mui/icons-material/Google';
 import { signIn } from "@/app/auth"
-import Link from "next/link";
+// import Link from "next/link";
 import SendIcon from '@mui/icons-material/Send';
 import login from "./_actions/signin";
 
@@ -49,30 +49,32 @@ export default function Login() {
                                 pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
                                 required />
                         </label>
-                        <div className="p-2 bg-buttom font-extrabold border-2 border-background rounded text-background flex gap-2 items-center justify-center text-sm text-white">
+                        <div className="p-2 bg-buttom font-extrabold border-2 border-background rounded-xl text-background flex gap-2 items-center justify-center text-sm text-white">
                             <input
                                 type="submit"
                                 value="ENTRAR" />
                             <SendIcon />
                         </div>
+                        <p className="text-xs text-red-500 text-center w-2/3 font-thin">Após login com o google, entre em contato com o suporte</p>
                     </form>
-                    <Link
+                    {/* <Link
                         className="self-center font-extralight text-xs"
                         href={"/register"}>
                         Ainda não possui conta?
-                    </Link>
+                    </Link> */}
                     <form
+                        className="flex items-center justify-center"
                         action={async () => {
                             "use server"
                             await signIn("google")
                         }}
                     >
-                        <div className="flex gap-2 bg-buttom p-2 rounded-full justify-center">
+                        <div className="flex gap-2 bg-buttom p-2 rounded-full justify-center w-fit">
                             <GoogleIcon />
                             <button
-                                className="text-xs"
+                                className="text-xs cursor-no-drop"
                                 type="submit">
-                                Faça login com o Google
+                                Login com o Google
                             </button>
                         </div>
                     </form>

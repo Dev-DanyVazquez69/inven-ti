@@ -61,7 +61,7 @@ export interface devicePostRequestApi {
     name: string;
     description?: string | undefined | null,
     sectorId: string;
-    collaboratorId: string;
+    collaboratorId: string | undefined | null;
     clientId: string,
     image: string | undefined | null,
     registerNumber: number | undefined | null,
@@ -74,7 +74,7 @@ export interface bodyDevicePost {
     name: string;
     description?: string | undefined | null,
     sectorId: string;
-    collaboratorId: string | undefined;
+    collaboratorId: string | undefined | null;
     image: string | undefined | null,
     registerNumber: number | undefined | null,
     manufacturerId: number | undefined | null,
@@ -83,9 +83,9 @@ export interface bodyDevicePost {
 }
 
 export interface bodyDeviceUpdate {
-    name: string | undefined | null ;
+    name: string;
     description?: string | undefined | null,
-    sectorId: string | undefined | null;
+    sectorId: string;
     collaboratorId: string | undefined | null;
     image: string | undefined | null,
     registerNumber: number | undefined | null,

@@ -15,8 +15,8 @@ import ErrorDisplay from "@/components/getErrorsMessage";
 const initalFilters = {
     search: "",
     collaboratorId: "",
-    manufacturerId: 0,
-    ownerId: 0,
+    manufacturerId: undefined,
+    ownerId: undefined,
     sectorId: ""
 }
 

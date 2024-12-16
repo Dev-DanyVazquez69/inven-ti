@@ -1,4 +1,4 @@
-import { createDevice, DeleteDevice, fetchDevice, fetchDevices, updateDevice } from "@/api/device";
+import { createDevice, deleteDevice, fetchDevice, fetchDevices, updateDevice } from "@/apiFetch/device";
 import { bodyDevicePost, bodyDeviceUpdate } from "@/interfaces/devices";
 import { TypeFilterDevice } from "@/interfaces/filters";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -56,7 +56,7 @@ export const useDeleteDevice = (deviceId: string) => {
 
     return useMutation({
         mutationKey: ["deletedevice"],
-        mutationFn: () => DeleteDevice(deviceId),
+        mutationFn: () => deleteDevice(deviceId),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['devices'] })
         },

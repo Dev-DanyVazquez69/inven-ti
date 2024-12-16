@@ -1,39 +1,42 @@
+"use client"
+
 import { Header } from "@/components/header/header";
 import DesktopMacIcon from '@mui/icons-material/DesktopMac';
-import LaptopChromebookIcon from '@mui/icons-material/LaptopChromebook';
-import MouseIcon from '@mui/icons-material/Mouse';
 import BusinessIcon from '@mui/icons-material/Business';
 import Link from "next/link";
+import { useFetchcountItems } from "@/hooks/countItems";
+import ErrorDisplay from "@/components/getErrorsMessage";
+import LoadingRequest from "@/components/loadingApi";
 
-export default async function Home() {
+export default function Home() {
 
+  const { data, error, isLoading } = useFetchcountItems()
+
+  if (isLoading) return <LoadingRequest />
   return (
     <>
       <Header
         title="Inicio" />
       <main className="flex flex-1 flex-col gap-10 items-center justify-center p-6">
+        <ErrorDisplay errors={[error]} />
         <section className="bg-foreground w-full max-w-4xl flex-1 rounded-xl flex flex-col justify-between p-3">
           <h1 className="font-extrabold">Dispositivos</h1>
           <div className="flex justify-around items-center">
-            <ul className="text-center flex w-full justify-around">
-              <li>
-                <DesktopMacIcon />
-                <h5>Desktops</h5>
-                <p>25</p>
-
-              </li>
-              <li>
-                <LaptopChromebookIcon />
-                <h5>Notebooks</h5>
-                <p>25</p>
-
-              </li>
-              <li>
-                <MouseIcon />
-                <h5>Mouse</h5>
-                <p>25</p>
-
-              </li>
+            <ul className="text-center flex w-full flex-wrap gap-2 justify-around">
+              {
+                data?.countItems.countDeviceInTypes.length !== 0 ?
+                  data?.countItems.countDeviceInTypes.map((typeDevice, index) =>
+                    <li key={index}>
+                      <DesktopMacIcon />
+                      <h5>{typeDevice.typeName}</h5>
+                      <p>{typeDevice.count}</p>
+                    </li>
+                  ) :
+                  <li>
+                    <DesktopMacIcon />
+                    <h5>Ainda não há dispositivos registrados</h5>
+                  </li>
+              }
             </ul>
           </div>
           <div className="flex items-end justify-end">
@@ -48,11 +51,20 @@ export default async function Home() {
           <h1 className="font-extrabold">Colaboradores</h1>
           <div className="flex justify-around items-center">
             <ul className="text-center flex w-full justify-around">
-              <li>
-                <BusinessIcon />
-                <h5>Cobep</h5>
-                <p>8</p>
-              </li>
+              {
+                data?.countItems.countCollaboratorsInSectors.length !== 0 ?
+                  data?.countItems.countCollaboratorsInSectors.map((type, index) =>
+                    <li key={index}>
+                      <BusinessIcon />
+                      <h5>{type.typeName}</h5>
+                      <p>{type.count}</p>
+                    </li>
+                  ) :
+                  <li>
+                    <DesktopMacIcon />
+                    <h5>Ainda não há setores registrados</h5>
+                  </li>
+              }
             </ul>
           </div>
           <div className="flex items-end justify-end">

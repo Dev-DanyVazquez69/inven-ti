@@ -1,4 +1,4 @@
-import { createCollaborator, deleteCollaborator, fetchCollaborator, fetchCollaborators, UpdateCollaborator } from "@/api/collaborator";
+import { createCollaborator, deleteCollaborator, fetchCollaborator, fetchCollaborators, updateCollaborator } from "@/apiFetch/collaborator";
 import { bodyPostCollaborator } from "@/interfaces/collaborator";
 import { TypeFilterCollaborator } from "@/interfaces/filters";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -39,8 +39,8 @@ export const useUpdateCollaborator = (bodyContent: bodyPostCollaborator, collabo
     const queryClient = useQueryClient()
 
     return useMutation({
-        mutationKey: ["collaboratorsUpdate"],
-        mutationFn: () => UpdateCollaborator(bodyContent, collaboratorId),
+        mutationKey: ["collaboratorsUpdate", collaboratorId],
+        mutationFn: () => updateCollaborator(bodyContent, collaboratorId),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['collaborator', 'collaborators'] })
         },

@@ -19,14 +19,14 @@ interface DeviceIdProps {
 
 const dataUpdateDeviceInit = {
     name: "",
-    description: "",
+    description: null,
     sectorId: "",
     collaboratorId: "",
-    image: "",
+    image: null,
     registerNumber: 0,
     manufacturerId: 0,
     ownerId: 0,
-    typeDeviceId: 0
+    typeDeviceId: null
 }
 
 const DeviceIdDetails: React.FC<DeviceIdProps> = ({ deviceId }) => {
@@ -93,7 +93,7 @@ const DeviceIdDetails: React.FC<DeviceIdProps> = ({ deviceId }) => {
                                     label: "Nome", name: "name", type: "text", value: data?.device.name, required: true
                                 },
                                 {
-                                    label: "Descrição", name: "description", type: "text", value: data?.device.description, required: true
+                                    label: "Descrição", name: "description", type: "text", value: data?.device.description, required: false
                                 },
                                 {
                                     label: "Setor", name: "sectorId", type: "select", required: true, value: data?.device.Sector.name,
@@ -126,7 +126,7 @@ const DeviceIdDetails: React.FC<DeviceIdProps> = ({ deviceId }) => {
                                     ))
                                 },
                                 {
-                                    label: "Numero de Registro", name: "registerNumber", type: "text", value: data?.device.registerNumber, required: true
+                                    label: "Numero de Registro", name: "registerNumber", type: "text", value: data?.device.registerNumber, required: false
                                 },
                             ]} />
                         <div className="relative w-24 h-24 rounded-full">
@@ -166,7 +166,7 @@ const DeviceIdDetails: React.FC<DeviceIdProps> = ({ deviceId }) => {
                         </div>
                         <div className="">
                             <h1 className="font-extrabold uppercase">Numero de indentificação</h1>
-                            <p>{data?.device.registerNumber}</p>
+                            <p>{data?.device.registerNumber ?? "Não definido"}</p>
                         </div>
                     </section>
                 </>

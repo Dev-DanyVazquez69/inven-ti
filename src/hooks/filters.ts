@@ -1,4 +1,4 @@
-import { fetchFilters } from "@/api/filters";
+import { fetchFilters } from "@/apiFetch/filters";
 import { useQuery } from "@tanstack/react-query";
 
 export const useFilters = () => {

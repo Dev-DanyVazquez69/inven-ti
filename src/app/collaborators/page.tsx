@@ -14,6 +14,7 @@ import SuccessModal from "@/components/modal/successApi";
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import DeleteConfirmation from "@/components/modal/deletionConfirmation";
 import ErrorDisplay from "../../components/getErrorsMessage";
+import LoadingRequest from "@/components/loadingApi";
 
 const Collaborators: React.FC = () => {
 
@@ -76,8 +77,7 @@ const Collaborators: React.FC = () => {
         setModalDeleteConfirmation(true)
     }
 
-    if (isLoading || loadingFilter) return <p>Carregando...</p>;
-    if (error || errorFilter || errorDelete) return <p>Ocorreu um erro: {(error as Error).message}</p>;
+    if (isLoading || loadingFilter) return <LoadingRequest />;
 
     return (
         <>
