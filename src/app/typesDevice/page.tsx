@@ -106,7 +106,7 @@ const TypesDevice: React.FC = () => {
                         <DeleteConfirmation closeModal={setModalDeleteConfirmation} functionDelete={mutateDelete} />
                     }
                     <div className="py-10 text-center w-full font-extrabold">
-                        <h1>Lista de Setores</h1>
+                        <h1>Lista de Tipos</h1>
                     </div>
                     <div className="flex justify-between items-center w-full">
                         <button
