@@ -25,7 +25,7 @@ export const useCreateOwner = (bodyContent: OwnerBody) => {
     });
 };
 
-export const useUpdateOwner = (bodyContent: OwnerBody, OwnerId: string) => {
+export const useUpdateOwner = (bodyContent: OwnerBody, OwnerId: number) => {
 
     const queryClient = useQueryClient()
 
@@ -38,7 +38,7 @@ export const useUpdateOwner = (bodyContent: OwnerBody, OwnerId: string) => {
     });
 };
 
-export const useDeleteOwner = (OwnerId: string) => {
+export const useDeleteOwner = (OwnerId: number) => {
 
     const queryClient = useQueryClient()
 

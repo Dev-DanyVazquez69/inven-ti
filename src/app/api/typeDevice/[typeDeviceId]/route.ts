@@ -8,7 +8,7 @@ export async function DELETE(
     request: NextRequest,
     { params }: { params: Promise<{ typeDeviceId: number }> }
 ) {
-    const typeDeviceId = (await params).typeDeviceId
+    const typeDeviceId = Number((await params).typeDeviceId)
 
     try {
         const typeDevice = await prisma.typeDevice.findFirst({

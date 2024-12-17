@@ -2,7 +2,7 @@ import { createManufacturer, deleteManufacturer, fetchManufacturers, updateManuf
 import { ManufacturerBody } from "@/interfaces/manufacturer";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
-export const useFetchManufacturer = () => {
+export const useFetchManufacturers = () => {
 
     return useQuery({
         queryKey: ["manufacturers"],
@@ -25,7 +25,7 @@ export const useCreateManufacturer = (bodyContent: ManufacturerBody) => {
     });
 };
 
-export const useUpdateManufacturer = (bodyContent: ManufacturerBody, manufacturerId: string) => {
+export const useUpdateManufacturer = (bodyContent: ManufacturerBody, manufacturerId: number) => {
 
     const queryClient = useQueryClient()
 
@@ -38,7 +38,7 @@ export const useUpdateManufacturer = (bodyContent: ManufacturerBody, manufacture
     });
 };
 
-export const useDeleteManufacturer = (manufacturerId: string) => {
+export const useDeleteManufacturer = (manufacturerId: number) => {
 
     const queryClient = useQueryClient()
 

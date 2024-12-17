@@ -15,7 +15,7 @@ export const createOwner = async (bodyContent: OwnerBody) => {
 };
 
 //atualização de um propietário
-export const updateOwner = async (bodyContent: OwnerBody, ownerId: string) => {
+export const updateOwner = async (bodyContent: OwnerBody, ownerId: number) => {
     return apiRequest(`/api/owner/${ownerId}`, {
         method: 'PATCH',
         body: JSON.stringify(bodyContent)
@@ -23,7 +23,7 @@ export const updateOwner = async (bodyContent: OwnerBody, ownerId: string) => {
 };
 
 //exclusão do propietário
-export const deleteOwner = async (ownerId: string) => {
+export const deleteOwner = async (ownerId: number) => {
     return apiRequest(`api/owner/${ownerId}`, {
         method: 'DELETE'
     })

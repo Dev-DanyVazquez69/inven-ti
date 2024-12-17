@@ -20,12 +20,12 @@ export const useCreateTypeDevice = (bodyContent: TypeDeviceBody) => {
         mutationKey: ["TypeDevicePost"],
         mutationFn: () => createTypeDevice(bodyContent),
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['typesDevice'] })
+            queryClient.invalidateQueries({ queryKey: ['typesDevices'] })
         },
     });
 };
 
-export const useUpdateTypeDevice = (bodyContent: TypeDeviceBody, typeDeviceId: string) => {
+export const useUpdateTypeDevice = (bodyContent: TypeDeviceBody, typeDeviceId: number) => {
 
     const queryClient = useQueryClient()
 
@@ -33,12 +33,12 @@ export const useUpdateTypeDevice = (bodyContent: TypeDeviceBody, typeDeviceId: s
         mutationKey: ["typeDeviceUpdate", typeDeviceId],
         mutationFn: () => updateTypeDevice(bodyContent, typeDeviceId),
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['typesDevice'] })
+            queryClient.invalidateQueries({ queryKey: ['typesDevices'] })
         },
     });
 };
 
-export const useDeleteTypeDevice = (typeDeviceId: string) => {
+export const useDeleteTypeDevice = (typeDeviceId: number) => {
 
     const queryClient = useQueryClient()
 
@@ -46,7 +46,7 @@ export const useDeleteTypeDevice = (typeDeviceId: string) => {
         mutationKey: ["typeDeviceDelete"],
         mutationFn: () => deleteTypeDevice(typeDeviceId),
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['typesDevice'] })
+            queryClient.invalidateQueries({ queryKey: ['typesDevices'] })
         },
     });
 };

@@ -1,4 +1,4 @@
-export interface TypesDeivceProps {
+export interface TypesDeviceProps {
     typeDevices:{
         id: number;
         name: string;

@@ -89,7 +89,7 @@ export default function Home() {
             </li>
             <li className="flex justify-between gap-5 my-2 items-center">
               <h5>Tipo de Dispositivo</h5>
-              <Link href={"/typeDevices"} className="bg-buttom p-1 rounded-sm">Gerenciar</Link>
+              <Link href={"/typesDevice"} className="bg-buttom p-1 rounded-sm">Gerenciar</Link>
             </li>
           </ul>
 

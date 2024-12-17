@@ -15,7 +15,7 @@ export const createManufacturer = async (bodyContent: ManufacturerBody) => {
 };
 
 //atualização de um colaborador
-export const updateManufacturer = async (bodyContent: ManufacturerBody, manufacturerId: string) => {
+export const updateManufacturer = async (bodyContent: ManufacturerBody, manufacturerId: number) => {
     return apiRequest(`/api/manufacturer/${manufacturerId}`, {
         method: 'PATCH',
         body: JSON.stringify(bodyContent)
@@ -23,7 +23,7 @@ export const updateManufacturer = async (bodyContent: ManufacturerBody, manufact
 };
 
 //exclusão do colaborador
-export const deleteManufacturer = async (manufacturerId: string) => {
+export const deleteManufacturer = async (manufacturerId: number) => {
     return apiRequest(`api/manufacturer/${manufacturerId}`, {
         method: 'DELETE'
     })
