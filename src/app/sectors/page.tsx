@@ -139,8 +139,8 @@ const Sector: React.FC = () => {
                                     data?.sectors.map((sector, index) => {
                                         return (
                                             <tr key={index} className="text-center border-b border-white h-20 hover:bg-buttom/10 rounded-xl overflow-hidden  text-xs sm:text-base">
-                                                <td className="">{sector.name ?? "Não definido"}</td>
-                                                <td className="">
+                                                <td className="capitalize">{sector.name ?? "Não definido"}</td>
+                                                <td className="capitalize">
                                                     <button onClick={() => updateItem(sector.id, sector.name)}>
                                                         <EditIcon />
                                                     </button>

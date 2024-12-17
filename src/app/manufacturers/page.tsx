@@ -137,8 +137,8 @@ const Manufacturer: React.FC = () => {
                                     data?.manufacturers.map((Manufacturer, index) => {
                                         return (
                                             <tr key={index} className="text-center border-b border-white h-20 hover:bg-buttom/10 rounded-xl overflow-hidden  text-xs sm:text-base">
-                                                <td className="">{Manufacturer.name ?? "Não definido"}</td>
-                                                <td className="">
+                                                <td className="capitalize">{Manufacturer.name ?? "Não definido"}</td>
+                                                <td className="capitalize">
                                                     <button onClick={() => updateItem(Manufacturer.id, Manufacturer.name)}>
                                                         <EditIcon />
                                                     </button>

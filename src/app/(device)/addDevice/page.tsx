@@ -96,9 +96,8 @@ const AddDevice: React.FC = () => {
                             {/* Descrição */}
                             <label
                                 className="font-bold"
-                                htmlFor="description">Descrição</label>
-                            <input
-                                type="text"
+                                htmlFor="description">Descrição / Observações</label>
+                            <textarea
                                 id="description"
                                 name="description"
                                 maxLength={15}
@@ -109,7 +108,7 @@ const AddDevice: React.FC = () => {
                             {/*Colaborador*/}
                             <label
                                 className="font-extrabold"
-                                htmlFor="collaboratorId">Colaborador</label>
+                                htmlFor="collaboratorId">Colaborador*</label>
                             <select
                                 required
                                 className="bg-transparent w-full py-1 border-b border-white shadow-sm focus:outline-none focus:ring-2 focus:bg-black focus:text-white"
@@ -129,7 +128,7 @@ const AddDevice: React.FC = () => {
                             {/*Setor*/}
                             <label
                                 className="font-extrabold"
-                                htmlFor="sectorId">Setor</label>
+                                htmlFor="sectorId">Setor*</label>
                             <select
                                 className="bg-transparent w-full py-1 border-b border-white shadow-sm focus:outline-none focus:ring-2 focus:bg-black focus:text-white"
                                 name="sectorId"
@@ -149,7 +148,7 @@ const AddDevice: React.FC = () => {
                             {/* Fabricante */}
                             <label
                                 className="font-extrabold"
-                                htmlFor=" manufacturerId">Fabricante</label>
+                                htmlFor=" manufacturerId">Fabricante*</label>
                             <select
                                 className="bg-transparent w-full py-1 border-b border-white shadow-sm focus:outline-none focus:ring-2 focus:bg-black focus:text-white"
                                 name="manufacturerId"
@@ -169,7 +168,7 @@ const AddDevice: React.FC = () => {
                             {/* Propiedade*/}
                             <label
                                 className="font-extrabold"
-                                htmlFor="owner">Propiedade</label>
+                                htmlFor="owner">Propiedade*</label>
                             <select
                                 className="bg-transparent w-full py-1 border-b border-white shadow-sm focus:outline-none focus:ring-2 focus:bg-black focus:text-white"
                                 name="ownerId"
@@ -189,7 +188,7 @@ const AddDevice: React.FC = () => {
                             {/*Tipo de dispositivo*/}
                             <label
                                 className="font-extrabold"
-                                htmlFor="typeDeviceId">Tipo de dispositivo</label>
+                                htmlFor="typeDeviceId">Tipo de dispositivo*</label>
                             <select
                                 className="bg-transparent w-full py-1 border-b border-white shadow-sm focus:outline-none focus:ring-2 focus:bg-black focus:text-white"
                                 name="typeDeviceId"
@@ -209,7 +208,7 @@ const AddDevice: React.FC = () => {
                             {/* Numero de indetificação */}
                             <label
                                 className="font-bold"
-                                htmlFor="registerNumber">Numero de Indetificação</label>
+                                htmlFor="registerNumber">Numero de Indetificação*</label>
                             <input
                                 type="number"
                                 maxLength={10}

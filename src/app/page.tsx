@@ -28,8 +28,8 @@ export default function Home() {
                   data?.countItems.countDeviceInTypes.map((typeDevice, index) =>
                     <li key={index}>
                       <DesktopMacIcon />
-                      <h5>{typeDevice.typeName}</h5>
-                      <p>{typeDevice.count}</p>
+                      <h5 className="capitalize">{typeDevice.typeName}</h5>
+                      <p className="capitalize">{typeDevice.count}</p>
                     </li>
                   ) :
                   <li>
@@ -56,8 +56,8 @@ export default function Home() {
                   data?.countItems.countCollaboratorsInSectors.map((type, index) =>
                     <li key={index}>
                       <BusinessIcon />
-                      <h5>{type.typeName}</h5>
-                      <p>{type.count}</p>
+                      <h5 className="capitalize">{type.typeName}</h5>
+                      <p className="capitalize">{type.count}</p>
                     </li>
                   ) :
                   <li>
@@ -77,19 +77,19 @@ export default function Home() {
           <ul className="flex-col w-full px-5">
             <li className="flex justify-between gap-5 my-2 items-center">
               <h5>Setores</h5>
-              <Link href={"/sectors"} className="bg-buttom p-1 rounded-sm">Gerenciar</Link>
+              <Link href={"/sectors"} className="bg-buttom px-2 py-1 rounded-lg">Gerenciar</Link>
             </li>
             <li className="flex justify-between gap-5 my-2 items-center">
               <h5>Fabricantes</h5>
-              <Link href={"/manufacturers"} className="bg-buttom p-1 rounded-sm">Gerenciar</Link>
+              <Link href={"/manufacturers"} className="bg-buttom px-2 py-1 rounded-lg">Gerenciar</Link>
             </li>
             <li className="flex justify-between gap-5 my-2 items-center">
               <h5>Propietários</h5>
-              <Link href={"/owners"} className="bg-buttom p-1 rounded-sm">Gerenciar</Link>
+              <Link href={"/owners"} className="bg-buttom px-2 py-1 rounded-lg">Gerenciar</Link>
             </li>
             <li className="flex justify-between gap-5 my-2 items-center">
               <h5>Tipo de Dispositivo</h5>
-              <Link href={"/typesDevice"} className="bg-buttom p-1 rounded-sm">Gerenciar</Link>
+              <Link href={"/typesDevice"} className="bg-buttom px-2 py-1 rounded-lg">Gerenciar</Link>
             </li>
           </ul>
 

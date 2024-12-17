@@ -137,8 +137,8 @@ const TypesDevice: React.FC = () => {
                                     data?.typeDevices.map((typeDevice, index) => {
                                         return (
                                             <tr key={index} className="text-center border-b border-white h-20 hover:bg-buttom/10 rounded-xl overflow-hidden  text-xs sm:text-base">
-                                                <td className="">{typeDevice.name ?? "Não definido"}</td>
-                                                <td className="">
+                                                <td className="capitalize">{typeDevice.name ?? "Não definido"}</td>
+                                                <td className="capitalize">
                                                     <button onClick={() => updateItem(typeDevice.id, typeDevice.name)}>
                                                         <EditIcon />
                                                     </button>

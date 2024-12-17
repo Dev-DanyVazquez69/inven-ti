@@ -137,8 +137,8 @@ const Owners: React.FC = () => {
                                     data?.owners.map((Owners, index) => {
                                         return (
                                             <tr key={index} className="text-center border-b border-white h-20 hover:bg-buttom/10 rounded-xl overflow-hidden  text-xs sm:text-base">
-                                                <td className="">{Owners.name ?? "Não definido"}</td>
-                                                <td className="">
+                                                <td className="capitalize">{Owners.name ?? "Não definido"}</td>
+                                                <td className="capitalize">
                                                     <button onClick={() => updateItem(Owners.id, Owners.name)}>
                                                         <EditIcon />
                                                     </button>
