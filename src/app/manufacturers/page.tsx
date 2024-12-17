@@ -30,10 +30,10 @@ const Manufacturer: React.FC = () => {
 
     const [modalDeleteConfirmation, setModalDeleteConfirmation] = useState<boolean>(false)
 
-    const { mutate: mutateCreate, error: errorCreate, isSuccess, reset } = useCreateManufacturer(formDataCreate)
-    const { mutate: mutateUpdate, error: errorUpdate } = useUpdateManufacturer(formDataUpdate, itemUpdate?.id ?? 0)
+    const { mutate: mutateCreate, error: errorCreate, isSuccess, reset, isPending: pendingCreate } = useCreateManufacturer(formDataCreate)
+    const { mutate: mutateUpdate, error: errorUpdate, isPending: pendingUpdate } = useUpdateManufacturer(formDataUpdate, itemUpdate?.id ?? 0)
     const { data, isLoading, error } = useFetchManufacturers();
-    const { error: errorDelete, mutate: mutateDelete } = useDeleteManufacturer(itemDelete ?? 0)
+    const { error: errorDelete, mutate: mutateDelete, isPending: pendingDelete } = useDeleteManufacturer(itemDelete ?? 0)
 
     //função para atualização de um setor
     const handleUpdateSubmit = (data: Record<string, string | number>) => {
@@ -69,7 +69,7 @@ const Manufacturer: React.FC = () => {
         setModalUpdate(true)
     }
 
-    if (isLoading) return <LoadingRequest />;
+    if (isLoading || pendingCreate || pendingDelete || pendingUpdate) return <LoadingRequest />;
 
     return (
         <>

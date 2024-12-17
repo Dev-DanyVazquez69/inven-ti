@@ -37,8 +37,8 @@ const DeviceIdDetails: React.FC<DeviceIdProps> = ({ deviceId }) => {
 
     const { data, isLoading, error, isSuccess } = useDevice(deviceId)
     const { data: dataFilter, error: errorFIlter, isLoading: loadingFilter } = useFilters()
-    const { error: errorDelete, mutate: mutateDelete, isSuccess: successDelete } = useDeleteDevice(deviceId)
-    const { error: errorUpdate, mutate: mutateUpdate } = useUpdateDevice(dataUpdateDevice, deviceId)
+    const { error: errorDelete, mutate: mutateDelete, isSuccess: successDelete, isPending: pendingDelete } = useDeleteDevice(deviceId)
+    const { error: errorUpdate, mutate: mutateUpdate, isPending: pendingUpdate } = useUpdateDevice(dataUpdateDevice, deviceId)
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const handleUpdateSubmit = (data: Record<string, any>) => {
@@ -68,7 +68,7 @@ const DeviceIdDetails: React.FC<DeviceIdProps> = ({ deviceId }) => {
 
 
 
-    if (isLoading || loadingFilter) return <LoadingRequest />;
+    if (isLoading || loadingFilter || pendingDelete || pendingUpdate) return <LoadingRequest />;
 
     return (
         <div className="flex flex-1 flex-col w-full gap-5">

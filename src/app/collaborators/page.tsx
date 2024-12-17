@@ -36,10 +36,10 @@ const Collaborators: React.FC = () => {
     const [collaboratorDelete, setCollaboratorDelete] = useState<string>("")
     const [modalDeleteConfirmation, setModalDeleteConfirmation] = useState<boolean>(false)
 
-    const { mutate, error: errorDevicePost, isSuccess, reset } = useCreateCollaborator(formData)
+    const { mutate, error: errorDevicePost, isSuccess, reset, isPending: pendingCreate } = useCreateCollaborator(formData)
     const { data, isLoading, error, refetch } = useCollaborators(filters);
     const { data: dataFilter, isLoading: loadingFilter, error: errorFilter } = useFilters()
-    const { error: errorDelete, mutate: mutateDelete } = useDeleteCollaborator(collaboratorDelete)
+    const { error: errorDelete, mutate: mutateDelete, isPending: pendingUpdate } = useDeleteCollaborator(collaboratorDelete)
 
 
     const changeFilters = (key: ItemsFiltersCollaborator, value: string & number & undefined) => {
@@ -77,7 +77,7 @@ const Collaborators: React.FC = () => {
         setModalDeleteConfirmation(true)
     }
 
-    if (isLoading || loadingFilter) return <LoadingRequest />;
+    if (isLoading || loadingFilter || pendingCreate || pendingUpdate) return <LoadingRequest />;
 
     return (
         <>

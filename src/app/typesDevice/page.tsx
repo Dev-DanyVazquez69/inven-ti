@@ -30,10 +30,10 @@ const TypesDevice: React.FC = () => {
 
     const [modalDeleteConfirmation, setModalDeleteConfirmation] = useState<boolean>(false)
 
-    const { mutate: mutateCreate, error: errorCreate, isSuccess, reset } = useCreateTypeDevice(formDataCreate)
-    const { mutate: mutateUpdate, error: errorUpdate } = useUpdateTypeDevice(formDataUpdate, itemUpdate?.id ?? 0)
+    const { mutate: mutateCreate, error: errorCreate, isSuccess, reset, isPending: pendingCreate } = useCreateTypeDevice(formDataCreate)
+    const { mutate: mutateUpdate, error: errorUpdate, isPending: pendingUpdate } = useUpdateTypeDevice(formDataUpdate, itemUpdate?.id ?? 0)
     const { data, isLoading, error } = useFetchTypeDevice();
-    const { error: errorDelete, mutate: mutateDelete } = useDeleteTypeDevice(itemDelete ?? 0)
+    const { error: errorDelete, mutate: mutateDelete, isPending: pendingDelete } = useDeleteTypeDevice(itemDelete ?? 0)
 
     //função para atualização de um setor
     const handleUpdateSubmit = (data: Record<string, string | number>) => {
@@ -69,7 +69,7 @@ const TypesDevice: React.FC = () => {
         setModalUpdate(true)
     }
 
-    if (isLoading) return <LoadingRequest />;
+    if (isLoading || pendingCreate || pendingDelete || pendingUpdate) return <LoadingRequest />;
 
     return (
         <>

@@ -24,6 +24,7 @@ const Devices: React.FC = () => {
 
     const [filters, setFilters] = useState<TypeFilterDevice>(initalFilters)
     const [modalFilter, setModalFilter] = useState<boolean>(false)
+    
     const { data, isLoading, error, refetch } = useDevices(filters);
     const { data: dataFilter, isLoading: loadingFilter, error: errorFilter } = useFilters()
 

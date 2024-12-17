@@ -19,20 +19,14 @@ interface CollaboratorProps {
 
 const CollaboratorIdDetails: React.FC<CollaboratorProps> = ({ collaboratorId }) => {
 
-    //estadp do modal de atualização
     const [isModalUpdate, setModalUpdate] = useState<boolean>(false);
-    //estado do modal de confirmação de deleção
     const [modalDeleteConfirmation, setModalDeleteConfirmation] = useState<boolean>(false)
-    //estado dos dados de atualização do usuário
     const [dataUpdateCollaborator, setDataUpdateCollaborator] = useState<{ name: string, sectorId: string }>({ name: "", sectorId: "" })
-    //carregamento de dados do colaborador
+
     const { data, isLoading, error, isSuccess } = useCollaborator(collaboratorId)
-    //filtros para atualização do colaborador
     const { data: dataFilter, isLoading: loadingFilter, error: errorFilter, isSuccess: successFilter } = useFilters()
-    //função de exclusão do colaborador
-    const { error: errorDelete, mutate: mutateDelete, isSuccess: successDelete } = useDeleteCollaborator(collaboratorId ?? "")
-    //função para atualização dos dados do colaborador
-    const { error: errorUpdate, mutate: mutateUpdate } = useUpdateCollaborator(dataUpdateCollaborator, collaboratorId)
+    const { error: errorDelete, mutate: mutateDelete, isSuccess: successDelete, isPending: pendingDelete } = useDeleteCollaborator(collaboratorId ?? "")
+    const { error: errorUpdate, mutate: mutateUpdate, isPending: pendingUpdate } = useUpdateCollaborator(dataUpdateCollaborator, collaboratorId)
 
 
     //função que recebe os dados do formulário de atualização e envia para a API
@@ -56,7 +50,7 @@ const CollaboratorIdDetails: React.FC<CollaboratorProps> = ({ collaboratorId }) 
     }, [successDelete]);
 
 
-    if (isLoading || loadingFilter) return <LoadingRequest />
+    if (isLoading || loadingFilter || pendingDelete || pendingUpdate) return <LoadingRequest />
 
     return (
         <div className="flex flex-1 flex-col w-full gap-5">

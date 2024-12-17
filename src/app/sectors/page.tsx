@@ -30,10 +30,10 @@ const Sector: React.FC = () => {
 
     const [modalDeleteConfirmation, setModalDeleteConfirmation] = useState<boolean>(false)
 
-    const { mutate: mutateCreate, error: errorCreate, isSuccess, reset } = useCreateSector(formDataCreate)
-    const { mutate: mutateUpdate, error: errorUpdate } = useUpdateSector(formDataUpdate, itemUpdate?.id ?? "")
+    const { mutate: mutateCreate, error: errorCreate, isSuccess, reset, isPending: pendingCreate } = useCreateSector(formDataCreate)
+    const { mutate: mutateUpdate, error: errorUpdate, isPending: pendingUpdate } = useUpdateSector(formDataUpdate, itemUpdate?.id ?? "")
     const { data, isLoading, error } = useFetchSectors();
-    const { error: errorDelete, mutate: mutateDelete } = useDeleteSector(itemDelete)
+    const { error: errorDelete, mutate: mutateDelete, isPending: pendingDelete } = useDeleteSector(itemDelete)
 
     //função para atualização de um setor
     const handleUpdateSubmit = (data: Record<string, string | number>) => {
@@ -71,7 +71,7 @@ const Sector: React.FC = () => {
         setModalUpdate(true)
     }
 
-    if (isLoading) return <LoadingRequest />;
+    if (isLoading || pendingCreate || pendingDelete || pendingUpdate) return <LoadingRequest />;
 
     return (
         <>

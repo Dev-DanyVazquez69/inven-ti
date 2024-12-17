@@ -30,10 +30,10 @@ const Owners: React.FC = () => {
 
     const [modalDeleteConfirmation, setModalDeleteConfirmation] = useState<boolean>(false)
 
-    const { mutate: mutateCreate, error: errorCreate, isSuccess, reset } = useCreateOwner(formDataCreate)
-    const { mutate: mutateUpdate, error: errorUpdate } = useUpdateOwner(formDataUpdate, itemUpdate?.id ?? 0)
+    const { mutate: mutateCreate, error: errorCreate, isSuccess, reset, isPending: pendingCreate } = useCreateOwner(formDataCreate)
+    const { mutate: mutateUpdate, error: errorUpdate, isPending: pendingUpdate } = useUpdateOwner(formDataUpdate, itemUpdate?.id ?? 0)
     const { data, isLoading, error } = useFetchOwners();
-    const { error: errorDelete, mutate: mutateDelete } = useDeleteOwner(itemDelete ?? 0)
+    const { error: errorDelete, mutate: mutateDelete, isPending: pendingDelete } = useDeleteOwner(itemDelete ?? 0)
 
     //função para atualização de um setor
     const handleUpdateSubmit = (data: Record<string, string | number>) => {
@@ -69,7 +69,7 @@ const Owners: React.FC = () => {
         setModalUpdate(true)
     }
 
-    if (isLoading) return <LoadingRequest />;
+    if (isLoading || pendingCreate || pendingDelete || pendingUpdate) return <LoadingRequest />;
 
     return (
         <>
