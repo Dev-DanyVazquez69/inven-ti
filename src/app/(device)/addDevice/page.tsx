@@ -100,7 +100,6 @@ const AddDevice: React.FC = () => {
                             <textarea
                                 id="description"
                                 name="description"
-                                maxLength={15}
                                 value={formData.description as string}
                                 onChange={(e) => changeDataForm('description', e.target.value as never)}
                                 placeholder="Insira a descrição do dispositivo"
