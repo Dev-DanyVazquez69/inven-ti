@@ -97,7 +97,6 @@ export async function PATCH(
 
         const body = await request.json();
         const validatedData = deviceUpdateSchema.parse(body);
-
         const device = await prisma.device.findUnique({
             where: {
                 id: deviceId
@@ -106,7 +105,6 @@ export async function PATCH(
         if (device === null) {
             return NextResponse.json({ Erro: "O ID não corresponde a nenhum dispositivo cadastrado" }, { status: 500 })
         }
-
         await prisma.device.update({
             where: {
                 id: deviceId

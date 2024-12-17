@@ -168,6 +168,10 @@ const DeviceIdDetails: React.FC<DeviceIdProps> = ({ deviceId }) => {
                             <h1 className="font-extrabold uppercase">Numero de indentificação</h1>
                             <p>{data?.device.registerNumber ?? "Não definido"}</p>
                         </div>
+                        <div className="">
+                            <h1 className="font-extrabold uppercase">Tipo de dispositivo</h1>
+                            <p>{data?.device.TypeDevice.name ?? "Não definido"}</p>
+                        </div>
                     </section>
                 </>
             }

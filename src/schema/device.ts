@@ -27,5 +27,6 @@ export const deviceUpdateSchema = z.object({
     description: z.string().nullish(),
     registerNumber: z.coerce.number().int().nullish(),
     manufacturerId: z.coerce.number().int(),
-    ownerId: z.coerce.number().int()
+    ownerId: z.coerce.number().int(),
+    typeDeviceId: z.coerce.number().int()
 });

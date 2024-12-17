@@ -129,9 +129,7 @@ export async function POST(request: NextRequest) {
                 clientId: true
             }
         })
-
         const [nameIsUnique, collaboratorIsValid, sectorIsValid, registerNumberIsUnique] = await Promise.all([
-
             prisma.device.findFirst({
                 where: {
                     name: bodyVerifiqued.name
@@ -139,25 +137,24 @@ export async function POST(request: NextRequest) {
             }),
             prisma.collaborator.findFirst({
                 where: {
-                    id: body.collaboratorId ?? ""
+                    id: bodyVerifiqued.collaboratorId ?? ""
                 }
             }),
 
             prisma.sector.findFirst({
                 where: {
-                    id: body.sectorId
+                    id: bodyVerifiqued.sectorId
                 }
             }),
 
             prisma.device.findFirst({
                 where: {
-                    registerNumber: body.registerNumber
+                    registerNumber: bodyVerifiqued.registerNumber
                 }
             }),
         ])
-
         if (registerNumberIsUnique !== null)
-            return NextResponse.json({ erro: "O numero de registro informado já existe" })
+            return NextResponse.json({ erro: "O numero de registro informado já existe" }, {status: 500})
 
         if (nameIsUnique !== null)
             return NextResponse.json({ erro: "Já existe um dispositivo com esse nome" }, { status: 500 })

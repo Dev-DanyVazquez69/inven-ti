@@ -8,7 +8,7 @@ export async function DELETE(
     request: NextRequest,
     { params }: { params: Promise<{ manufacturerId: number }> }
 ) {
-    const manufacturerId = (await params).manufacturerId
+    const manufacturerId = Number((await params).manufacturerId)
 
     try {
         const manufacturer = await prisma.manufacturer.findFirst({
@@ -36,7 +36,7 @@ export async function PATCH(
     request: NextRequest,
     { params }: { params: Promise<{ manufacturerId: number }> }
 ) {
-    const manufacturerId = (await params).manufacturerId
+    const manufacturerId = (Number((await params).manufacturerId))
 
     const body = await request.json()
     const bodyVerifiqued = manufacturerSchema.parse(body)

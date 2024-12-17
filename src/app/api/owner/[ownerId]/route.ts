@@ -8,7 +8,7 @@ export async function DELETE(
     request: NextRequest,
     { params }: { params: Promise<{ ownerId: number }> }
 ) {
-    const ownerId = (await params).ownerId
+    const ownerId = Number((await params).ownerId)
 
     try {
         const owner = await prisma.owner.findFirst({
@@ -36,7 +36,7 @@ export async function PATCH(
     request: NextRequest,
     { params }: { params: Promise<{ ownerId: number }> }
 ) {
-    const ownerId = (await params).ownerId
+    const ownerId = Number((await params).ownerId)
 
     const body = await request.json()
     const bodyVerifiqued = ownerSchema.parse(body)

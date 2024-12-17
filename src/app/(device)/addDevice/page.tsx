@@ -9,19 +9,22 @@ import { bodyDevicePost, ItemsbodyDevicePost } from "@/interfaces/devices";
 import SuccessModal from "@/components/modal/successApi";
 import LoadingRequest from "@/components/loadingApi";
 import ErrorDisplay from "@/components/getErrorsMessage";
+import { useRouter } from "next/navigation";
 
 const AddDevice: React.FC = () => {
+
+    const router = useRouter()
 
     const formDataInit = {
         name: "",
         description: "",
         sectorId: "",
-        collaboratorId: null,
+        collaboratorId: "",
         image: "",
-        registerNumber: null,
-        manufacturerId: 0,
-        ownerId: 0,
-        typeDeviceId: 0
+        registerNumber: undefined,
+        manufacturerId: undefined,
+        ownerId: undefined,
+        typeDeviceId: undefined
     }
 
     const [formData, setFormData] = useState<bodyDevicePost>(formDataInit)
@@ -43,6 +46,7 @@ const AddDevice: React.FC = () => {
     const closeModalStatus = () => {
         setFormData(formDataInit)
         reset()
+        router.push("/devices")
     }
 
     if (isLoading) return <LoadingRequest />
@@ -210,6 +214,7 @@ const AddDevice: React.FC = () => {
                                 type="number"
                                 maxLength={10}
                                 id="registerNumber"
+                                required
                                 name="registerNumber"
                                 placeholder="Insira o numero de indetificação"
                                 value={formData.registerNumber as number}

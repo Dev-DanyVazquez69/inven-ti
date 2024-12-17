@@ -76,10 +76,10 @@ export interface bodyDevicePost {
     sectorId: string;
     collaboratorId: string | undefined | null;
     image: string | undefined | null,
-    registerNumber: number | undefined | null,
-    manufacturerId: number | undefined | null,
-    ownerId: number | undefined | null,
-    typeDeviceId: number
+    registerNumber: number | undefined,
+    manufacturerId: number | undefined,
+    ownerId: number | undefined,
+    typeDeviceId: number | undefined
 }
 
 export interface bodyDeviceUpdate {

@@ -36,7 +36,7 @@ export async function PATCH(
     request: NextRequest,
     { params }: { params: Promise<{ typeDeviceId: number }> }
 ) {
-    const typeDeviceId = (await params).typeDeviceId
+    const typeDeviceId = Number((await params).typeDeviceId)
 
     const body = await request.json()
     const bodyVerifiqued = typeDeviceSchema.parse(body)
