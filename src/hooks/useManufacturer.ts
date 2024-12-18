@@ -5,7 +5,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 export const useFetchManufacturers = () => {
 
     return useQuery({
-        queryKey: ["manufacturers"],
+        queryKey: ["manufactures"],
         queryFn: () => fetchManufacturers(),
         staleTime: 1000 * 60 * 5, // Cache válido por 5 minutos
 
@@ -33,7 +33,7 @@ export const useUpdateManufacturer = (bodyContent: ManufacturerBody, manufacture
         mutationKey: ["ManufacturerUpdate", manufacturerId],
         mutationFn: () => updateManufacturer(bodyContent, manufacturerId),
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['manufacturers'] })
+            queryClient.invalidateQueries({ queryKey: ['manufactures'] })
         },
     });
 };
@@ -46,7 +46,7 @@ export const useDeleteManufacturer = (manufacturerId: number) => {
         mutationKey: ["manufacturerDelete"],
         mutationFn: () => deleteManufacturer(manufacturerId),
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['manufacturers'] })
+            queryClient.invalidateQueries({ queryKey: ['manufactures'] })
         },
     });
 };

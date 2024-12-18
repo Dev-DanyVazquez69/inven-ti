@@ -22,11 +22,11 @@ export default function Home() {
         <section className="bg-foreground w-full max-w-4xl flex-1 rounded-xl flex flex-col justify-between p-5">
           <h1 className="font-extrabold">Dispositivos</h1>
           <div className="flex justify-around items-center">
-            <ul className="text-center flex w-full flex-wrap gap-2 justify-around">
+            <ul className="text-center flex w-full flex-wrap gap-2 justify-start mt-5">
               {
                 data?.countItems.countDeviceInTypes.length !== 0 ?
                   data?.countItems.countDeviceInTypes.map((typeDevice, index) =>
-                    <li key={index}>
+                    <li key={index} className="w-24 shadow-md">
                       <DesktopMacIcon />
                       <h5 className="capitalize">{typeDevice.typeName}</h5>
                       <p className="capitalize">{typeDevice.count}</p>
@@ -50,11 +50,11 @@ export default function Home() {
         <section className="bg-foreground w-full max-w-4xl flex-1 rounded-xl flex flex-col justify-between p-5">
           <h1 className="font-extrabold">Colaboradores</h1>
           <div className="flex justify-around items-center">
-            <ul className="text-center flex w-full justify-around">
+            <ul className="text-center flex w-full justify-start flex-wrap mt-5">
               {
                 data?.countItems.countCollaboratorsInSectors.length !== 0 ?
                   data?.countItems.countCollaboratorsInSectors.map((type, index) =>
-                    <li key={index}>
+                    <li key={index} className="w-24">
                       <BusinessIcon />
                       <h5 className="capitalize">{type.typeName}</h5>
                       <p className="capitalize">{type.count}</p>
