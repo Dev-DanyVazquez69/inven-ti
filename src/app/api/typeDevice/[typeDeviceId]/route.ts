@@ -59,7 +59,7 @@ export async function PATCH(
         if (typeDeviceIsExist === null)
             return NextResponse.json({ erro: "O ID não corresponde a nenhum tipo de dispositivo cadastrado" }, { status: 401 })
 
-        if (nametypeDeviceIsExist !== null)
+        if (nametypeDeviceIsExist !== null && nametypeDeviceIsExist?.name !== bodyVerifiqued.name)
             return NextResponse.json({ erro: "Já existe um tipo de dispositivo com esse nome" }, { status: 500 })
 
         await prisma.typeDevice.update({

@@ -60,7 +60,7 @@ export async function PATCH(
         if (sectorIsExist === null)
             return NextResponse.json({ erro: "O ID não corresponde a nenhum setor cadastrado" }, { status: 401 })
 
-        if (namesectorIsExist !== null)
+        if (namesectorIsExist !== null && namesectorIsExist?.name !== bodyVerifiqued.name)
             return NextResponse.json({ erro: "Já existe um setor com esse nome" }, { status: 500 })
 
         await prisma.sector.update({

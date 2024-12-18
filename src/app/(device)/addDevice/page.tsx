@@ -93,17 +93,6 @@ const AddDevice: React.FC = () => {
                                 onChange={(e) => changeDataForm('name', e.target.value as never)}
                                 placeholder="Insira o nome do dispositivo"
                                 className="w-full max-w-4xl py-1 border-b border-white shadow-sm focus:outline-none bg-transparent" />
-                            {/* Descrição */}
-                            <label
-                                className="font-bold"
-                                htmlFor="description">Descrição / Observações</label>
-                            <textarea
-                                id="description"
-                                name="description"
-                                value={formData.description as string}
-                                onChange={(e) => changeDataForm('description', e.target.value as never)}
-                                placeholder="Insira a descrição do dispositivo"
-                                className="w-full max-w-4xl py-1 border-b border-white shadow-sm focus:outline-none bg-transparent" />
                             {/*Colaborador*/}
                             <label
                                 className="font-extrabold"
@@ -217,6 +206,17 @@ const AddDevice: React.FC = () => {
                                 placeholder="Insira o numero de indetificação"
                                 value={formData.registerNumber as number}
                                 onChange={(e) => changeDataForm('registerNumber', e.target.value as never)}
+                                className="w-full max-w-4xl py-1 border-b border-white shadow-sm focus:outline-none bg-transparent" />
+                            {/* Descrição */}
+                            <label
+                                className="font-bold"
+                                htmlFor="description">Descrição / Observações</label>
+                            <textarea
+                                id="description"
+                                name="description"
+                                value={formData.description as string}
+                                onChange={(e) => changeDataForm('description', e.target.value as never)}
+                                placeholder="Memoria, CPU, Disco, IP, etc.."
                                 className="w-full max-w-4xl py-1 border-b border-white shadow-sm focus:outline-none bg-transparent" />
                             <button
                                 type="submit"

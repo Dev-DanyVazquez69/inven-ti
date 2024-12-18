@@ -59,7 +59,7 @@ export async function PATCH(
         if (ownerIsExist === null)
             return NextResponse.json({ erro: "O ID não corresponde a nenhuma marca cadastrado" }, { status: 401 })
 
-        if (nameownerIsExist !== null)
+        if (nameownerIsExist !== null && nameownerIsExist?.name !== bodyVerifiqued.name)
             return NextResponse.json({ erro: "Já existe uma marca com esse nome" }, { status: 500 })
 
         await prisma.owner.update({

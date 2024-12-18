@@ -19,7 +19,7 @@ export default function Home() {
         title="Inicio" />
       <main className="flex flex-1 flex-col gap-10 items-center justify-center p-6">
         <ErrorDisplay errors={[error]} />
-        <section className="bg-foreground w-full max-w-4xl flex-1 rounded-xl flex flex-col justify-between p-3">
+        <section className="bg-foreground w-full max-w-4xl flex-1 rounded-xl flex flex-col justify-between p-5">
           <h1 className="font-extrabold">Dispositivos</h1>
           <div className="flex justify-around items-center">
             <ul className="text-center flex w-full flex-wrap gap-2 justify-around">
@@ -47,7 +47,7 @@ export default function Home() {
             </Link>
           </div>
         </section>
-        <section className="bg-foreground w-full max-w-4xl flex-1 rounded-xl flex flex-col justify-between p-3">
+        <section className="bg-foreground w-full max-w-4xl flex-1 rounded-xl flex flex-col justify-between p-5">
           <h1 className="font-extrabold">Colaboradores</h1>
           <div className="flex justify-around items-center">
             <ul className="text-center flex w-full justify-around">
@@ -72,9 +72,9 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="bg-foreground w-full max-w-4xl flex-1 rounded-xl flex flex-col justify-around p-2">
+        <section className="bg-foreground w-full max-w-4xl flex-1 rounded-xl flex flex-col justify-around p-5">
           <h1 className="font-extrabold">Gerenciar</h1>
-          <ul className="flex-col w-full px-5">
+          <ul className="flex-col w-full">
             <li className="flex justify-between gap-5 my-2 items-center">
               <h5>Setores</h5>
               <Link href={"/sectors"} className="bg-buttom px-2 py-1 rounded-lg">Gerenciar</Link>

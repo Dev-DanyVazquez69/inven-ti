@@ -93,7 +93,7 @@ const DeviceIdDetails: React.FC<DeviceIdProps> = ({ deviceId }) => {
                                     label: "Nome", name: "name", type: "text", value: data?.device.name, required: true
                                 },
                                 {
-                                    label: "Descrição", name: "description", type: "text", value: data?.device.description, required: false
+                                    label: "Descrição / observações", name: "description", type: "textarea", value: data?.device.description, required: false
                                 },
                                 {
                                     label: "Setor", name: "sectorId", type: "select", required: true, value: data?.device.Sector.name,
@@ -171,6 +171,10 @@ const DeviceIdDetails: React.FC<DeviceIdProps> = ({ deviceId }) => {
                         <div className="">
                             <h1 className="font-extrabold uppercase">Tipo de dispositivo</h1>
                             <p>{data?.device.TypeDevice.name ?? "Não definido"}</p>
+                        </div>
+                        <div className="">
+                            <h1 className="font-extrabold uppercase">Descrição / Observações</h1>
+                            <p>{data?.device.description ?? "Não definido"}</p>
                         </div>
                     </section>
                 </>

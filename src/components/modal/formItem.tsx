@@ -61,7 +61,7 @@ const ModalFormItem: React.FC<ModalProps> = ({ isOpen, title, fields, onSubmit, 
                   name={field.name}
                   required={field.required}
                   defaultValue={field.value}
-                  className="border p-2 rounded w-full"
+                  className="border p-2 rounded w-full text-black border-black"
                 />
               )}
               {field.type === 'select' && field.options && (
