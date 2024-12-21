@@ -1,4 +1,6 @@
-# INVEN-TI
+
+# INVEN-TI 
+![enter image description here](https://github.com/Dev-DanyVazquez69/inven-ti/blob/main/public/favicon-96x96.png?raw=true)
 
 PWA de Gerenciamento de Inventário de TI 
 
