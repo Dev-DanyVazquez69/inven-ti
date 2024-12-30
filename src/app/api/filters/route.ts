@@ -17,7 +17,7 @@ export async function GET() {
             }
         })
         if (userClient?.clientId === null)
-            return NextResponse.json({ erro: "o usuário não esta vinculado a um cliente" })
+            return NextResponse.json({ erro: "O usuário não está vinculado a nenhum cliente. Entre em contato com o suporte!" })
 
         const [collaborator, sector, owner, manufacture, typeDevices] = await Promise.all([
 

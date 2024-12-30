@@ -22,7 +22,7 @@ export async function GET() {
         })
 
         if (clientId?.clientId === null)
-            return NextResponse.json({ erro: "o usuário não esta vinculado a um cliente" }, { status: 409 })
+            return NextResponse.json({ erro: "O usuário não está vinculado a nenhum cliente. Entre em contato com o suporte!" }, { status: 409 })
 
         const countDeviceTypes = await prisma.device.groupBy({
             by: ['typeDeviceId'], // Campo pelo qual você quer agrupar (relacione com a FK do tipo)

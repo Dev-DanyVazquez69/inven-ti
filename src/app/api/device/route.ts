@@ -42,7 +42,7 @@ export async function GET(request: NextRequest) {
         })
 
         if (clientId?.clientId === null)
-            return NextResponse.json({ erro: "o usuário não esta vinculado a um cliente" }, { status: 409 })
+            return NextResponse.json({ erro: "O usuário não está vinculado a nenhum cliente. Entre em contato com o suporte!" }, { status: 409 })
 
         console.log(`filtros: ${JSON.stringify(filters)}`)
 
@@ -154,7 +154,7 @@ export async function POST(request: NextRequest) {
             }),
         ])
         if (registerNumberIsUnique !== null)
-            return NextResponse.json({ erro: "O numero de registro informado já existe" }, {status: 500})
+            return NextResponse.json({ erro: "O numero de registro informado já existe" }, { status: 500 })
 
         if (nameIsUnique !== null)
             return NextResponse.json({ erro: "Já existe um dispositivo com esse nome" }, { status: 500 })

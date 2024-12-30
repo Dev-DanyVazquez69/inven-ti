@@ -14,12 +14,11 @@ const providers: Provider[] = [
       password: { label: "Password", type: "password" },
     },
     async authorize(c) {
-      console.log(c)
       const email = c.email as string
       const password = c.password as string
 
       if (!email || !password)
-        throw new Error("Credenciais ausentes")
+        return null
 
       try {
         const user = await prisma.user.findUnique({
@@ -30,11 +29,11 @@ const providers: Provider[] = [
         })
 
         if (!user) {
-          throw new Error('Usuário não encontrado')
+          return null
         }
 
         if (!compareSync(password, user.password ?? ""))
-          throw new Error("Credenciais Inválidas")
+          return null
 
         return (user)
 

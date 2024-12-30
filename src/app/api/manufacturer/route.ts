@@ -19,7 +19,7 @@ export async function GET() {
             }
         })
         if (userClient?.clientId === null)
-            return NextResponse.json({ erro: "o usuário não esta vinculado a um cliente" })
+            return NextResponse.json({ erro: "O usuário não está vinculado a nenhum cliente. Entre em contato com o suporte!" })
 
         const manufacturers = await prisma.manufacturer.findMany({
             where: {
@@ -60,7 +60,7 @@ export async function POST(request: NextRequest) {
         })
 
         if (clientId === null)
-            return NextResponse.json({ erro: "o usuário não está vinculado a nenhum cliente" })
+            return NextResponse.json({ erro: "O usuário não está vinculado a nenhum cliente. Entre em contato com o suporte!" })
         const [nameIsUnique] = await Promise.all([
 
             prisma.collaborator.findFirst({

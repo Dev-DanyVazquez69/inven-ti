@@ -36,7 +36,7 @@ export async function GET(request: NextRequest) {
 
         //retornar erro caso o usuário não esteja vinculado a nenhum cliente
         if (clientId?.clientId === null)
-            return NextResponse.json({ erro: "o usuário não esta vinculado a um cliente" }, { status: 409 })
+            return NextResponse.json({ erro: "O usuário não está vinculado a nenhum cliente. Entre em contato com o suporte!" }, { status: 409 })
 
         console.log(`filtros: ${JSON.stringify(filters)}`)
 
